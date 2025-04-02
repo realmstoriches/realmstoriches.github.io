@@ -193,8 +193,7 @@ a:focus {
   background-color: #1f1f1f; /* Softer block feel */
   border-radius: 5px;     /* Rounded corners */
   margin-bottom: 20px;    /* Ensure spacing */
-  min-height: 300px;
-   height: auto;
+  height: 100%;
 }
     /* Keep max height on images for responsiveness and consistency, and to prevent overflow */
 .area img {
@@ -477,4 +476,15 @@ a:focus {
   h1 { font-size: 1.8em; }
   h2 { font-size: 1.5em; }
 
+}
+
+.full-width-banner {
+  width: 100%;
+  line-height: 0; /* Prevents extra space below image */
+}
+
+.full-width-banner img {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Prevents extra space */
 }
