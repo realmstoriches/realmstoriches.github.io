@@ -66,4 +66,8 @@ document.getElementById("contact-form").addEventListener("submit", function (eve
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 03660e42e876fb20c87225054ebceb0581ee3c6a
