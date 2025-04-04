@@ -92,7 +92,8 @@ a:focus {
 /* Columns - THESE ARE KEY - ENSURING THEY WORK */
 .col-md-3,
 .col-md-4,
-.col-md-6 {
+.col-md-6,
+.col-md-12 {
   position: relative;
   width: 100%;
   padding-right: 10px;
