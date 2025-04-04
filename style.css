@@ -192,7 +192,7 @@ a:focus {
   display: flex;        /* Use flexbox to control content within */
   flex-direction: column; /* Stack items vertically */
   justify-content: space-between; /* Push the button to bottom */
-  background-color: #1f1f1f; /* Softer block feel */
+  background-color: transparent; /* Softer block feel */
   border-radius: 5px;     /* Rounded corners */
   margin-bottom: 20px;    /* Ensure spacing */
   height: 100%;
@@ -234,7 +234,7 @@ a:focus {
     .col-md-3,
     .col-md-4,
     .col-md-6 { /* mobile */
-         height: auto;
+        height: auto;
         padding: 10px;
         margin-bottom: 20px; /* Equal bottom margin */
     }
@@ -307,7 +307,7 @@ a:focus {
   font-size: 0.9em;
   color: #cccccc;
   line-height: 1.6;
-  background-color: #1a1a1a; /* For the background style */
+  background-color: transparent; /* For the background style */
   border-radius: 5px;  /* rounded corners */
   padding: 15px 20px;
   margin-top: 25px;
@@ -324,7 +324,7 @@ a:focus {
    ========================================================================== */
 
 .site-footer {
-  background-color: #111;
+  background-color: transparent;
   color: #ccc;
   padding: 40px 0 30px;
   margin-top: 50px;
@@ -373,7 +373,7 @@ a:focus {
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(10, 10, 25, 0.95);
+  background-color: transparent;
   color: #fff;
   padding: 15px 25px;
   z-index: 1000;
@@ -402,7 +402,7 @@ a:focus {
 }
 
 .cookie-popup .btn-secondary {
-  background-color: #cccccc;
+  background-color: transparent;
   color: #333;
   border-color: #cccccc;
   padding: 0.25rem 0.6rem;
@@ -410,7 +410,7 @@ a:focus {
 }
 
 .cookie-popup .btn-secondary:hover {
-  background-color: #bbbbbb;
+  background-color: #00FFFF;
   border-color: #bbbbbb;
 }
 
