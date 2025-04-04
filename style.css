@@ -73,6 +73,7 @@ a:focus {
    ========================================================================== */
 
 .container {
+  background-color: transparent;
   width: 100%;
   max-width: 1200px;
   padding-right: 15px;
