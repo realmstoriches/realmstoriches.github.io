@@ -69,5 +69,4 @@ function isValidEmail(email) {
 
 }
 
-}
 

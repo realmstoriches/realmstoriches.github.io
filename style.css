@@ -490,3 +490,71 @@ a:focus {
   height: auto; /* Maintain aspect ratio */
   display: block; /* Prevents extra space */
 }
+
+/* Basic Pop-up Styles */
+.popup-overlay {
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+  display: flex; /* Use flexbox to center content */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure it's on top */
+  /* display: none; */ /* Controlled by JS, but set initially in HTML */
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 25px 35px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  max-width: 90%; /* Responsive width */
+  width: 450px; /* Or your desired width */
+  position: relative; /* For positioning the close button */
+  text-align: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #555;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style your form elements as needed */
+.popup-content form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-align: left;
+}
+.popup-content form input[type="email"] {
+  width: calc(100% - 20px); /* Account for padding */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.popup-content form button {
+  padding: 10px 25px;
+  background-color: #007bff; /* Example blue */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.popup-content form button:hover {
+  background-color: #0056b3;
+}
+#popup-form-status {
+    margin-top: 15px;
+    font-size: 0.9em;
+}
