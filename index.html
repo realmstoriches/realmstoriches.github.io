@@ -408,7 +408,9 @@
         }
       });
     </script>
-    <!-- >>>>> END JAVASCRIPT <<<<< -->
+    <!-- >>>>> END JAVASCRIPT FOR COOKIE POPUP <<<<< -->
+    
+    <!-- >>>>> POPUP FORM <<<<< -->
     <div id="formspree-popup-overlay" class="popup-overlay" style="display: none;">
       <div class="popup-content">
         <button id="close-popup-btn" class="close-button">&times;</button>
@@ -423,7 +425,9 @@
         </form>
         <div id="popup-form-status"></div> </div>
     </div>
-    <!-- >>>>> JAVASCRIPT FOR POPUP <<<<< -->
+    <!-- >>>>> END POPUP FORM <<<<< -->
+
+    <!-->>>>> JAVASCRIPT FOR POPUP <<<<< -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
       const popupOverlay = document.getElementById('formspree-popup-overlay');
@@ -439,8 +443,8 @@
       }
     
       function hidePopup() {
-      popupOverlay.style.display = 'none';
-      sessionStorage.setItem('popupShownThisSession', 'true');
+        popupOverlay.style.display = 'none';
+        sessionStorage.setItem('popupShownThisSession', 'true');
         
       }
 
@@ -470,6 +474,7 @@
             formStatus.style.color = 'green';
             form.reset(); // Clear the form
             setTimeout(hidePopup, 2000);
+            
             localStorage.setItem('subscribedViaPopup', 'true');
           } else {
             const responseData = await response.json();
@@ -487,7 +492,7 @@
       }
       form.addEventListener("submit", handleFormSubmit);
            
-      setTimeout(showPopup, 1000); Show popup after 1 second (1000ms)
+      setTimeout(showPopup, 1000);
      
 
     }); 
