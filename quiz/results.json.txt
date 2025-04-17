@@ -1,0 +1,17 @@
+[
+  {
+    "id": "tool-alpha",
+    "headline": "Alpha Vibes – Meet Tool Alpha: Power & Speed",
+    "ctaUrl": "https://example.com/alpha"
+  },
+  {
+    "id": "tool-beta",
+    "headline": "Beta Spirit? Try Tool Beta: Calm & Consistent",
+    "ctaUrl": "https://example.com/beta"
+  },
+  {
+    "id": "tool-gamma",
+    "headline": "Gamma Energy: Get Tool Gamma: Flexible & Fun",
+    "ctaUrl": "https://example.com/gamma"
+  }
+]
