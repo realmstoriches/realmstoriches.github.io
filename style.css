@@ -1,5 +1,4 @@
-
-/* style.css - COMPLETE AND CONSOLIDATED */
+/* style.css - COMPLETE AND CONSOLIDATED - UPDATED */
 
 /* ==========================================================================
   1. Global Styles & Reset (Normalize + Box Sizing + Font Smoothing)
@@ -49,10 +48,19 @@ h2 {
  color: #fff;
 }
 
+/* Added: Color for H3 titles */
+h3 {
+    color: #00FFFF;
+}
+
+
 body > h1:first-of-type,
 body > h2:first-of-type {
   margin-top: 1.5em;
 }
+
+/* Mobile font size adjustments in Section 7 will override these sizes as needed */
+
 
 /* ==========================================================================
   3. Links
@@ -107,6 +115,14 @@ a:focus {
  /* Add bottom margin for spacing when columns stack on mobile */
  margin-bottom: 20px;
 }
+
+/* Added: Centering rule for main section H2s and H3s */
+.container h2,
+.container h3 {
+    text-align: center;
+    margin-bottom: 20px; /* Adds space below the title before the grid starts */
+}
+
 
 /* Media Query to make columns take the right widths */
 @media (min-width: 768px) {
@@ -219,6 +235,7 @@ a:focus {
   .area h4 {
    font-size: 1.1em;   /* Title size, Adjust as needed */
    margin-bottom: 0.5em; /* Space below */
+   /* color: inherit; /* Inherits from body (#fff) or .container */
   }
 
 /* Enforce consistent text wrapping and better equal sizes for text */
@@ -553,7 +570,7 @@ a:focus {
  }
  .main-navigation li {
    margin: 5px 0;
- }
+  }
 
  /* B. Stack grid columns - Corrected rules for mobile stacking */
  .col-md-3,
