@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+   <url>
+      <loc>https://realmstoriches.github.io/</loc>
+      <lastmod>2023-10-27</lastmod> <!-- Use the date index.html was last modified -->
+      <changefreq>weekly</changefreq> <!-- How often you expect the page to change -->
+      <priority>1.0</priority>     <!-- Priority relative to other pages (1.0 is highest) -->
+   </url>
+
+   <url>
+      <loc>https://realmstoriches.github.io/about.html</loc>
+      <lastmod>2023-10-27</lastmod> <!-- Use the date about.html was last modified -->
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+
+    <url>
+      <loc>https://realmstoriches.github.io/terms-of-service.html</loc>
+      <lastmod>2023-10-27</lastmod> <!-- Use the date terms-of-service.html was last modified -->
+      <changefreq>yearly</changefreq>
+      <priority>0.5</priority>
+   </url>
+
+    <url>
+      <loc>https://realmstoriches.github.io/privacy-policy.html</loc>
+      <lastmod>2023-10-27</lastmod> <!-- Use the date privacy-policy.html was last modified -->
+      <changefreq>yearly</changefreq>
+      <priority>0.5</priority>
+   </url>
+
+   <!-- Add other page URLs here if you have more .html files -->
+
+</urlset>
