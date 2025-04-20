@@ -1,48 +1,4 @@
-The user wants the *complete* `style.css` file with all the recommended changes integrated. The instruction is to keep the design consistent and provide the code in its entirety, without notations or explanations (as per the previous request).
 
-Okay, planning the steps:
-
-1.  Take the user's original `style.css` code.
-2.  Integrate the previously identified and drafted changes into the correct locations within that original code.
-3.  Ensure no explanations or comments about the *changes* are included in the final code, just the standard CSS comments that were already there.
-4.  Present the final, full CSS code.
-
-Let's go through the sections and apply the changes:
-
-*   **Section 1: Global Styles:** No changes needed. Copy as is.
-*   **Section 2: Typography & Headings:** No changes needed to the rules themselves. Copy as is.
-*   **Section 3: Links:** No changes needed. Copy as is.
-*   **Section 4: Layout Structure:**
-    *   Replace the `.area` rule with the modified version (removing `margin-bottom` and changing/adding flex properties).
-    *   Replace the `@media (min-width: 768px)` block with the modified version (adding column `margin-bottom: 0` and `row margin-bottom`).
-    *   Keep the `.container` and base `[class*="col-"]` rules as they are.
-    *   Keep the `.row` rule *before* the media query as is.
-*   **Section 5: Header:** No changes needed. Copy as is.
-*   **Section 6: Content Area:**
-    *   Keep the `.area img` rule as is.
-    *   Remove the `.area h3` rule.
-    *   Replace the `.area h4` rule with the one from the previous step (no change to rule itself, just ensuring it's there and `h3` is gone).
-    *   Replace the `.area p` rule with the one with `flex-grow: 1`.
-    *   Add the new `.area .btn` rule with `margin-top: auto`.
-    *   Remove the redundant `@media (max-width: 767px)` rule for `.area` padding.
-*   **Section 7: Responsive Design - fine tuning:** The rules in this section seem okay (mobile image size, mobile font sizes). The column stacking rule is better placed/corrected in Section 12. Let's keep the font size and image size rules here as they are.
-*   **Section 8: Affiliate Disclaimer:** No changes needed. Copy as is.
-*   **Section 9: Footer:** No changes needed. Copy as is.
-*   **Section 10: Cookie Popup:**
-    *   Replace the main `.cookie-popup` rule with the one that includes preparation for desktop layout.
-    *   Keep the nested `.cookie-popup p`, `.cookie-popup a.cookie-link`, `.cookie-popup .btn-secondary` rules as they are.
-    *   Add the *new* `@media (min-width: 768px)` block for the cookie popup desktop layout.
-*   **Section 11: Utilities:** No changes needed. Copy as is.
-*   **Section 12: Responsive Design (Mobile devices):**
-    *   Replace the existing `@media (max-width: 767px)` block with the modified version (correcting column stacking flex rules, adding `col-md-12`, removing redundant area padding rule).
-    *   Keep the `.full-width-banner` rules.
-    *   Keep the Basic Pop-up Styles blocks (`.popup-overlay`, `.popup-content`, `.close-button`, form styles) as they are.
-
-4.  **Assemble the Final Code:** Combine all the kept/modified/added blocks in the correct order, maintaining the original section comments.
-
-Confidence Score: 5/5 - I'm confident I can assemble the complete CSS file with the identified changes correctly integrated based on the detailed analysis in the previous steps.
-
-Strategizing complete. I will now generate the final code.```css
 /* style.css - COMPLETE AND CONSOLIDATED */
 
 /* ==========================================================================
@@ -91,6 +47,12 @@ h2 {
  font-size: 2.2em;
  text-align: center;
  color: #fff;
+}
+
+h3 {
+  font-size: 1.6em;
+  text-align: center;
+  color: #00FFFF;
 }
 
 body > h1:first-of-type,
