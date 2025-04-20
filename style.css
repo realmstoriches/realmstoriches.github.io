@@ -246,14 +246,6 @@ a:focus {
  flex-grow: 1; /* Added: Allows paragraph to take up space */
 }
 
-/* Style for the button within the area to align it to the bottom */
-.area .btn {
-  margin-top: auto; /* Pushes the button to the bottom */
-  width: 100%;     /* Added: Make button fill the width of its parent (.area) */
-  display: block;  /* Added: Ensure it behaves like a block element to take 100% width */
-  /* flex-shrink: 0 is already present on your .btn class and is helpful here */
-}
-
 
 /* ==========================================================================
   7. Responsive Design - fine tuning (Font sizes, mobile image size)
