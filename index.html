@@ -532,7 +532,6 @@
       <div>
           <a href="/privacy-policy.html" class="cookie-link">Learn More</a>
           <button id="accept-cookies" class="btn btn-secondary" type="button">Accept</button>
-          <!-- You might want a different button style -->
       </div>
     </div>
     <!-- >>>>> END COOKIE POPUP <<<<< -->
@@ -575,15 +574,24 @@
         <button id="close-popup-btn" class="close-button" type="button">&times;</button>
         <h2>Join Our List!</h2>
         <p>Sign up for updates.</p>
-
-        <form id="popup-optin-form" action="https://formspree.io/f/xblgqgag" method="POST">
-          <label for="popup-email">Email:</label>
-          <input id="popup-email" type="email" name="email" required>
-
-        <button type="submit">Subscribe</button>
+        <form
+          action="https://formspree.io/f/xblgqgag"
+          method="POST"
+        >
+          <label>
+           Your email:
+           <input type="email" name="email">
+          </label>
+          <label>
+           Your message:
+           <textarea name="message"></textarea>
+          </label>
+  <!-- your other form fields go here -->
+          <button type="submit">Send</button>
         </form>
-       <div id="popup-form-status"></div> </div>
+      <div id="popup-form-status"></div> 
     </div>
+  </div>
     <!-- >>>>> END POPUP FORM <<<<< -->
 
     <script>
