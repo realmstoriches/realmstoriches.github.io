@@ -8,7 +8,7 @@
     <title>Get Your Free Shopify Store - Realms to Riches</title>
 
     <meta name="description" content="Sign up to get started with your free Shopify e-commerce store through Realms to Riches. Launch your online business today!">
-    <meta name="keywords" content="Shopify free store, start online store, e-commerce platform, Shopify offer, Realms to Riches, Shopify affiliate, free ecommerce website">
+    <meta name="keywords" content="Shopify free store, start online store, e-commerce platform, Shopify offer, Realms to Riches, Shopify affiliate, free ecommerce website, shopify trial">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="style.css">
@@ -23,7 +23,7 @@
     <meta name="twitter:image" content="https://realmstoriches.github.io/img/shopify-banner-placeholder.png"> <script type="application/ld+json">
      {
        "@context": "https://schema.org",
-       "@type": "WebPage",
+       "@type": "WebPage", // Or potentially "Offer" if more appropriate
        "name": "Get Your Free Shopify Store - Realms to Riches",
        "description": "Sign up to get started with your free Shopify e-commerce store through Realms to Riches. Launch your online business today!",
        "url": "https://realmstoriches.github.io/shopify-offer.html", // Update domain if needed
@@ -37,22 +37,20 @@
      </script>
 
     <style>
-        /* Styling for the HubSpot form container (optional, adjust as needed) */
+        /* Styling for the HubSpot form container */
         .hubspot-form-container {
-            max-width: 500px; /* Or adjust to match your design */
+            max-width: 500px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #1f1f1f; /* Match previous form background */
+            background-color: #1f1f1f; /* Slightly lighter background for form */
             border-radius: 8px;
         }
-         /* HubSpot forms often inject their own styles, but you might need overrides */
-         /* Example: Make labels white if HubSpot defaults to black */
+         /* HubSpot form overrides */
          .hubspot-form-container .hs-form fieldset label span {
-            color: #eee !important;
+            color: #eee !important; /* Make labels white */
          }
-         /* Example: Style HubSpot inputs */
          .hubspot-form-container .hs-input {
-            width: 100% !important; /* Ensure full width */
+            width: 100% !important;
             padding: 10px !important;
             margin-bottom: 15px !important;
             border: 1px solid #444 !important;
@@ -61,35 +59,32 @@
             border-radius: 4px !important;
             box-sizing: border-box !important;
          }
-         /* Example: Style HubSpot submit button to match your theme */
+         /* Style HubSpot submit button to match theme */
         .hubspot-form-container .hs-button.primary {
-             /* Attempt to match .btn-primary from style.css */
             display: inline-block !important;
             font-weight: 400 !important;
             text-align: center !important;
             white-space: nowrap !important;
             vertical-align: middle !important;
             user-select: none !important;
-            padding: 12px 20px !important; /* Match form button padding */
+            padding: 12px 20px !important;
             font-size: 1rem !important;
             line-height: 1.5 !important;
             border-radius: 0.25rem !important;
             cursor: pointer !important;
             transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
-            border: 1px solid #007bff !important; /* Match border */
-            color: #004085 !important; /* Match text color */
-            background-color: #00FFFF !important; /* Match background */
-            width: 100% !important; /* Make button full width */
+            border: 1px solid #007bff !important;
+            color: #004085 !important;
+            background-color: #00FFFF !important; /* Cyan background */
+            width: 100% !important;
          }
         .hubspot-form-container .hs-button.primary:hover {
-            color: #fff !important; /* Match hover text color */
-            background-color: #00b3b3 !important; /* Slightly darker cyan for hover */
-            border-color: #004085 !important; /* Match hover border */
+            color: #fff !important;
+            background-color: #00b3b3 !important; /* Darker cyan on hover */
+            border-color: #004085 !important;
          }
-        /* Hide HubSpot's default inline thank you message visually, as we redirect */
+        /* Hide HubSpot's default inline thank you message visually */
         .hubspot-form-container .submitted-message {
-            /* display: none !important; */ /* Option 1: Hide completely */
-             /* Option 2: Make invisible but take up space (might be better for event firing) */
              visibility: hidden !important;
              height: 1px !important;
              overflow: hidden !important;
@@ -97,9 +92,6 @@
              padding: 0 !important;
              border: 0 !important;
          }
-
-        /* Style for the link/button shown after success (No longer used here) */
-        /* .shopify-link-button { ... } */
     </style>
 
 </head>
@@ -114,11 +106,10 @@
        </div>
        <nav class="main-navigation">
         <ul>
-         <li><a href="/">Home</a></li>
-         <li><a href="/about.html">About</a></li>
-          <li><a href="/index.html#courses">Free Courses</a></li>
-          <li><a href="/index.html#tools">Recommended Tools</a></li>
-          <li><a href="/index.html#services">Our Services</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/index.html#courses">Free Courses</a></li> <li><a href="/index.html#tools">Recommended Tools</a></li>
+          <li><a href="/shopify-offer.html">Shopify Offer</a></li> <li><a href="/index.html#services">Our Services</a></li>
         </ul>
        </nav>
       </div>
@@ -130,10 +121,10 @@
             <h2>Unlock the Power of Shopify with Our Exclusive Offer</h2>
 
             <div class="full-width-banner" style="margin-bottom: 30px;">
-                 <img src="img\Drag drop done - English 300x250.webp"
+                 <img src="img/Drag drop done - English 300x250.webp"
                       alt="Shopify E-commerce Store Offer Banner - Start Selling Online"
-                      width="1200" height="400" style="max-width: 100%; height: auto; border-radius: 8px;">
-            </div>
+                      style="max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 auto;">
+                 </div>
 
             <div class="area" style="text-align: left; background-color: transparent; padding: 20px;">
                 <h3>Why Start with Shopify?</h3>
@@ -141,40 +132,37 @@
                     Shopify is the leading platform for building and scaling online businesses. Whether you're a budding entrepreneur or an established brand, Shopify provides everything you need to sell online, offline, and everywhere in between. Features include:
                 </p>
                 <ul>
-                    <li>Shopify Benefit 1: Easy-to-use store builder</li>
-                    <li>Shopify Benefit 2: Secure checkout and payment processing</li>
-                    <li>Shopify Benefit 3: Powerful marketing and SEO tools</li>
-                    <li>Shopify Benefit 4: Vast app store for customization</li>
-                    <li>Shopify Benefit 5: Reliable hosting and 24/7 support</li>
+                    <li>Easy-to-use store builder</li>
+                    <li>Secure checkout and payment processing</li>
+                    <li>Powerful marketing and SEO tools</li>
+                    <li>Vast app store for customization</li>
+                    <li>Reliable hosting and 24/7 support</li>
                 </ul>
                 <p>
-                    By signing up through Realms to Riches, you get access to [mention specific trial length or benefit, e.g., Shopify's standard free trial] to kickstart your entrepreneurial journey. We believe Shopify is an essential tool for success, and we want to help you get started.
+                    By signing up through Realms to Riches, you get access to Shopify's standard free trial to kickstart your entrepreneurial journey. We believe Shopify is an essential tool for success, and we want to help you get started.
                 </p>
             </div>
 
-            <div class="area hubspot-form-container" style="background-color: transparent; padding-top: 0;"> <h2>Get Started Now!</h2>
+            <div class="area hubspot-form-container" style="background-color: transparent; padding-top: 0;">
+                <h2>Get Started Now!</h2>
                 <p>Enter your details below to get access to the free Shopify store offer:</p>
 
                 <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
                 <script>
                   hbspt.forms.create({
-                    region: "na1", // ** CHECK YOUR HUBSPOT REGION (na1, eu1, etc.) **
-                    portalId: "46034617", // ** YOUR PORTAL ID **
-                    formId: "026d86ca-4704-47cb-8e3c-26e3c14226aa", // ** YOUR FORM ID **
-                    // Target the container div (optional but good practice)
-                    target: '#hubspot-form-target',
-                    // This callback handles the inline message display internally,
-                    // but we'll use the window message event for redirection.
+                    region: "na1", // ** CONFIRM YOUR HUBSPOT REGION (na1, eu1, etc.) **
+                    portalId: "46034617", // ** CONFIRM YOUR PORTAL ID **
+                    formId: "026d86ca-4704-47cb-8e3c-26e3c14226aa", // ** CONFIRM YOUR FORM ID **
+                    target: '#hubspot-form-target', // Target the container div
                     onFormReady: function($form) {
                         console.log("HubSpot form ready.");
                     }
-                    // We don't use onFormSubmitted here because the message event is more reliable
-                    // for detecting when the inline message is actually shown.
+                    // Redirection handled by window message listener below
                   });
                 </script>
                 <div id="hubspot-form-target"></div>
 
-                </div>
+            </div>
 
         </div> </main>
     <footer class="site-footer">
@@ -195,8 +183,7 @@
      <p class="disclaimer">
       <strong>Affiliate Disclaimer:</strong> This site contains affiliate links, including the Shopify link mentioned on this page. We may receive a commission if you sign up through these links, at no extra cost to you. This helps support our free content and resources.
      </p>
-    </div><div id="cookie-popup" class="cookie-popup" style="display: none;">
-      <p>This website uses cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our use of cookies.</p>
+    </div><div id="cookie-popup" class="cookie-popup" style="display: none;"> <p>This website uses cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our use of cookies.</p>
       <div>
         <a href="/privacy-policy.html" class="cookie-link">Learn More</a>
         <button id="accept-cookies" class="btn btn-secondary" type="button">Accept</button>
@@ -207,18 +194,20 @@
         const cookiePopup = document.getElementById('cookie-popup');
         const acceptButton = document.getElementById('accept-cookies');
 
-        if (!localStorage.getItem('cookiesAccepted')) {
+        if (cookiePopup && acceptButton && !localStorage.getItem('cookiesAccepted')) {
           setTimeout(() => {
             cookiePopup.style.display = 'flex';
+            // cookiePopup.style.opacity = '1'; // Uncomment if using CSS opacity transition
           }, 1500);
         }
 
         if (acceptButton) {
           acceptButton.addEventListener('click', function() {
             localStorage.setItem('cookiesAccepted', 'true');
+            // cookiePopup.style.opacity = '0'; // Uncomment if using CSS opacity transition
             setTimeout(() => {
-              cookiePopup.style.display = 'none';
-            }, 300);
+              if(cookiePopup) cookiePopup.style.display = 'none';
+            }, 300); // Match transition duration if using opacity
           });
         }
       });
@@ -228,17 +217,18 @@
       window.addEventListener("message", function(event) {
         // Check if the message is from HubSpot and indicates form submission success
         if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
-          console.log('HubSpot form submitted successfully. Redirecting...');
+          // Check if the submitted form ID matches the one on this page
+          if (event.data.id === '026d86ca-4704-47cb-8e3c-26e3c14226aa') { // CONFIRM YOUR FORM ID
+            console.log('HubSpot form (Shopify Offer) submitted successfully. Redirecting...');
 
-          // --- IMPORTANT ---
-          // Ensure your HubSpot form (ID: 026d86ca-4704-47cb-8e3c-26e3c14226aa)
-          // is configured to show an INLINE thank you message.
-          // Do NOT configure it to redirect within HubSpot itself.
-          // --- IMPORTANT ---
+            // --- IMPORTANT ---
+            // Ensure your HubSpot form (ID: 026d86ca-4704-47cb-8e3c-26e3c14226aa)
+            // is configured to show an INLINE thank you message in HubSpot settings.
+            // --- IMPORTANT ---
 
-          // Redirect to the index page with a hash
-          // Use '/index.html' if your server requires the full filename, otherwise '/' might work.
-          window.location.href = '/index.html#shopify-thank-you';
+            // Redirect to the index page with the specific hash
+            window.location.href = '/index.html#shopify-thank-you';
+          }
         }
       });
     </script>
