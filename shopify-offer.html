@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Get Your Free Shopify Store - Realms to Riches</title> <meta name="description" content="Sign up to get started with your free Shopify e-commerce store through Realms to Riches. Launch your online business today!">
+    <title>Get Your Free Shopify Store - Realms to Riches</title>
+
+    <meta name="description" content="Sign up to get started with your free Shopify e-commerce store through Realms to Riches. Launch your online business today!">
     <meta name="keywords" content="Shopify free store, start online store, e-commerce platform, Shopify offer, Realms to Riches, Shopify affiliate, free ecommerce website, shopify trial">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 
@@ -39,42 +41,7 @@
      }
      </script>
 
-    <style>
-        /* Styling for the HubSpot form container ON THIS PAGE */
-        #hubspot-page-form-container { /* Use a different ID for the container */
-            max-width: 500px; margin: 20px auto; padding: 20px;
-            background-color: #1f1f1f; border-radius: 8px;
-        }
-        #hubspot-page-form-container .hs-form fieldset label span { color: #eee !important; }
-        #hubspot-page-form-container .hs-input {
-            width: 100% !important; padding: 10px !important; margin-bottom: 15px !important;
-            border: 1px solid #444 !important; background-color: #333 !important; color: #fff !important;
-            border-radius: 4px !important; box-sizing: border-box !important;
-        }
-        #hubspot-page-form-container .hs-button.primary {
-            display: inline-block !important; font-weight: 400 !important; text-align: center !important;
-            white-space: nowrap !important; vertical-align: middle !important; user-select: none !important;
-            padding: 12px 20px !important; font-size: 1rem !important; line-height: 1.5 !important;
-            border-radius: 0.25rem !important; cursor: pointer !important;
-            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
-            border: 1px solid #007bff !important; color: #004085 !important; background-color: #00FFFF !important;
-            width: 100% !important;
-        }
-        #hubspot-page-form-container .hs-button.primary:hover {
-            color: #fff !important; background-color: #00b3b3 !important; border-color: #004085 !important;
-        }
-        #hubspot-page-form-container .submitted-message { /* Hide inline message if redirecting from this page too */
-             visibility: hidden !important; height: 1px !important; overflow: hidden !important;
-             margin: 0 !important; padding: 0 !important; border: 0 !important;
-        }
-        /* Styles for the Thank You section (defined in style.css, duplicated here for clarity if needed) */
-        /* .shopify-thank-you-section { display: none; ... } */
-        /* .shopify-thank-you-section .area { ... } */
-        /* .shopify-thank-you-section .success-message { ... } */
-        /* .shopify-thank-you-section .shopify-link-button { ... } */
-    </style>
-
-</head>
+    </head>
 <body>
 
     <header class="site-header">
@@ -100,7 +67,8 @@
     <main>
         <div class="container">
 
-            <div id="thank-you-message" class="shopify-thank-you-section" style="display: none;"> <div class="area">
+            <div id="thank-you-message" class="shopify-thank-you-section" style="display: none;">
+                <div class="area">
                     <h2>Thank You for Subscribing!</h2>
                     <p class="success-message">
                         Your request has been received. Get ready for exclusive tips!
@@ -151,16 +119,19 @@
                     <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
                     <script>
                       hbspt.forms.create({
-                        region: "na1", // ** CONFIRM YOUR HUBSPOT REGION **
+                        region: "na1", // ** CONFIRM YOUR REGION **
                         portalId: "46034617", // ** CONFIRM YOUR PORTAL ID **
                         formId: "026d86ca-4704-47cb-8e3c-26e3c14226aa", // ** CONFIRM YOUR FORM ID **
-                        target: '#hubspot-page-form-target', // Target the div below
+                        target: '#hubspot-page-form-target',
                         onFormReady: function($form) { console.log("HubSpot page form ready."); },
-                        // If someone submits THIS form, redirect them to the thank you state as well
+                        // If someone submits THIS form, show thank you state on *this* page
                         onFormSubmitted: function() {
                             console.log('HubSpot PAGE form submitted. Showing thank you state.');
                             window.location.hash = '#thank-you'; // Add hash to URL
-                            location.reload(); // Reload page to trigger display logic
+                            // Call the function directly to update display immediately
+                            handleHashChange();
+                            // Optionally reload if state isn't updating cleanly without it:
+                            // location.reload();
                         }
                       });
                     </script>
@@ -220,33 +191,30 @@
         function handleHashChange() {
             const thankYouSection = document.getElementById('thank-you-message');
             const mainOfferSection = document.getElementById('main-offer-content');
-            const formContainer = document.getElementById('hubspot-page-form-container'); // Get the form container
+            const formContainer = document.getElementById('hubspot-page-form-container');
 
             if (window.location.hash === '#thank-you') {
                 console.log("Thank you hash detected on shopify-offer.html");
                 if (thankYouSection) thankYouSection.style.display = 'block';
-                if (mainOfferSection) mainOfferSection.style.display = 'block'; // Keep main offer visible
-                if (formContainer) formContainer.style.display = 'none'; // Hide the form
-                if (thankYouSection) thankYouSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Scroll to top of thank you message
+                // Keep main offer content visible below thank you message
+                if (mainOfferSection) mainOfferSection.style.display = 'block';
+                // Hide the form container specifically
+                if (formContainer) formContainer.style.display = 'none';
+                // Scroll to the thank you message
+                if (thankYouSection) thankYouSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-                // Optional: remove hash after showing
-                // if (history.pushState) {
-                //     history.pushState("", document.title, window.location.pathname + window.location.search);
-                // } else {
-                //     window.location.hash = '';
-                // }
             } else {
                  console.log("No thank you hash detected on shopify-offer.html");
-                 if (thankYouSection) thankYouSection.style.display = 'none'; // Hide thank you
-                 if (mainOfferSection) mainOfferSection.style.display = 'block'; // Show main offer
-                 if (formContainer) formContainer.style.display = 'block'; // Show the form
+                 if (thankYouSection) thankYouSection.style.display = 'none';
+                 if (mainOfferSection) mainOfferSection.style.display = 'block';
+                 if (formContainer) formContainer.style.display = 'block'; // Ensure form is visible
             }
         }
 
         // Run on initial load
         document.addEventListener('DOMContentLoaded', handleHashChange);
 
-        // Optional: Run if hash changes dynamically (though less likely needed here)
+        // Optional: Listen for hash changes if needed (e.g., back button)
         // window.addEventListener('hashchange', handleHashChange);
     </script>
     </body>

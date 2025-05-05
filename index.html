@@ -48,46 +48,7 @@
       }
     }
     </script>
-    <style>
-        /* Styling for the popup overlay and content is in style.css */
-        /* Overrides for HubSpot form *within the popup* */
-        #hubspot-popup-form-container .hs-form fieldset { /* Target fieldset for better specificity */
-             margin-bottom: 0; /* Reduce default bottom margin if needed */
-        }
-        #hubspot-popup-form-container .hs-form fieldset label span {
-            color: #444 !important; /* Darker label color for white background */
-            font-weight: bold;
-            font-size: 0.9em; /* Slightly smaller label */
-        }
-        #hubspot-popup-form-container .hs-input {
-            width: 100% !important; padding: 8px 10px !important; /* Adjust padding */
-            margin-bottom: 10px !important; /* Adjust spacing */
-            border: 1px solid #ccc !important; background-color: #fff !important; color: #333 !important;
-            border-radius: 4px !important; box-sizing: border-box !important;
-            font-size: 0.95em;
-        }
-        #hubspot-popup-form-container .hs-button.primary {
-            display: inline-block !important; font-weight: bold !important; text-align: center !important;
-            white-space: nowrap !important; vertical-align: middle !important; user-select: none !important;
-            padding: 10px 20px !important; /* Adjust padding */
-            font-size: 1rem !important; line-height: 1.5 !important;
-            border-radius: 5px !important; cursor: pointer !important; /* Match other buttons */
-            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
-            border: 1px solid #007bff !important; color: #004085 !important; background-color: #00FFFF !important;
-            width: 100% !important; margin-top: 5px; /* Add some top margin */
-        }
-        #hubspot-popup-form-container .hs-button.primary:hover {
-            color: #fff !important; background-color: #00b3b3 !important; border-color: #004085 !important;
-        }
-        #hubspot-popup-form-container .submitted-message { /* Visually hide HubSpot inline message */
-             visibility: hidden !important; height: 1px !important; overflow: hidden !important;
-             margin: 0 !important; padding: 0 !important; border: 0 !important;
-        }
-        #popup-form-status { /* Style the status message area */
-            margin-top: 10px; font-size: 0.9em; min-height: 1.2em; font-weight: bold; color: #333;
-        }
-    </style>
-</head>
+    </head>
 <body>
 
   <header class="site-header">
@@ -217,6 +178,7 @@
           <button id="accept-cookies" class="btn btn-secondary" type="button">Accept</button>
       </div>
     </div>
+
     <div id="hubspot-popup-overlay" class="popup-overlay" style="display: none;">
       <div class="popup-content">
         <button id="close-hubspot-popup-btn" class="close-button" type="button">&times;</button>
@@ -227,9 +189,9 @@
         <div id="hubspot-popup-form-container"> <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
              <script>
                hbspt.forms.create({
-                 region: "na1", // ** CONFIRM YOUR HUBSPOT REGION **
-                 portalId: "46034617", // ** CONFIRM YOUR PORTAL ID **
-                 formId: "026d86ca-4704-47cb-8e3c-26e3c14226aa", // ** CONFIRM YOUR FORM ID **
+                 region: "na1", // *** USE YOUR CORRECT REGION (e.g., "na1", "na2", "eu1") ***
+                 portalId: "46034617", // *** USE YOUR CORRECT PORTAL ID ***
+                 formId: "026d86ca-4704-47cb-8e3c-26e3c14226aa", // *** USE YOUR CORRECT FORM ID ***
                  target: '#hubspot-popup-form-target', // Target the div below
                  // Inline message needs to be configured in HubSpot
                  onFormReady: function($form) {
@@ -322,7 +284,7 @@
             // Check if the message is from HubSpot and indicates form submission success
             if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
                 // Check if the submitted form ID matches the POPUP form ID
-                // *** MAKE SURE THIS FORM ID IS CORRECT FOR YOUR POPUP FORM ***
+                // *** USE YOUR CORRECT FORM ID HERE ***
                 if (event.data.id === '026d86ca-4704-47cb-8e3c-26e3c14226aa') {
                     console.log('HubSpot POPUP form submitted successfully. Redirecting...');
 
