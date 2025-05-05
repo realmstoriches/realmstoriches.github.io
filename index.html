@@ -499,6 +499,148 @@
       </div>
      </div>
    </div>
+<div id="shopify-thank-you" class="container shopify-thank-you-section" style="display: none;"> <div class="area" style="text-align: center; background-color: #1a1a1a; padding: 30px; border: 1px solid #00FFFF; border-radius: 8px;">
+        <h2>Thank You!</h2>
+        <p class="success-message" style="color: #28a745; font-size: 1.1em; font-weight: bold;">
+            Your request has been received. You're one step closer to launching your online store!
+        </p>
+        <p style="margin-top: 20px;">
+            Click the button below to get started with your free Shopify store trial now:
+        </p>
+        <a href="https://shopify.pxf.io/realmstoriches" target="_blank" rel="noopener noreferrer sponsored" class="shopify-link-button" style="display: inline-block; margin-top: 15px; padding: 12px 25px; background-color: #79b943; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; text-align: center; transition: background-color 0.3s ease;">
+          Go to Shopify Offer
+        </a>
+        <p style="margin-top: 25px; font-size: 0.9em;">
+            (This link will open in a new tab)
+        </p>
+    </div>
+</div>
+
+<script>
+// Ensure this runs after the main DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+
+    // --- Shopify Thank You Section Logic ---
+    // Check if the URL hash matches the thank you section ID
+    if (window.location.hash === '#shopify-thank-you') {
+        const thankYouSection = document.getElementById('shopify-thank-you');
+        if (thankYouSection) {
+            // Make the section visible
+            thankYouSection.style.display = 'block'; // Use 'block' as it's a container div
+
+            // Scroll the section into view smoothly, centered vertically
+            thankYouSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Optional: Remove the hash from the URL without reloading
+            // This prevents the section from reappearing on refresh
+            if (history.pushState) {
+                // Modern browsers
+                history.pushState("", document.title, window.location.pathname + window.location.search);
+            } else {
+                // Fallback for older browsers (might cause a jump)
+                // Keep the hash but scroll again to ensure visibility
+                window.location.hash = '#'; // Clears hash, may jump to top
+                // Re-scroll after clearing hash
+                setTimeout(() => thankYouSection.scrollIntoView({ behavior: 'auto', block: 'center' }), 10);
+            }
+        }
+    }
+    // --- End Shopify Thank You Section Logic ---
+
+    // --- Existing index.html scripts should follow ---
+    // Example: Cookie Consent Logic (ensure it's still here)
+    const cookiePopup = document.getElementById('cookie-popup');
+    const acceptButton = document.getElementById('accept-cookies');
+    if (cookiePopup && acceptButton && !localStorage.getItem('cookiesAccepted')) {
+      setTimeout(() => {
+        cookiePopup.style.display = 'flex';
+      }, 1500);
+    }
+    if (acceptButton) {
+      acceptButton.addEventListener('click', function() {
+        localStorage.setItem('cookiesAccepted', 'true');
+        setTimeout(() => {
+          if(cookiePopup) cookiePopup.style.display = 'none';
+        }, 300);
+      });
+    }
+
+    // Example: Your Formspree Popup Logic (ensure it's still here)
+    const popupOverlay = document.getElementById('formspree-popup-overlay');
+    const closeButton = document.getElementById('close-popup-btn');
+    const form = document.getElementById('popup-optin-form'); // Make sure this ID is correct in your HTML
+    const formStatus = document.getElementById('popup-form-status');
+
+    function showPopup() {
+        // Check if already subscribed via this popup OR shown this session
+        if (!localStorage.getItem('subscribedViaPopup') && !sessionStorage.getItem('popupShownThisSession')) {
+             if(popupOverlay) popupOverlay.style.display = 'flex';
+        }
+    }
+
+    function hidePopup() {
+        if(popupOverlay) popupOverlay.style.display = 'none';
+        sessionStorage.setItem('popupShownThisSession', 'true'); // Mark as shown for this session
+    }
+
+    if(closeButton) {
+        closeButton.addEventListener('click', hidePopup);
+    }
+
+    if(popupOverlay) {
+        popupOverlay.addEventListener('click', function(event) {
+            if (event.target === popupOverlay) {
+                hidePopup();
+            }
+        });
+    }
+
+    async function handleFormSubmit(event) {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        try {
+            const response = await fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+            if (response.ok) {
+                if(formStatus) {
+                    formStatus.textContent = "Thanks for subscribing!";
+                    formStatus.style.color = 'green';
+                }
+                if(form) form.reset();
+                setTimeout(hidePopup, 2000);
+                localStorage.setItem('subscribedViaPopup', 'true'); // Mark as subscribed
+            } else {
+                const responseData = await response.json();
+                if(formStatus) {
+                    if (Object.hasOwn(responseData, 'errors')) {
+                        formStatus.textContent = responseData["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        formStatus.textContent = "Oops! There was a problem.";
+                    }
+                    formStatus.style.color = 'red';
+                }
+            }
+        } catch (error) {
+            if(formStatus) {
+                formStatus.textContent = "Oops! There was a network error.";
+                formStatus.style.color = 'red';
+            }
+        }
+    }
+
+    if (form) { // Only add listener and timeout if the form exists
+        form.addEventListener("submit", handleFormSubmit);
+        // Show popup only if the form exists
+        setTimeout(showPopup, 5000); // Delay popup appearance slightly more
+    }
+
+    // ... any other scripts you have at the end of index.html ...
+
+}); // End of DOMContentLoaded listener
+</script>
 
   <!-- >>>>> MAIN PAGE CONTENT ENDS HERE <<<<< -->
 
