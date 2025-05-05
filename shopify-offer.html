@@ -40,7 +40,6 @@
        }
      }
      </script>
-
     </head>
 <body>
 
@@ -128,10 +127,7 @@
                         onFormSubmitted: function() {
                             console.log('HubSpot PAGE form submitted. Showing thank you state.');
                             window.location.hash = '#thank-you'; // Add hash to URL
-                            // Call the function directly to update display immediately
-                            handleHashChange();
-                            // Optionally reload if state isn't updating cleanly without it:
-                            // location.reload();
+                            handleHashChange(); // Call the function directly to update display
                         }
                       });
                     </script>
@@ -196,11 +192,8 @@
             if (window.location.hash === '#thank-you') {
                 console.log("Thank you hash detected on shopify-offer.html");
                 if (thankYouSection) thankYouSection.style.display = 'block';
-                // Keep main offer content visible below thank you message
-                if (mainOfferSection) mainOfferSection.style.display = 'block';
-                // Hide the form container specifically
-                if (formContainer) formContainer.style.display = 'none';
-                // Scroll to the thank you message
+                if (mainOfferSection) mainOfferSection.style.display = 'block'; // Keep main offer visible
+                if (formContainer) formContainer.style.display = 'none'; // Hide the form container
                 if (thankYouSection) thankYouSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             } else {
@@ -214,8 +207,8 @@
         // Run on initial load
         document.addEventListener('DOMContentLoaded', handleHashChange);
 
-        // Optional: Listen for hash changes if needed (e.g., back button)
-        // window.addEventListener('hashchange', handleHashChange);
+        // Listen for hash changes (e.g., if user manually adds/removes it)
+        window.addEventListener('hashchange', handleHashChange);
     </script>
     </body>
 </html>

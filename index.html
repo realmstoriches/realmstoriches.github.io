@@ -186,21 +186,38 @@
         <h2>Get Your Free Shopify Trial!</h2>
         <p>Sign up below for exclusive tips & instant access to your Shopify free trial offer:</p>
 
-        <div id="hubspot-popup-form-container"> <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-             <script>
-               hbspt.forms.create({
-                 region: "na1", // *** USE YOUR CORRECT REGION (e.g., "na1", "na2", "eu1") ***
-                 portalId: "46034617", // *** USE YOUR CORRECT PORTAL ID ***
-                 formId: "026d86ca-4704-47cb-8e3c-26e3c14226aa", // *** USE YOUR CORRECT FORM ID ***
-                 target: '#hubspot-popup-form-target', // Target the div below
-                 // Inline message needs to be configured in HubSpot
-                 onFormReady: function($form) {
-                     console.log("HubSpot popup form ready.");
-                 }
-                 // Submission handled by window message listener below
-               });
-             </script>
-             <div id="hubspot-popup-form-target"></div> </div>
+        <div id="hubspot-popup-form-container"> <script charset="utf-8" type="text/javascript" src="//js-na1.hsforms.net/forms/embed/v2.js"></script> <script>
+              // Delay form creation slightly AFTER popup becomes visible
+              // This often helps HubSpot initialize correctly in a hidden element
+              function createHubspotPopupForm() {
+                  if (document.getElementById('hubspot-popup-form-target').innerHTML === '') { // Only create if not already created
+                      console.log("Creating HubSpot popup form now...");
+                      hbspt.forms.create({
+                          region: "na1", // *** USE YOUR CORRECT REGION ***
+                          portalId: "46034617", // *** USE YOUR CORRECT PORTAL ID ***
+                          formId: "026d86ca-4704-47cb-8e3c-26e3c14226aa", // *** USE YOUR CORRECT FORM ID ***
+                          target: '#hubspot-popup-form-target',
+                          onFormReady: function($form) {
+                              console.log("HubSpot popup form ready and rendered.");
+                              // Optional: Add minor style adjustments if needed after render
+                              $form.find('label span').css('color', '#444'); // Example adjustment
+                          },
+                          onFormSubmitError: function(error, $form) {
+                              console.error("HubSpot popup form submission error:", error);
+                              const hubspotPopupFormStatus = document.getElementById('popup-form-status');
+                              if (hubspotPopupFormStatus) {
+                                  hubspotPopupFormStatus.textContent = "Submission error. Please try again.";
+                                  hubspotPopupFormStatus.style.color = "red";
+                              }
+                          }
+                          // Submission success handled by window message listener
+                      });
+                  } else {
+                      console.log("HubSpot popup form already created.");
+                  }
+              }
+            </script>
+            <div id="hubspot-popup-form-target"></div> </div>
         <div id="popup-form-status"></div>
     </div>
   </div>
@@ -240,11 +257,14 @@
 
             function showHubspotPopup() {
                 console.log("Attempting to show HubSpot popup...");
-                // Check if popup has been shown this session
                 if (!sessionStorage.getItem('hubspotPopupShownThisSession')) {
                      console.log("Conditions met, showing HubSpot popup.");
                      hubspotPopupOverlay.style.display = 'flex';
-                     setTimeout(() => { hubspotPopupOverlay.classList.add('visible'); }, 10);
+                     setTimeout(() => {
+                        hubspotPopupOverlay.classList.add('visible');
+                        // *** Create the form slightly after the popup is made visible ***
+                        createHubspotPopupForm();
+                     }, 50); // Short delay after display:flex
                 } else {
                     console.log("HubSpot popup blocked: Already shown this session.");
                 }
@@ -260,7 +280,7 @@
             closeHubspotPopupButton.addEventListener('click', hideHubspotPopup);
 
             hubspotPopupOverlay.addEventListener('click', function(event) {
-                // Close if clicking on the overlay itself
+                // Close if clicking on the overlay itself, check it's not inside the form container
                 if (event.target === hubspotPopupOverlay) {
                     hideHubspotPopup();
                 }
@@ -281,29 +301,23 @@
 
         // --- HubSpot Form Submission Listener (for Popup Form) ---
         window.addEventListener("message", function(event) {
-            // Check if the message is from HubSpot and indicates form submission success
             if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
-                // Check if the submitted form ID matches the POPUP form ID
                 // *** USE YOUR CORRECT FORM ID HERE ***
                 if (event.data.id === '026d86ca-4704-47cb-8e3c-26e3c14226aa') {
-                    console.log('HubSpot POPUP form submitted successfully. Redirecting...');
+                    console.log('HubSpot POPUP form submitted successfully via message event. Redirecting...');
 
-                    // Optional: Show a temporary success message in the popup before redirecting
                     if (hubspotPopupFormStatus) {
                         hubspotPopupFormStatus.textContent = "Success! Redirecting...";
                         hubspotPopupFormStatus.style.color = "green";
                     }
 
                     // --- IMPORTANT ---
-                    // Ensure your HubSpot form (ID: 026d86ca-4704-47cb-8e3c-26e3c14226aa)
-                    // is configured in HubSpot settings to show an INLINE thank you message.
-                    // The redirect below happens *after* HubSpot confirms submission via the message event.
+                    // Ensure HubSpot form is configured for INLINE thank you message.
                     // --- IMPORTANT ---
 
-                    // Redirect to the Shopify Offer page thank you section after a short delay
                     setTimeout(() => {
                         window.location.href = '/shopify-offer.html#thank-you';
-                    }, 1000); // 1 second delay before redirect
+                    }, 1000); // Delay redirect slightly
                 }
             }
         });
