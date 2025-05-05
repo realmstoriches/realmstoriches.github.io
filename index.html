@@ -49,21 +49,32 @@
     }
     </script>
     <style>
-        /* Overrides for HubSpot form within the popup */
-        #hubspot-popup-form-container .hs-form fieldset label span { color: #444 !important; }
+        /* Styling for the popup overlay and content is in style.css */
+        /* Overrides for HubSpot form *within the popup* */
+        #hubspot-popup-form-container .hs-form fieldset { /* Target fieldset for better specificity */
+             margin-bottom: 0; /* Reduce default bottom margin if needed */
+        }
+        #hubspot-popup-form-container .hs-form fieldset label span {
+            color: #444 !important; /* Darker label color for white background */
+            font-weight: bold;
+            font-size: 0.9em; /* Slightly smaller label */
+        }
         #hubspot-popup-form-container .hs-input {
-            width: 100% !important; padding: 10px !important; margin-bottom: 15px !important;
+            width: 100% !important; padding: 8px 10px !important; /* Adjust padding */
+            margin-bottom: 10px !important; /* Adjust spacing */
             border: 1px solid #ccc !important; background-color: #fff !important; color: #333 !important;
             border-radius: 4px !important; box-sizing: border-box !important;
+            font-size: 0.95em;
         }
         #hubspot-popup-form-container .hs-button.primary {
-            display: inline-block !important; font-weight: 400 !important; text-align: center !important;
+            display: inline-block !important; font-weight: bold !important; text-align: center !important;
             white-space: nowrap !important; vertical-align: middle !important; user-select: none !important;
-            padding: 10px 25px !important; font-size: 1rem !important; line-height: 1.5 !important;
-            border-radius: 0.25rem !important; cursor: pointer !important;
+            padding: 10px 20px !important; /* Adjust padding */
+            font-size: 1rem !important; line-height: 1.5 !important;
+            border-radius: 5px !important; cursor: pointer !important; /* Match other buttons */
             transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
             border: 1px solid #007bff !important; color: #004085 !important; background-color: #00FFFF !important;
-            width: 100% !important; /* Make button full width */
+            width: 100% !important; margin-top: 5px; /* Add some top margin */
         }
         #hubspot-popup-form-container .hs-button.primary:hover {
             color: #fff !important; background-color: #00b3b3 !important; border-color: #004085 !important;
@@ -73,7 +84,7 @@
              margin: 0 !important; padding: 0 !important; border: 0 !important;
         }
         #popup-form-status { /* Style the status message area */
-            margin-top: 15px; font-size: 0.9em; min-height: 1.2em; font-weight: bold;
+            margin-top: 10px; font-size: 0.9em; min-height: 1.2em; font-weight: bold; color: #333;
         }
     </style>
 </head>
@@ -206,10 +217,12 @@
           <button id="accept-cookies" class="btn btn-secondary" type="button">Accept</button>
       </div>
     </div>
-    <div id="hubspot-popup-overlay" class="popup-overlay" style="display: none;"> <div class="popup-content">
-        <button id="close-hubspot-popup-btn" class="close-button" type="button">&times;</button> <img src="img/Drag drop done - English 300x250.webp" alt="Shopify Offer" style="max-width: 80%; height: auto; margin-bottom: 15px; border-radius: 4px;">
-        <h2>Start Your Free Shopify Store!</h2>
-        <p>Enter your details below to get access to the free Shopify trial and exclusive tips:</p>
+    <div id="hubspot-popup-overlay" class="popup-overlay" style="display: none;">
+      <div class="popup-content">
+        <button id="close-hubspot-popup-btn" class="close-button" type="button">&times;</button>
+        <img src="img/Drag drop done - English 300x250.webp" alt="Shopify Offer" style="max-width: 80%; height: auto; margin-bottom: 15px; border-radius: 4px;">
+        <h2>Get Your Free Shopify Trial!</h2>
+        <p>Sign up below for exclusive tips & instant access to your Shopify free trial offer:</p>
 
         <div id="hubspot-popup-form-container"> <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
              <script>
@@ -255,18 +268,17 @@
         // --- End Cookie Consent Logic ---
 
 
-        // --- HubSpot Popup Logic (Updated) ---
-        const hubspotPopupOverlay = document.getElementById('hubspot-popup-overlay'); // Changed ID
-        const closeHubspotPopupButton = document.getElementById('close-hubspot-popup-btn'); // Changed ID
-        const hubspotPopupFormStatus = document.getElementById('popup-form-status'); // Status message div
+        // --- HubSpot Popup Logic ---
+        const hubspotPopupOverlay = document.getElementById('hubspot-popup-overlay');
+        const closeHubspotPopupButton = document.getElementById('close-hubspot-popup-btn');
+        const hubspotPopupFormStatus = document.getElementById('popup-form-status');
 
-        // Check if necessary popup elements exist
         if (hubspotPopupOverlay && closeHubspotPopupButton) {
             console.log("HubSpot popup elements found");
 
             function showHubspotPopup() {
                 console.log("Attempting to show HubSpot popup...");
-                // Check if popup has been shown this session OR if lead already submitted (optional check)
+                // Check if popup has been shown this session
                 if (!sessionStorage.getItem('hubspotPopupShownThisSession')) {
                      console.log("Conditions met, showing HubSpot popup.");
                      hubspotPopupOverlay.style.display = 'flex';
@@ -310,7 +322,8 @@
             // Check if the message is from HubSpot and indicates form submission success
             if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
                 // Check if the submitted form ID matches the POPUP form ID
-                if (event.data.id === '026d86ca-4704-47cb-8e3c-26e3c14226aa') { // CONFIRM YOUR POPUP FORM ID
+                // *** MAKE SURE THIS FORM ID IS CORRECT FOR YOUR POPUP FORM ***
+                if (event.data.id === '026d86ca-4704-47cb-8e3c-26e3c14226aa') {
                     console.log('HubSpot POPUP form submitted successfully. Redirecting...');
 
                     // Optional: Show a temporary success message in the popup before redirecting
@@ -318,6 +331,12 @@
                         hubspotPopupFormStatus.textContent = "Success! Redirecting...";
                         hubspotPopupFormStatus.style.color = "green";
                     }
+
+                    // --- IMPORTANT ---
+                    // Ensure your HubSpot form (ID: 026d86ca-4704-47cb-8e3c-26e3c14226aa)
+                    // is configured in HubSpot settings to show an INLINE thank you message.
+                    // The redirect below happens *after* HubSpot confirms submission via the message event.
+                    // --- IMPORTANT ---
 
                     // Redirect to the Shopify Offer page thank you section after a short delay
                     setTimeout(() => {
