@@ -40,51 +40,80 @@
       },
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Mill Creek, WV", // Or full address if available
+        "streetAddress": "Mill Creek, WV",
         "addressLocality": "Mill Creek",
         "addressRegion": "WV",
-        "postalCode": "26280", // Add zip code if available
+        "postalCode": "26280",
         "addressCountry": "US"
       }
-    // Add "sameAs" if you have social media profiles
     }
     </script>
-
+    <style>
+        /* Overrides for HubSpot form within the popup */
+        #hubspot-popup-form-container .hs-form fieldset label span { color: #444 !important; }
+        #hubspot-popup-form-container .hs-input {
+            width: 100% !important; padding: 10px !important; margin-bottom: 15px !important;
+            border: 1px solid #ccc !important; background-color: #fff !important; color: #333 !important;
+            border-radius: 4px !important; box-sizing: border-box !important;
+        }
+        #hubspot-popup-form-container .hs-button.primary {
+            display: inline-block !important; font-weight: 400 !important; text-align: center !important;
+            white-space: nowrap !important; vertical-align: middle !important; user-select: none !important;
+            padding: 10px 25px !important; font-size: 1rem !important; line-height: 1.5 !important;
+            border-radius: 0.25rem !important; cursor: pointer !important;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
+            border: 1px solid #007bff !important; color: #004085 !important; background-color: #00FFFF !important;
+            width: 100% !important; /* Make button full width */
+        }
+        #hubspot-popup-form-container .hs-button.primary:hover {
+            color: #fff !important; background-color: #00b3b3 !important; border-color: #004085 !important;
+        }
+        #hubspot-popup-form-container .submitted-message { /* Visually hide HubSpot inline message */
+             visibility: hidden !important; height: 1px !important; overflow: hidden !important;
+             margin: 0 !important; padding: 0 !important; border: 0 !important;
+        }
+        #popup-form-status { /* Style the status message area */
+            margin-top: 15px; font-size: 0.9em; min-height: 1.2em; font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
   <header class="site-header">
-    <div class="container header-container"> <div class="logo-area">
-         <a href="/"> <img src="img/logo.webp" alt="Realms to Riches Logo" class="site-logo" width="50" height="50">
+    <div class="container header-container">
+      <div class="logo-area">
+         <a href="/">
+             <img src="img/logo.webp" alt="Realms to Riches Logo" class="site-logo" width="50" height="50">
          </a>
       </div>
-
       <nav class="main-navigation">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about.html">About</a></li>
           <li><a href="#courses">Free Courses</a></li>
           <li><a href="#tools">Recommended Tools</a></li>
-          <li><a href="/shopify-offer.html">Shopify Offer</a></li> <li><a href="#services">Our Services</a></li>
+          <li><a href="/shopify-offer.html">Shopify Offer</a></li>
+          <li><a href="#services">Our Services</a></li>
         </ul>
       </nav>
+    </div>
+  </header>
 
-    </div></header><div class="full-width-banner">
+  <div class="full-width-banner">
      <img src="img/image1-800w.webp"
-         srcset="img/image1-800w.webp 800w,
-             img/image1-1200w.webp 1200w,
-             img/image1-1600w.webp 1600w"
-         sizes="(max-width: 767px) 100vw,
-             (max-width: 991px) 90vw,
-             (max-width: 1199px) 80vw,
-             1200px"
+         srcset="img/image1-800w.webp 800w, img/image1-1200w.webp 1200w, img/image1-1600w.webp 1600w"
+         sizes="(max-width: 767px) 100vw, (max-width: 991px) 90vw, (max-width: 1199px) 80vw, 1200px"
          alt="Two entrepreneurs discussing online business strategies in a modern office"
          width="1600" height="913">
-  </div><div class="footer-legal">
+  </div>
+
+  <div class="footer-legal">
     <p class="disclaimer">
-      <strong>Affiliate Disclaimer:</strong> This site may contain affiliate links.  We may receive a commission if you sign up through these links, at no extra cost to you. This helps support our free content and resources.
+      <strong>Affiliate Disclaimer:</strong> This site may contain affiliate links. We may receive a commission if you sign up through these links, at no extra cost to you. This helps support our free content and resources.
     </p>
-  </div><main>
+  </div>
+
+  <main>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -98,356 +127,63 @@
       </div>
     </div>
 
-      <div id="courses" class="container">
-          <h2>Free Digital Marketing Courses for Entrepreneurs</h2>
-          <h3>Learn Essential Online Business Skills with Our Free Academies</h3>
+    <div id="courses" class="container">
+        <h2>Free Digital Marketing Courses for Entrepreneurs</h2>
+        <h3>Learn Essential Online Business Skills with Our Free Academies</h3>
+        <div class="row">
+            <div class="col-md-4"><div class="area"><img src="img/image2-400w.webp" srcset="img/image2-400w.webp 400w, img/image2-800w.webp 800w, img/image2-1200w.webp 1200w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px" alt="Faceless brand logo or icon or Abstract image representing a faceless online brand" width="1200" height="675"><h3>FACELESS CONTENT ACADEMY</h3><p>This free course is designed for entrepreneurs who want to build a powerful online business presence without showing their face. Learn how to develop a successful faceless brand and master social media marketing techniques to attract and monetize your audience for greater chance at virality. It's a strategic digital marketing approach for modern online ventures.</p><a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The Course</a></div></div>
+            <div class="col-md-4"><div class="area"><img src="img/image3-400w.webp" srcset="img/image3-400w.webp 400w, img/image3-800w.webp 800w, img/image3-1200w.webp 1200w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px" alt="Paid advertising graph or icon representing paid traffic or Image showing growth from paid social media marketing" width="1200" height="675"><h3>PAID TRAFFIC ACADEMY</h3><p>Master the art of driving paid traffic to your online business with this free course. You'll learn how to create highly effective paid advertising campaigns on popular social media platforms like Facebook, Instagram, and TikTok. We cover essential strategies for entrepreneurs, including influencer outreach, to help you maximize your return on ad spend, even starting with a small budget.</p><a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The Course</a></div></div>
+            <div class="col-md-4"><div class="area"><img src="img/image4-400w.webp" srcset="img/image4-400w.webp 400w, img/image4-800w.webp 800w, img/image4-1200w.webp 1200w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px" alt="Video editing icon or image representing short-form video clipping or Viral video content creation graphic" width="1200" height="675"><h3>VIRAL CLIPPING</h3><p>Unlock massive social media marketing potential by turning long-form content into viral short-form videos like Reels, Shorts, and TikToks! This free course teaches you this essential digital marketing skill, helping entrepreneurs capture attention and drive significant, often viral traffic, back to their online business. It's an easy-to-learn method for boosting your online visibility.</p><a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The Course</a></div></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"><div class="area"><img src="img/image5-400w.webp" srcset="img/image5-400w.webp 400w, img/image5-800w.webp 800w, img/image5-1200w.webp 1200w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px" alt="YouTube logo or icon representing YouTube marketing" width="1200" height="675"><h3>You Tube Marketing Academy</h3><p>Learn how to start and grow a successful YouTube channel for your personal brand or online business. This free course provides beginner entrepreneurs with the essential digital marketing strategies needed to gain views, build an audience, and leverage the power of the second largest search engine for their brand.</p><a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The Course</a></div></div>
+            <div class="col-md-4"><div class="area"><img src="img/image6-400w.webp" srcset="img/image6-400w.webp 400w, img/image6-800w.webp 800w, img/image6-1200w.webp 1200w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px" alt="Image representing a bridge or connection in marketing or Bridge marketing strategy icon" width="1200" height="675"><h3>Bridge Marketing Academy</h3><p>Discover the advanced digital marketing technique of bridge marketing, used by top entrepreneurs to significantly boost conversions for their online business. This free course teaches you how to create targeted offers that resonate with specific audiences, making your sales process far more effective than generic social media marketing or paid traffic campaigns alone.</p><a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The Course</a></div></div>
+            <div class="col-md-4"><div class="area"><img src="img/image7-400w.webp" srcset="img/image7-400w.webp 400w, img/image7-800w.webp 800w, img/image7-1200w.webp 1200w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px" alt="Icon representing access to multiple online courses and community or Graphic for free access to all digital marketing academies" width="1200" height="675"><h3>Free Access to All Academies</h3><p>Gain free access to all our digital marketing academies, covering every aspect of building a successful online business for entrepreneurs. Beyond the featured courses, our community offers live daily sessions, including workshops on paid traffic and social media marketing tools, providing comprehensive support for your journey.</p><a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The Course</a></div></div>
+        </div>
+    </div>
 
-          <div class="row">
-            <div class="col-md-4">
-              <div class="area">
-                <img src="img/image2-400w.webp"
-                    srcset="img/image2-400w.webp 400w,
-                       img/image2-800w.webp 800w,
-                       img/image2-1200w.webp 1200w"
-                    sizes="(max-width: 767px) 100vw,
-                       (max-width: 991px) 33vw,
-                       (max-width: 1199px) 33vw,
-                       400px"
-                    alt="Faceless brand logo or icon or Abstract image representing a faceless online brand"
-                    width="1200" height="675">
-                <h3>FACELESS CONTENT ACADEMY</h3>
-                <p>This free course is designed for entrepreneurs who want to build a powerful online business presence without showing their face. Learn how to develop a successful faceless brand and master social media marketing techniques to attract and monetize your audience for greater chance at virality. It's a strategic digital marketing approach for modern online ventures.</p>
-                <a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The Course</a>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="area">
-                <img src="img/image3-400w.webp"
-                     srcset="img/image3-400w.webp 400w,
-                        img/image3-800w.webp 800w,
-                        img/image3-1200w.webp 1200w"
-                     sizes="(max-width: 767px) 100vw,
-                        (max-width: 991px) 33vw,
-                        (max-width: 1199px) 33vw,
-                        400px"
-                     alt="Paid advertising graph or icon representing paid traffic or Image showing growth from paid social media marketing"
-                     width="1200" height="675">
-                <h3>PAID TRAFFIC ACADEMY</h3>
-                <p>Master the art of driving paid traffic to your online business with this free course. You'll learn how to create highly effective paid advertising campaigns on popular social media platforms like Facebook, Instagram, and TikTok. We cover essential strategies for entrepreneurs, including influencer outreach, to help you maximize your return on ad spend, even starting with a small budget.</p>
-                <a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The Course</a>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="area">
-                <img src="img/image4-400w.webp"
-                     srcset="img/image4-400w.webp 400w,
-                     img/image4-800w.webp 800w,
-                     img/image4-1200w.webp 1200w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 33vw,
-                     (max-width: 1199px) 33vw,
-                     400px"
-                alt="Video editing icon or image representing short-form video clipping or Viral video content creation graphic"
-                width="1200" height="675">
-                <h3>VIRAL CLIPPING</h3>
-                <p>Unlock massive social media marketing potential by turning long-form content into viral short-form videos like Reels, Shorts, and TikToks! This free course teaches you this essential digital marketing skill, helping entrepreneurs capture attention and drive significant, often viral traffic, back to their online business. It's an easy-to-learn method for boosting your online visibility.</p>
-                <a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The Course</a>
-              </div>
-            </div>
-          </div>
+    <div id="tools" class="container">
+        <h2>Recommended Tools & Resources</h2>
+        <h3>We highly recommend a free trial of these powerful digital marketing tools</h3>
+        <div class="row">
+            <div class="col-md-3"><div class="area"><img src="img/image8-300w.webp" srcset="img/image8-300w.webp 300w, img/image8-600w.webp 600w, img/image8-900w.webp 900w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px" alt="HighLevel software logo" width="900" height="506"><h3>High Level</h3><p>Go High Level: Helps you manage your entire business online.</p><a href="https://www.gohighlevel.com/?fp_ref=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try High Level!</a></div></div>
+            <div class="col-md-3"><div class="area"><img src="img/image9-300w.webp" srcset="img/image9-300w.webp 300w, img/image9-600w.webp 600w, img/image9-900w.webp 900w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px" alt="CapCut video editing app logo" width="900" height="506"><h3>Cap Cut</h3><p>Cap Cut: Edit videos for social media marketing.</p><a href="https://capcutaffiliateprogram.pxf.io/realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try Cap Cut!</a></div></div>
+            <div class="col-md-3"><div class="area"><img src="img/image10-300w.webp" srcset="img/image10-300w.webp 300w, img/image10-600w.webp 600w, img/image10-900w.webp 900w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px" alt="ClickFunnels software logo" width="900" height="506"><h3>ClickFunnels</h3><p>ClickFunnels: Maximize conversions for your online business.</p><a href="https://www.plrfunnels.com/plr?aff=b227fabeecb5b9674bf510b0714f0569236d7bbd6ceb3c3ac3f92061ea372fab" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try Click Funnels!</a></div></div>
+            <div class="col-md-3"><div class="area"><img src="img/image11-300w.webp" srcset="img/image11-300w.webp 300w, img/image11-600w.webp 600w, img/image11-900w.webp 900w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px" alt="Brand Push logo or icon representing personal branding" width="900" height="506"><h3>Brand Push</h3><p>Brand Push: Dealing with your personal brand, essential for entrepreneurs online.</p><a href="https://www.brandpush.co/?ref=57120" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try Brand Push!</a></div></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"><div class="area"><img src="img/image12-300w.webp" srcset="img/image12-300w.webp 300w, img/image12-600w.webp 600w, img/image12-900w.webp 900w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px" alt="Pollo AI logo or icon representing AI content creation" width="900" height="506"><h3>Pollo AI</h3><p>Pollo AI: Create talking avatars, images, and videos for digital marketing content.</p><a href="https://pollo.ai/invitation-landing?invite_code=pIY2cF" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try Pollo AI!</a></div></div>
+            <div class="col-md-3"><div class="area"><img src="img/image13-300w.webp" srcset="img/image13-300w.webp 300w, img/image13-600w.webp 600w, img/image13-900w.webp 900w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px" alt="PlayHT AI voiceover platform logo" width="900" height="506"><h3>Play HT</h3><p>Play HT: Create voiceovers for your content, useful for social media marketing videos.</p><a href="https://www.play.ht/?via=robert-demotto-jr" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try Play HT!</a></div></div>
+            <div class="col-md-3"><div class="area"><img src="img/image14-300w.webp" srcset="img/image14-300w.webp 300w, img/image14-600w.webp 600w, img/image14-900w.webp 900w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px" alt="Shopify ecommerce platform logo" width="900" height="506"><h3>Shopify</h3><p>Shopify: Create an e-commerce store in just minutes online!, perfect for starting your online business.</p><a href="/shopify-offer.html" class="btn btn-primary">Try Shopify!</a></div></div>
+            <div class="col-md-3"><div class="area"><img src="img/image15-300w.webp" srcset="img/image15-300w.webp 300w, img/image15-600w.webp 600w, img/image15-900w.webp 900w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px" alt=" VidIQ software logo for YouTube SEO" width="900" height="506"><h3>VidIQ</h3><p>VidIQ: Help you create short videos for your online business, especially for YouTube digital marketing.</p><a href="https://vidiq.com/realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try VidIQ!</a></div></div>
+        </div>
+    </div>
 
-          <div class="row">
-            <div class="col-md-4">
-              <div class="area">
-                <img src="img/image5-400w.webp"
-                     srcset="img/image5-400w.webp 400w,
-                     img/image5-800w.webp 800w,
-                     img/image5-1200w.webp 1200w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 33vw,
-                     (max-width: 1199px) 33vw,
-                     400px"
-                alt="YouTube logo or icon representing YouTube marketing"
-                width="1200" height="675">
-                <h3>You Tube Marketing Academy</h3>
-                <p>Learn how to start and grow a successful YouTube channel for your personal brand or online business. This free course provides beginner entrepreneurs with the essential digital marketing strategies needed to gain views, build an audience, and leverage the power of the second largest search engine for their brand.</p>
-                <a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The Course</a>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="area">
-                <img src="img/image6-400w.webp"
-                     srcset="img/image6-400w.webp 400w,
-                     img/image6-800w.webp 800w,
-                     img/image6-1200w.webp 1200w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 33vw,
-                     (max-width: 1199px) 33vw,
-                     400px"
-                alt="Image representing a bridge or connection in marketing or Bridge marketing strategy icon"
-                width="1200" height="675">
-                <h3>Bridge Marketing Academy</h3>
-                <p>Discover the advanced digital marketing technique of bridge marketing, used by top entrepreneurs to significantly boost conversions for their online business. This free course teaches you how to create targeted offers that resonate with specific audiences, making your sales process far more effective than generic social media marketing or paid traffic campaigns alone.</p>
-                <a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The Course</a>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="area">
-                <img src="img/image7-400w.webp"
-                     srcset="img/image7-400w.webp 400w,
-                     img/image7-800w.webp 800w,
-                     img/image7-1200w.webp 1200w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 33vw,
-                     (max-width: 1199px) 33vw,
-                     400px"
-                alt="Icon representing access to multiple online courses and community or Graphic for free access to all digital marketing academies"
-                width="1200" height="675">
-                <h3>Free Access to All Academies</h3>
-                <p>Gain free access to all our digital marketing academies, covering every aspect of building a successful online business for entrepreneurs. Beyond the featured courses, our community offers live daily sessions, including workshops on paid traffic and social media marketing tools, providing comprehensive support for your journey.</p>
-                <a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The Course</a>
-              </div>
-            </div>
+    <div id="services" class="container">
+        <h2>Realms to Riches Services</h2>
+        <h3>Expert Services to Grow Your Online Business Through Social Media Marketing and Paid Traffic</h3>
+        <div class="row">
+            <div class="col-md-4"><div class="area"><img src="img/image16-400w.webp" srcset="img/image16-400w.webp 400w, img/image16-800w.webp 800w, img/image16-1200w.webp 1200w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px" alt="Icon representing video content creation services" width="1200" height="675"><h3>Let Us Create Your Content</h3><p>Let Us Create Your Content: We create viral short-form video content for social media marketing, helping entrepreneurs boost their online business visibility.</p><a href="mailto:realmstoriches@gmail.com" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Order Now!</a></div></div>
+            <div class="col-md-4"><div class="area"><img src="img/image17-400w.webp" srcset="img/image17-400w.webp 400w, img/image17-800w.webp 800w, img/image17-1200w.webp 1200w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px" alt="Icon representing online monetization services or Image showing revenue growth from social media monetization" width="1200" height="675"><h3>We'll Help You Make Money</h3><p>We'll Help You Make Money: We specialize in social media monetization strategies to help entrepreneurs earn revenue from their online business presence on platforms like Facebook, Instagram, and YouTube.</p><a href="mailto:realmstoriches@gmail.com" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Order Now!</a></div></div>
+            <div class="col-md-4"><div class="area"><img src="img/image18-400w.webp" srcset="img/image18-400w.webp 400w, img/image18-800w.webp 800w, img/image18-1200w.webp 1200w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px" alt="Graphic design icon or image representing fast design services or Image showing social media graphics and logos" width="1200" height="675"><h3>24-hour turnaround time</h3><p>24-hour turnaround time (Design): High-quality graphics like YouTube thumbnails, logos, and social media marketing visuals designed quickly to enhance your online business brand.</p><a href="mailto:realmstoriches@gmail.com" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Order Now!</a></div></div>
+        </div>
+    </div>
+
+    <div id="partners" class="container">
+      <h2>Are you a vendor with a software product that is perfect for Entrepreneurs that you want our agency to promote?</h2>
+      <h3>Connect with Thousands of Entrepreneurs and Online Businesses Through Our Network</h3>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="area">
+            <img src="img/image19-800w.webp" srcset="img/image19-800w.webp 800w, img/image19-1200w.webp 1200w, img/image19-1600w.webp 1600w" sizes="(max-width: 767px) 100vw, (max-width: 991px) 90vw, (max-width: 1199px) 80vw, 1200px" alt="Two business partners shaking hands, representing a vendor partnership opportunity" width="1600" height="1600">
+            <p>Partner with Realms to Riches to reach thousands of entrepreneurs building their online businesses. Our audience is actively seeking effective digital marketing tools and resources, including solutions for faceless brands, paid traffic, and social media marketing. Showcase your perfect product to our engaged community!</p>
+             <a href="mailto:realmstoriches@gmail.com?subject=Partnership%20Inquiry" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Become a Partner</a>
           </div>
         </div>
-        <div id="tools" class="container">
-          <h2>Recommended Tools & Resources</h2>
-          <h3>We highly recommend a free trial of these powerful digital marketing tools</h3>
-          <div class="row">
-            <div class="col-md-3">
-              <div class="area">
-                <img src="img/image8-300w.webp"
-                     srcset="img/image8-300w.webp 300w,
-                     img/image8-600w.webp 600w,
-                     img/image8-900w.webp 900w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 25vw,
-                     (max-width: 1199px) 25vw,
-                     300px"
-                alt="HighLevel software logo"
-                width="900" height="506">
-                <h3>High Level</h3>
-                <p>Go High Level: Helps you manage your entire business online.</p>
-                <a href="https://www.gohighlevel.com/?fp_ref=realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try High Level!</a>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="area">
-                <img src="img/image9-300w.webp"
-                     srcset="img/image9-300w.webp 300w,
-                     img/image9-600w.webp 600w,
-                     img/image9-900w.webp 900w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 25vw,
-                     (max-width: 1199px) 25vw,
-                     300px"
-                alt="CapCut video editing app logo"
-                width="900" height="506">
-                <h3>Cap Cut</h3>
-                <p>Cap Cut: Edit videos for social media marketing.</p>
-                <a href="https://capcutaffiliateprogram.pxf.io/realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try Cap Cut!</a>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="area">
-                <img src="img/image10-300w.webp"
-                     srcset="img/image10-300w.webp 300w,
-                     img/image10-600w.webp 600w,
-                     img/image10-900w.webp 900w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 25vw,
-                     (max-width: 1199px) 25vw,
-                     300px"
-                alt="ClickFunnels software logo"
-                width="900" height="506">
-                <h3>ClickFunnels</h3>
-                <p>ClickFunnels: Maximize conversions for your online business.</p>
-                <a href="https://www.plrfunnels.com/plr?aff=b227fabeecb5b9674bf510b0714f0569236d7bbd6ceb3c3ac3f92061ea372fab" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try Click Funnels!</a>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="area">
-                <img src="img/image11-300w.webp"
-                     srcset="img/image11-300w.webp 300w,
-                     img/image11-600w.webp 600w,
-                     img/image11-900w.webp 900w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 25vw,
-                     (max-width: 1199px) 25vw,
-                     300px"
-                alt="Brand Push logo or icon representing personal branding"
-                width="900" height="506">
-                <h3>Brand Push</h3>
-                <p>Brand Push: Dealing with your personal brand, essential for entrepreneurs online.</p>
-                <a href="https://www.brandpush.co/?ref=57120" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try Brand Push!</a>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <div class="area">
-                <img src="img/image12-300w.webp"
-                     srcset="img/image12-300w.webp 300w,
-                     img/image12-600w.webp 600w,
-                     img/image12-900w.webp 900w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 25vw,
-                     (max-width: 1199px) 25vw,
-                     300px"
-                alt="Pollo AI logo or icon representing AI content creation"
-                width="900" height="506">
-                <h3>Pollo AI</h3>
-                <p>Pollo AI: Create talking avatars, images, and videos for digital marketing content.</p>
-                <a href="https://pollo.ai/invitation-landing?invite_code=pIY2cF" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try Pollo AI!</a>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="area">
-                <img src="img/image13-300w.webp"
-                     srcset="img/image13-300w.webp 300w,
-                     img/image13-600w.webp 600w,
-                     img/image13-900w.webp 900w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 25vw,
-                     (max-width: 1199px) 25vw,
-                     300px"
-                alt="PlayHT AI voiceover platform logo"
-                width="900" height="506">
-                <h3>Play HT</h3>
-                <p>Play HT: Create voiceovers for your content, useful for social media marketing videos.</p>
-                <a href="https://www.play.ht/?via=robert-demotto-jr" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try Play HT!</a>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="area">
-                <img src="img/image14-300w.webp"
-                     srcset="img/image14-300w.webp 300w,
-                     img/image14-600w.webp 600w,
-                     img/image14-900w.webp 900w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 25vw,
-                     (max-width: 1199px) 25vw,
-                     300px"
-                alt="Shopify ecommerce platform logo"
-                width="900" height="506">
-                <h3>Shopify</h3>
-                <p>Shopify: Create an e-commerce store in just minutes online!, perfect for starting your online business.</p>
-                <a href="/shopify-offer.html" class="btn btn-primary">Try Shopify!</a>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="area">
-                <img src="img/image15-300w.webp"
-                     srcset="img/image15-300w.webp 300w,
-                     img/image15-600w.webp 600w,
-                     img/image15-900w.webp 900w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 25vw,
-                     (max-width: 1199px) 25vw,
-                     300px"
-                alt=" VidIQ software logo for YouTube SEO"
-                width="900" height="506">
-                <h3>VidIQ</h3>
-                <p>VidIQ: Help you create short videos for your online business, especially for YouTube digital marketing.</p>
-                <a href="https://vidiq.com/realmstoriches" class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try VidIQ!</a>
-              </div>
-            </div>
-          </div> </div> <div id="services" class="container">
-          <h2>Realms to Riches Services</h2>
-          <h3>Expert Services to Grow Your Online Business Through Social Media Marketing and Paid Traffic</h3>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="area">
-                <img src="img/image16-400w.webp"
-                     srcset="img/image16-400w.webp 400w,
-                     img/image16-800w.webp 800w,
-                     img/image16-1200w.webp 1200w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 33vw,
-                     (max-width: 1199px) 33vw,
-                     400px"
-                alt="Icon representing video content creation services"
-                width="1200" height="675">
-            <h3>Let Us Create Your Content</h3>
-                <p>Let Us Create Your Content: We create viral short-form video content for social media marketing, helping entrepreneurs boost their online business visibility.</p>
-                <a href="mailto:realmstoriches@gmail.com" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Order Now!</a>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="area">
-                <img src="img/image17-400w.webp"
-                     srcset="img/image17-400w.webp 400w,
-                     img/image17-800w.webp 800w,
-                     img/image17-1200w.webp 1200w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 33vw,
-                     (max-width: 1199px) 33vw,
-                     400px"
-                alt="Icon representing online monetization services or Image showing revenue growth from social media monetization"
-                width="1200" height="675">
-                <h3>We'll Help You Make Money</h3>
-                <p>We'll Help You Make Money: We specialize in social media monetization strategies to help entrepreneurs earn revenue from their online business presence on platforms like Facebook, Instagram, and YouTube.</p>
-                <a href="mailto:realmstoriches@gmail.com" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Order Now!</a>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="area">
-                <img src="img/image18-400w.webp"
-                     srcset="img/image18-400w.webp 400w,
-                     img/image18-800w.webp 800w,
-                     img/image18-1200w.webp 1200w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 33vw,
-                     (max-width: 1199px) 33vw,
-                     400px"
-                alt="Graphic design icon or image representing fast design services or Image showing social media graphics and logos"
-                width="1200" height="675">
-                <h3>24-hour turnaround time</h3>
-                <p>24-hour turnaround time (Design): High-quality graphics like YouTube thumbnails, logos, and social media marketing visuals designed quickly to enhance your online business brand.</p>
-                <a href="mailto:realmstoriches@gmail.com" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Order Now!</a>
-              </div>
-            </div>
-          </div>
-          </div>
-        <div id="partners" class="container"> <h2>Are you a vendor with a software product that is perfect for Entrepreneurs that you want our agency to promote?</h2>
-          <h3>Connect with Thousands of Entrepreneurs and Online Businesses Through Our Network</h3>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="area">
-                <img src="img/image19-800w.webp"
-                     srcset="img/image19-800w.webp 800w,
-                     img/image19-1200w.webp 1200w,
-                     img/image19-1600w.webp 1600w"
-                sizes="(max-width: 767px) 100vw,
-                     (max-width: 991px) 90vw,
-                     (max-width: 1199px) 80vw,
-                     1200px"
-                alt="Two business partners shaking hands, representing a vendor partnership opportunity"
-                width="1600" height="1600">
-                <p>Partner with Realms to Riches to reach thousands of entrepreneurs building their online businesses. Our audience is actively seeking effective digital marketing tools and resources, including solutions for faceless brands, paid traffic, and social media marketing. Showcase your perfect product to our engaged community!</p>
-                 <a href="mailto:realmstoriches@gmail.com?subject=Partnership%20Inquiry" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Become a Partner</a>
-              </div>
-            </div>
-           </div>
-         </div>
-         <div id="shopify-thank-you" class="container shopify-thank-you-section">
-            <div class="area">
-                <h2>Thank You!</h2>
-                <p class="success-message">
-                    Your request has been received. You're one step closer to launching your online store!
-                </p>
-                <p>
-                    Click the button below to get started with your free Shopify store trial now:
-                </p>
-                <a href="https://shopify.pxf.io/realmstoriches" target="_blank" rel="noopener noreferrer sponsored" class="shopify-link-button">
-                  Go to Shopify Offer
-                </a>
-                <p>
-                    (This link will open in a new tab)
-                </p>
-            </div>
-        </div>
-        </main>
+       </div>
+     </div>
+
+    </main>
   <footer class="site-footer">
       <div class="container footer-container">
         <div class="footer-info">
@@ -458,164 +194,141 @@
           <p><a href="tel:304-266-4833">304-266-4833</a></p>
         </div>
         <div class="footer-legal">
-
            <p><a href="/terms-of-service.html" class="footer-link">Terms of Service</a></p>
            <p><a href="/privacy-policy.html" class="footer-link">Privacy Policy</a></p>
-           </div>
+        </div>
       </div>
     </footer>
-    <div id="cookie-popup" class="cookie-popup" style="display: none;"> <p>This website uses cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our use of cookies.</p>
+    <div id="cookie-popup" class="cookie-popup" style="display: none;">
+      <p>This website uses cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our use of cookies.</p>
       <div>
           <a href="/privacy-policy.html" class="cookie-link">Learn More</a>
           <button id="accept-cookies" class="btn btn-secondary" type="button">Accept</button>
       </div>
     </div>
-    <div id="formspree-popup-overlay" class="popup-overlay" style="display: none;"> <div class="popup-content">
-        <button id="close-popup-btn" class="close-button" type="button">&times;</button>
-        <h2>Join Our List!</h2>
-        <p>Sign up for updates, tips, and exclusive offers!</p>
-        <form
-          id="popup-optin-form"
-          action="https://formspree.io/f/xblgqgag"
-          method="POST"
-        >
-          <label for="popup-email"> Your email:
-          </label>
-           <input type="email" id="popup-email" name="email" required> <button type="submit" class="btn btn-primary">Subscribe</button> </form>
-      <div id="popup-form-status"></div>
+    <div id="hubspot-popup-overlay" class="popup-overlay" style="display: none;"> <div class="popup-content">
+        <button id="close-hubspot-popup-btn" class="close-button" type="button">&times;</button> <img src="img/Drag drop done - English 300x250.webp" alt="Shopify Offer" style="max-width: 80%; height: auto; margin-bottom: 15px; border-radius: 4px;">
+        <h2>Start Your Free Shopify Store!</h2>
+        <p>Enter your details below to get access to the free Shopify trial and exclusive tips:</p>
+
+        <div id="hubspot-popup-form-container"> <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+             <script>
+               hbspt.forms.create({
+                 region: "na1", // ** CONFIRM YOUR HUBSPOT REGION **
+                 portalId: "46034617", // ** CONFIRM YOUR PORTAL ID **
+                 formId: "026d86ca-4704-47cb-8e3c-26e3c14226aa", // ** CONFIRM YOUR FORM ID **
+                 target: '#hubspot-popup-form-target', // Target the div below
+                 // Inline message needs to be configured in HubSpot
+                 onFormReady: function($form) {
+                     console.log("HubSpot popup form ready.");
+                 }
+                 // Submission handled by window message listener below
+               });
+             </script>
+             <div id="hubspot-popup-form-target"></div> </div>
+        <div id="popup-form-status"></div>
     </div>
   </div>
     <script>
-    // Ensure this runs after the main DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
-
-        // --- Shopify Thank You Section Logic ---
-        if (window.location.hash === '#shopify-thank-you') {
-            const thankYouSection = document.getElementById('shopify-thank-you');
-            if (thankYouSection) {
-                thankYouSection.style.display = 'block';
-                thankYouSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                if (history.pushState) {
-                    history.pushState("", document.title, window.location.pathname + window.location.search);
-                } else {
-                    window.location.hash = '#';
-                    setTimeout(() => thankYouSection.scrollIntoView({ behavior: 'auto', block: 'center' }), 10);
-                }
-            }
-        }
-        // --- End Shopify Thank You Section Logic ---
-
+        console.log("DOM fully loaded and parsed");
 
         // --- Cookie Consent Logic ---
         const cookiePopup = document.getElementById('cookie-popup');
         const acceptButton = document.getElementById('accept-cookies');
-        if (cookiePopup && acceptButton && !localStorage.getItem('cookiesAccepted')) {
-          setTimeout(() => {
-            cookiePopup.style.display = 'flex';
-            // cookiePopup.style.opacity = '1'; // Uncomment if using CSS opacity transition
-          }, 1500);
-        }
-        if (acceptButton) {
-          acceptButton.addEventListener('click', function() {
-            localStorage.setItem('cookiesAccepted', 'true');
-            // cookiePopup.style.opacity = '0'; // Uncomment if using CSS opacity transition
-            setTimeout(() => {
-              if(cookiePopup) cookiePopup.style.display = 'none';
-            }, 300); // Match transition duration if using opacity
-          });
+        if (cookiePopup && acceptButton) {
+             console.log("Cookie consent elements found");
+             if (!localStorage.getItem('cookiesAccepted')) {
+                console.log("Cookies not accepted yet, scheduling popup");
+                setTimeout(() => { cookiePopup.style.display = 'flex'; }, 1500);
+             } else {
+                 console.log("Cookies already accepted");
+             }
+             acceptButton.addEventListener('click', function() {
+                console.log("Cookie accept button clicked");
+                localStorage.setItem('cookiesAccepted', 'true');
+                setTimeout(() => { if(cookiePopup) cookiePopup.style.display = 'none'; }, 300);
+             });
+        } else {
+            console.warn("Cookie consent elements not found");
         }
         // --- End Cookie Consent Logic ---
 
 
-        // --- Formspree Popup Logic ---
-        const popupOverlay = document.getElementById('formspree-popup-overlay');
-        const closeButton = document.getElementById('close-popup-btn');
-        const form = document.getElementById('popup-optin-form'); // Now correctly finds the form by ID
-        const formStatus = document.getElementById('popup-form-status');
+        // --- HubSpot Popup Logic (Updated) ---
+        const hubspotPopupOverlay = document.getElementById('hubspot-popup-overlay'); // Changed ID
+        const closeHubspotPopupButton = document.getElementById('close-hubspot-popup-btn'); // Changed ID
+        const hubspotPopupFormStatus = document.getElementById('popup-form-status'); // Status message div
 
-        function showPopup() {
-            // Check if already subscribed via this popup OR shown this session
-            if (!localStorage.getItem('subscribedViaPopup') && !sessionStorage.getItem('popupShownThisSession')) {
-                 if(popupOverlay) popupOverlay.style.display = 'flex';
+        // Check if necessary popup elements exist
+        if (hubspotPopupOverlay && closeHubspotPopupButton) {
+            console.log("HubSpot popup elements found");
+
+            function showHubspotPopup() {
+                console.log("Attempting to show HubSpot popup...");
+                // Check if popup has been shown this session OR if lead already submitted (optional check)
+                if (!sessionStorage.getItem('hubspotPopupShownThisSession')) {
+                     console.log("Conditions met, showing HubSpot popup.");
+                     hubspotPopupOverlay.style.display = 'flex';
+                     setTimeout(() => { hubspotPopupOverlay.classList.add('visible'); }, 10);
+                } else {
+                    console.log("HubSpot popup blocked: Already shown this session.");
+                }
             }
-        }
 
-        function hidePopup() {
-            if(popupOverlay) popupOverlay.style.display = 'none';
-            sessionStorage.setItem('popupShownThisSession', 'true'); // Mark as shown for this session
-        }
+            function hideHubspotPopup() {
+                console.log("Hiding HubSpot popup.");
+                hubspotPopupOverlay.classList.remove('visible');
+                setTimeout(() => { hubspotPopupOverlay.style.display = 'none'; }, 300);
+                sessionStorage.setItem('hubspotPopupShownThisSession', 'true'); // Mark as shown
+            }
 
-        if(closeButton) {
-            closeButton.addEventListener('click', hidePopup);
-        }
+            closeHubspotPopupButton.addEventListener('click', hideHubspotPopup);
 
-        if(popupOverlay) {
-            popupOverlay.addEventListener('click', function(event) {
-                // Close if clicking on the overlay itself, not the content inside
-                if (event.target === popupOverlay) {
-                    hidePopup();
+            hubspotPopupOverlay.addEventListener('click', function(event) {
+                // Close if clicking on the overlay itself
+                if (event.target === hubspotPopupOverlay) {
+                    hideHubspotPopup();
                 }
             });
-        }
 
-        async function handleFormSubmit(event) {
-            event.preventDefault(); // Stop default form submission
-            const data = new FormData(event.target);
-            const submitButton = form.querySelector('button[type="submit"]');
-            if(submitButton) submitButton.disabled = true; // Disable button
-            if(formStatus) formStatus.textContent = 'Submitting...'; // Show submitting status
-            if(formStatus) formStatus.style.color = '#ccc'; // Neutral color
+            // Show popup after a delay
+            console.log("Scheduling HubSpot popup to show in 5 seconds");
+            setTimeout(showHubspotPopup, 5000);
 
-            try {
-                const response = await fetch(event.target.action, {
-                    method: form.method,
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (response.ok) {
-                    if(formStatus) {
-                        formStatus.textContent = "Thanks for subscribing!";
-                        formStatus.style.color = 'green';
-                    }
-                    if(form) form.reset(); // Clear the form
-                    setTimeout(hidePopup, 2000); // Hide popup after 2 seconds
-                    localStorage.setItem('subscribedViaPopup', 'true'); // Mark as subscribed
-                } else {
-                    const responseData = await response.json();
-                    if(formStatus) {
-                        if (Object.hasOwn(responseData, 'errors')) {
-                            formStatus.textContent = responseData["errors"].map(error => error["message"]).join(", ");
-                        } else {
-                            formStatus.textContent = "Oops! There was a problem submitting the form.";
-                        }
-                        formStatus.style.color = 'red';
-                    }
-                    if(submitButton) submitButton.disabled = false; // Re-enable button on error
-                }
-            } catch (error) {
-                console.error('Popup form submission error:', error);
-                if(formStatus) {
-                    formStatus.textContent = "Oops! There was a network error. Please try again.";
-                    formStatus.style.color = 'red';
-                }
-                if(submitButton) submitButton.disabled = false; // Re-enable button on error
-            }
-        }
-
-        if (form) { // Only add listener and timeout if the form exists
-            form.addEventListener("submit", handleFormSubmit);
-            // Show popup only if the form exists, after a delay
-            setTimeout(showPopup, 5000); // Delay popup appearance (e.g., 5 seconds)
         } else {
-            console.warn("Popup form element with ID 'popup-optin-form' not found. Popup will not function.");
+            console.warn("HubSpot popup elements missing - Popup will not function.", {
+                overlay: !!hubspotPopupOverlay,
+                closeBtn: !!closeHubspotPopupButton
+            });
         }
-        // --- End Formspree Popup Logic ---
+        // --- End HubSpot Popup Logic ---
 
 
-        // ... any other scripts you might add later ...
+        // --- HubSpot Form Submission Listener (for Popup Form) ---
+        window.addEventListener("message", function(event) {
+            // Check if the message is from HubSpot and indicates form submission success
+            if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
+                // Check if the submitted form ID matches the POPUP form ID
+                if (event.data.id === '026d86ca-4704-47cb-8e3c-26e3c14226aa') { // CONFIRM YOUR POPUP FORM ID
+                    console.log('HubSpot POPUP form submitted successfully. Redirecting...');
+
+                    // Optional: Show a temporary success message in the popup before redirecting
+                    if (hubspotPopupFormStatus) {
+                        hubspotPopupFormStatus.textContent = "Success! Redirecting...";
+                        hubspotPopupFormStatus.style.color = "green";
+                    }
+
+                    // Redirect to the Shopify Offer page thank you section after a short delay
+                    setTimeout(() => {
+                        window.location.href = '/shopify-offer.html#thank-you';
+                    }, 1000); // 1 second delay before redirect
+                }
+            }
+        });
+        // --- End HubSpot Form Submission Listener ---
 
     }); // End of DOMContentLoaded listener
     </script>
     </body>
-
 </html>
