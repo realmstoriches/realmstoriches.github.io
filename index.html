@@ -399,5 +399,76 @@
 
     }); // End of DOMContentLoaded listener
     </script>
+<script>
+// This should be placed AFTER your existing DOMContentLoaded listener
+// or integrated carefully if you want it within the same listener.
+// For simplicity, this is a new script block.
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Cart Functionality (ensure this runs after other DOMContentLoaded setups if needed)
+    console.log("Cart script initializing...");
+
+    const buyNowButtons = document.querySelectorAll('.buy-now-btn');
+    const cartCountElement = document.getElementById('cart-count');
+
+    // Load cart from localStorage or initialize as empty array
+    let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+    function updateCartCount() {
+        if (cartCountElement) {
+            let totalItems = 0;
+            cart.forEach(item => {
+                totalItems += item.quantity;
+            });
+            cartCountElement.textContent = totalItems;
+        }
+    }
+
+    function saveCart() {
+        localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        updateCartCount();
+    }
+
+    function addToCart(serviceId, serviceName, servicePrice) {
+        const price = parseFloat(servicePrice);
+        const existingItemIndex = cart.findIndex(item => item.id === serviceId);
+
+        if (existingItemIndex > -1) {
+            // If item already in cart, increase quantity
+            cart[existingItemIndex].quantity += 1;
+        } else {
+            // Add new item to cart
+            cart.push({
+                id: serviceId,
+                name: serviceName,
+                price: price,
+                quantity: 1
+            });
+        }
+        saveCart();
+        alert(serviceName + " has been added to your cart!"); // Simple feedback
+        console.log("Cart updated:", cart);
+    }
+
+    if (buyNowButtons.length > 0) {
+        buyNowButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const serviceId = this.dataset.serviceId;
+                const serviceName = this.dataset.serviceName;
+                const servicePrice = this.dataset.servicePrice;
+                addToCart(serviceId, serviceName, servicePrice);
+            });
+        });
+    } else {
+        console.log("No 'Buy Now' buttons found for cart functionality.");
+    }
+
+    // Initial cart count update on page load
+    updateCartCount();
+    console.log("Cart script initialized.");
+});
+</script>
+</body>
+</html>
     </body>
 </html>
