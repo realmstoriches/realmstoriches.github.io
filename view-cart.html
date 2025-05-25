@@ -228,4 +228,108 @@
             updateCartCountNav();
         }
 
-        function renderCartDisplay
+        function renderCartDisplay() {
+            console.log("View Cart page: renderCartDisplay() called. Current cart state:", JSON.stringify(cart, null, 2));
+            if (!cartItemsContainer || !cartTotalElement || !emptyCartMessageElement || !cartSummarySectionElement) {
+                console.error("View Cart page: One or more critical display elements are missing from the DOM.");
+                return;
+            }
+
+            cartItemsContainer.innerHTML = ''; // Clear existing items
+            let totalAmount = 0;
+
+            if (cart.length === 0) {
+                console.log("View Cart page: Cart is empty.");
+                emptyCartMessageElement.style.display = 'block';
+                cartSummarySectionElement.style.display = 'none';
+                cartItemsContainer.style.display = 'none';
+                if (proceedToCheckoutBtn) proceedToCheckoutBtn.classList.add('disabled');
+            } else {
+                console.log(`View Cart page: Cart has ${cart.length} item(s). Rendering...`);
+                emptyCartMessageElement.style.display = 'none';
+                cartSummarySectionElement.style.display = 'block';
+                cartItemsContainer.style.display = 'block';
+                 if (proceedToCheckoutBtn) proceedToCheckoutBtn.classList.remove('disabled');
+
+
+                cart.forEach((item, index) => {
+                    if (typeof item.price !== 'number' || typeof item.quantity !== 'number') {
+                        console.error("View Cart page: Invalid item in cart (price or quantity is not a number):", item);
+                        return; 
+                    }
+
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+                    itemElement.innerHTML = `
+                        <div class="cart-item-details">
+                            <strong>${item.name || 'Unnamed Item'}</strong>
+                            <p>Price per item: $${item.price.toFixed(2)}</p>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <button class="btn-update-quantity" data-index="${index}" data-action="decrease" title="Decrease Quantity">-</button>
+                            <span class="item-quantity-display">${item.quantity}</span>
+                            <button class="btn-update-quantity" data-index="${index}" data-action="increase" title="Increase Quantity">+</button>
+                        </div>
+                        <div class="cart-item-subtotal">
+                            <strong>Subtotal: $${(item.price * item.quantity).toFixed(2)}</strong>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button class="btn-remove-item" data-index="${index}" title="Remove Item">Remove</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemElement);
+                    totalAmount += item.price * item.quantity;
+                });
+            }
+
+            cartTotalElement.innerHTML = `<strong>Grand Total: $${totalAmount.toFixed(2)}</strong>`;
+            attachCartActionListeners();
+            updateCartCountNav();
+        }
+
+        function attachCartActionListeners() {
+            const removeButtons = document.querySelectorAll('.btn-remove-item');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemIndex = parseInt(this.dataset.index);
+                    removeItemFromCart(itemIndex);
+                });
+            });
+
+            const quantityButtons = document.querySelectorAll('.btn-update-quantity');
+            quantityButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemIndex = parseInt(this.dataset.index);
+                    const action = this.dataset.action;
+                    updateItemQuantity(itemIndex, action);
+                });
+            });
+        }
+
+        function removeItemFromCart(index) {
+            if (index > -1 && index < cart.length) {
+                cart.splice(index, 1); 
+                saveCart(); 
+            }
+        }
+
+        function updateItemQuantity(index, action) {
+            if (index > -1 && index < cart.length) {
+                if (action === 'increase') {
+                    cart[index].quantity += 1;
+                } else if (action === 'decrease') {
+                    cart[index].quantity -= 1;
+                    if (cart[index].quantity <= 0) {
+                        cart.splice(index, 1); 
+                    }
+                }
+                saveCart();
+            }
+        }
+        
+        console.log("View Cart page: Calling initial renderCartDisplay().");
+        renderCartDisplay();
+    });
+    </script>
+</body>
+</html>
