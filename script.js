@@ -178,7 +178,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Stripe with your **PUBLISHABLE** API key
     // This key is safe to include in your frontend code.
     const stripe = Stripe('pk_live_51RSfPXFHtr1SOdkc0fjiQ9RPj66DoF4c4GPniCTJK6uCxCnsrDH97eR3F82uw2nfCorzsgUpJAsarYgmeCtzcDI700iFDHwLVJ');
-
+    // In your frontend JavaScript file (e.g., script.js or embedded in index.html)
+    const backendUrl = 'https://my-stripe-backend-api.onrender.com'; // <--- PASTE YOUR ACTUAL RENDER URL HERE!
     const buyNowButtons = document.querySelectorAll('.buy-now-btn');
 
     buyNowButtons.forEach(button => {
