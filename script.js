@@ -172,5 +172,72 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
          console.error("Contact form element with ID 'contact-form' not found.");
     }
+    
+// Ensure this code runs after the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Stripe with your **PUBLISHABLE** API key
+    // This key is safe to include in your frontend code.
+    const stripe = Stripe('pk_live_51RSfPXFHtr1SOdkc0fjiQ9RPj66DoF4c4GPniCTJK6uCxCnsrDH97eR3F82uw2nfCorzsgUpJAsarYgmeCtzcDI700iFDHwLVJ');
+
+    const buyNowButtons = document.querySelectorAll('.buy-now-btn');
+
+    buyNowButtons.forEach(button => {
+        button.addEventListener('click', async (event) => {
+            event.preventDefault(); // Prevent default button action
+
+            // Extract data attributes from the clicked button
+            const serviceId = button.dataset.serviceId;
+            const serviceName = button.dataset.serviceName;
+            const servicePrice = button.dataset.servicePrice; // Price from HTML (e.g., 250, 1999)
+            const serviceType = button.dataset.serviceType || 'one-time'; // 'subscription' or 'one-time'
+
+            // Optional: Disable button to prevent multiple clicks
+            button.disabled = true;
+            button.textContent = 'Processing...';
+
+            try {
+                // Send the service data to your backend endpoint
+                const response = await fetch('/create-checkout-session', { // <-- This is your backend endpoint
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        service_id: serviceId,
+                        // You might not strictly need name/price/type here,
+                        // as the backend should get authoritative data from DB.
+                        // But sending for clarity/debugging can be useful.
+                        service_name: serviceName,
+                        service_price: servicePrice,
+                        service_type: serviceType
+                    }),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to create Stripe Checkout session.');
+                }
+
+                const session = await response.json();
+
+                // Redirect to Stripe Checkout using the session ID
+                const { error } = await stripe.redirectToCheckout({
+                    sessionId: session.id,
+                });
+
+                if (error) {
+                    console.error('Stripe redirect error:', error.message);
+                    alert('There was an issue redirecting to Stripe Checkout: ' + error.message);
+                }
+            } catch (error) {
+                console.error('Error during checkout process:', error);
+                alert('Error initiating checkout: ' + error.message);
+            } finally {
+                // Re-enable button
+                button.disabled = false;
+                button.textContent = 'Buy Now';
+            }
+        });
+    });
 });
 
