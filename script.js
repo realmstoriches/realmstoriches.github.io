@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (paymentForm && paymentElementContainer && submitPaymentBtn && paymentSuccessMessage) {
         // Initialize Stripe.js with your **PUBLISHABLE KEY**.
         // Get this from your Stripe Dashboard -> Developers -> API keys (starts with 'pk_test_').
-        const stripe = Stripe('pk_test_YOUR_STRIPE_PUBLISHABLE_KEY'); // <--- REPLACE THIS!
+        const stripe = Stripe('pk_live_51RSfPXFHtr1SOdkc0fjiQ9RPj66DoF4c4GPniCTJK6uCxCnsrDH97eR3F82uw2nfCorzsgUpJAsarYgmeCtzcDI700iFDHwLVJ');
 
         let elements; // Holds the Stripe Elements instance
         let clientSecret; // Holds the client secret from your Render.com backend
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
                 // This is the URL to your Render.com backend API for creating a PaymentIntent
                 // Make sure this matches your deployed Render.com service URL.
-                const backendUrl = 'https://your-render-backend-name.onrender.com'; // <--- REPLACE THIS!
+                const backendUrl = 'https://my-stripe-backend-api.onrender.com';
                 const createIntentEndpoint = `${backendUrl}/create-payment-intent`;
 
                 // Get amount dynamically if possible, or hardcode for simple products
