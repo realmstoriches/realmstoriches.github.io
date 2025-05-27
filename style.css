@@ -8,21 +8,21 @@
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    color: #000; /* Default text color for elements not explicitly styled, for better contrast on cyan */
-    background-color: #00FFFF; /* Body background: CYAN */
+    color: #fff; /* Default text color: White for black background */
+    background-color: #000; /* Body background: BLACK */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 a {
-    color: #6a0dad; /* Standard link color: Purple */
+    color: #00FFFF; /* Standard link color: CYAN */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #4b0a7a;
+    color: #00A3A3; /* Darker Cyan on hover */
 }
 
 img {
@@ -55,32 +55,32 @@ img {
 }
 
 .btn-primary {
-    background-color: #6a0dad; /* Primary button: Purple */
-    color: #fff; /* Primary button text: White */
+    background-color: #00FFFF; /* Primary button: CYAN */
+    color: #000; /* Primary button text: Black */
 }
 
 .btn-primary:hover {
-    background-color: #4b0a7a;
+    background-color: #00A3A3; /* Darker Cyan on hover */
     transform: translateY(-2px);
 }
 
 .btn-secondary {
-    background-color: #f0f0f0; /* Secondary button: Light gray */
-    color: #333; /* Secondary button text: Dark gray */
-    border: 1px solid #ddd;
+    background-color: #333; /* Secondary button: Dark gray on black background */
+    color: #fff; /* Secondary button text: White */
+    border: 1px solid #555;
 }
 
 .btn-secondary:hover {
-    background-color: #e0e0e0;
+    background-color: #555;
     transform: translateY(-2px);
 }
 
 /* --- Header --- */
 .site-header {
-    background-color: #00FFFF; /* Header background: CYAN */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #000; /* Header background: BLACK */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Darker shadow for black background */
     padding: 10px 0;
-    color: #000; /* Ensure text directly in header (if any) is black for contrast */
+    color: #fff; /* Header text: White */
 }
 
 .header-container {
@@ -103,7 +103,7 @@ img {
 }
 
 .main-navigation a {
-    color: #000; /* Nav links: Black on cyan header */
+    color: #00FFFF; /* Nav links: CYAN on black header */
     font-weight: bold;
     padding: 5px 0;
     position: relative;
@@ -116,7 +116,7 @@ img {
     bottom: 0;
     width: 0;
     height: 2px;
-    background-color: #6a0dad;
+    background-color: #00FFFF; /* Cyan underline */
     transition: width 0.3s ease;
 }
 
@@ -129,14 +129,14 @@ img {
 main {
     flex-grow: 1;
     padding: 0; /* Important: No padding on main itself for full-width sections */
-    background-color: #00FFFF; /* Main background: CYAN */
-    color: #000; /* Default text color for main content: Black for contrast */
+    background-color: #000; /* Main background: BLACK */
+    color: #fff; /* Default text color for main content: White */
 }
 
 /* Hero Section (Full Width Banner) */
 .hero-section {
-    /* HERO IMAGE: Using the provided image1-1600w.webp */
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/image1-1600w.webp') no-repeat center center;
+    /* HERO IMAGE: Changed to one of the computer mockups */
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/image19-1600w.webp') no-repeat center center; /* Using a larger computer mockup */
     background-size: cover; /* Ensures the image covers the entire area */
     background-position: center center; /* Centers the image */
     width: 100%; /* Ensures full width */
@@ -147,7 +147,7 @@ main {
 }
 
 .hero-section h1 {
-    color: #fff; /* Hero title: White */
+    color: #00FFFF; /* Hero title: CYAN */
     font-size: 3rem;
     margin-bottom: 15px;
 }
@@ -162,23 +162,23 @@ main {
 .section {
     padding: 60px 0;
     margin-bottom: 40px;
-    background-color: #00FFFF; /* All main content sections: CYAN */
-    color: #000; /* Default text in these sections: Black for contrast */
+    background-color: #000; /* All main content sections: BLACK */
+    color: #fff; /* Default text in these sections: White */
 }
 
 .section-title {
     text-align: center;
     margin-bottom: 50px;
-    color: #000; /* Section titles: Black */
+    color: #00FFFF; /* Section titles: CYAN */
 }
 
-/* Grid Items (the white content boxes INSIDE sections) */
+/* Grid Items (the content boxes INSIDE sections) */
 .grid-item {
-    background-color: #fff; /* Individual content boxes: White */
-    color: #333; /* Text inside white boxes: Dark gray */
+    background-color: #1a1a1a; /* Individual content boxes: Dark gray for contrast on black */
+    color: #fff; /* Text inside dark gray boxes: White */
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
@@ -190,17 +190,22 @@ main {
 
 .grid-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
 }
 
 .grid-item h3 {
-    color: #6a0dad; /* Heading color inside white boxes: Purple */
+    color: #00FFFF; /* Heading color inside grid items: CYAN */
     margin-bottom: 15px;
+}
+
+.grid-item p {
+    flex-grow: 1; /* Allows paragraph to take up available space, pushing button down */
+    margin-bottom: 20px; /* Space before button */
 }
 
 .grid-item img {
     margin: 0 auto 20px;
-    max-width: 80px; /* Constrain size of icons */
+    max-width: 120px; /* INCREASED SIZE for icons */
     height: auto;
     object-fit: contain; /* Ensures entire icon fits without cropping */
 }
@@ -210,18 +215,20 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
+    align-items: stretch; /* Ensures all grid items in a row stretch to the height of the tallest */
 }
 
 .grid-3-col {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
+    align-items: stretch; /* Ensures all grid items in a row stretch to the height of the tallest */
 }
 
 /* Call to action section */
 .cta-section {
-    background-color: #6a0dad; /* CTA section background: Purple */
-    color: #fff; /* CTA text: White */
+    background-color: #00FFFF; /* CTA section background: CYAN */
+    color: #000; /* CTA text: BLACK */
     text-align: center;
     padding: 60px 20px;
     border-radius: 8px;
@@ -229,17 +236,17 @@ main {
 }
 
 .cta-section h2 {
-    color: #fff; /* CTA title: White */
+    color: #000; /* CTA title: BLACK */
     margin-bottom: 20px;
 }
 
 .cta-section .btn-primary {
-    background-color: #fff; /* CTA button: White */
-    color: #6a0dad; /* CTA button text: Purple */
+    background-color: #333; /* CTA button: Dark gray */
+    color: #fff; /* CTA button text: White */
 }
 
 .cta-section .btn-primary:hover {
-    background-color: #eee;
+    background-color: #555;
 }
 
 
@@ -250,7 +257,7 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+    background-color: rgba(0, 0, 0, 0.8); /* Darker overlay for black background */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -266,10 +273,10 @@ main {
 }
 
 .popup-content {
-    background-color: #fff; /* Popup content background: White */
+    background-color: #1a1a1a; /* Popup content background: Very dark gray */
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Darker shadow */
     text-align: center;
     max-width: 500px;
     width: 90%;
@@ -277,7 +284,7 @@ main {
     transform: translateY(-20px);
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    color: #333; /* Popup content text: Dark gray */
+    color: #fff; /* Popup content text: White */
 }
 
 .popup-overlay.visible .popup-content {
@@ -303,12 +310,12 @@ main {
     border: none;
     font-size: 2rem;
     cursor: pointer;
-    color: #aaa;
+    color: #ccc; /* Lighter close button */
     transition: color 0.2s ease;
 }
 
 .close-button:hover {
-    color: #333;
+    color: #00FFFF; /* Cyan on hover */
 }
 
 /* Cookie Consent Specific */
@@ -317,8 +324,8 @@ main {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #1a1a1a; /* Cookie popup background: Very dark gray (contrast with cyan) */
-    color: #fff; /* Cookie popup text: White */
+    background-color: #00FFFF; /* Cookie popup background: CYAN */
+    color: #000; /* Cookie popup text: Black */
     padding: 15px 25px;
     border-radius: 8px;
     display: flex;
@@ -343,12 +350,12 @@ main {
 }
 
 .cookie-popup .cookie-link {
-    color: #8ac0ff; /* Cookie link color: Light blue */
+    color: #333; /* Cookie link color: Dark gray on cyan */
     text-decoration: underline;
 }
 
 .cookie-popup .btn-secondary {
-    background-color: #6a0dad; /* Cookie button: Purple */
+    background-color: #333; /* Cookie button: Dark gray */
     color: #fff;
     border: none;
     padding: 8px 15px;
@@ -356,7 +363,7 @@ main {
 }
 
 .cookie-popup .btn-secondary:hover {
-    background-color: #4b0a7a;
+    background-color: #555;
 }
 
 /* Forms within popups and checkout */
@@ -373,7 +380,7 @@ main {
     text-align: left;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #333; /* Form labels: Dark gray */
+    color: #fff; /* Form labels: White on dark popup */
 }
 
 .popup-content input[type="email"],
@@ -382,20 +389,21 @@ main {
 .checkout-container input[type="email"] {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #555; /* Darker border */
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
-    color: #333; /* Input text: Dark gray */
+    color: #fff; /* Input text: White */
+    background-color: #333; /* Darker input background */
 }
 
 .popup-content input[type="email"]:focus,
 .popup-content textarea:focus,
 .checkout-container input[type="text"]:focus,
 .checkout-container input[type="email"]:focus {
-    border-color: #6a0dad;
+    border-color: #00FFFF; /* Cyan focus border */
     outline: none;
-    box-shadow: 0 0 0 2px rgba(106, 13, 173, 0.2);
+    box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.4); /* Cyan shadow */
 }
 
 .popup-content textarea {
@@ -407,8 +415,8 @@ main {
 .checkout-container button[type="submit"] {
     width: 100%;
     padding: 15px;
-    background-color: #6a0dad;
-    color: #fff;
+    background-color: #00FFFF; /* Cyan submit button */
+    color: #000; /* Black text */
     border: none;
     border-radius: 5px;
     font-size: 1.1rem;
@@ -418,7 +426,7 @@ main {
 
 .popup-content button[type="submit"]:hover,
 .checkout-container button[type="submit"]:hover {
-    background-color: #4b0a7a;
+    background-color: #00A3A3; /* Darker Cyan */
     transform: translateY(-2px);
 }
 
@@ -426,7 +434,7 @@ main {
     margin-top: 10px;
     font-size: 0.9rem;
     text-align: center;
-    color: #333; /* Form message text: Dark gray */
+    color: #fff; /* Form message text: White */
 }
 
 /* --- Checkout Page Specific Styles --- */
@@ -434,26 +442,26 @@ main {
     padding: 40px 20px;
     max-width: 800px;
     margin: 40px auto;
-    background-color: #fff; /* Checkout page container: White */
+    background-color: #1a1a1a; /* Checkout page container: Dark gray */
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    color: #333; /* Default text on checkout page: Dark gray */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    color: #fff; /* Default text on checkout page: White */
 }
 
 .checkout-page-main h1 {
     text-align: center;
     margin-bottom: 30px;
-    color: #6a0dad; /* Checkout page title: Purple */
+    color: #00FFFF; /* Checkout page title: CYAN */
 }
 
 .product-summary,
 #cart-summary-items {
-    background-color: #f9f9f9; /* Summary backgrounds: Light gray */
-    border: 1px solid #eee;
+    background-color: #333; /* Summary backgrounds: Medium dark gray */
+    border: 1px solid #555;
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 30px;
-    color: #333; /* Summary text: Dark gray */
+    color: #fff; /* Summary text: White */
 }
 
 .product-summary p,
@@ -467,7 +475,7 @@ main {
 .product-summary p:last-child {
     font-weight: bold;
     font-size: 1.3rem;
-    border-top: 1px dashed #ddd;
+    border-top: 1px dashed #555;
     padding-top: 15px;
     margin-top: 15px;
 }
@@ -477,7 +485,7 @@ main {
     justify-content: space-between;
     align-items: center;
     padding: 8px 0;
-    border-bottom: 1px dotted #e0e0e0;
+    border-bottom: 1px dotted #555;
 }
 
 .cart-item-summary:last-of-type {
@@ -488,7 +496,7 @@ main {
 .checkout-container h2 {
     margin-bottom: 25px;
     text-align: center;
-    color: #333; /* Checkout sub-headings: Dark gray */
+    color: #00FFFF; /* Checkout sub-headings: CYAN */
 }
 
 .form-group {
@@ -503,33 +511,33 @@ main {
 
 hr {
     border: none;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #333; /* Darker HR */
     margin: 30px 0;
 }
 
 /* Stripe Elements container */
 #payment-element {
     margin-bottom: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #555;
     padding: 15px;
     border-radius: 5px;
-    background-color: #fff; /* Payment element background: White */
+    background-color: #333; /* Payment element background: Medium dark gray */
 }
 
 .error-message {
-    color: #df1b41; /* Error messages: Red */
+    color: #ff4d4d; /* Brighter red for visibility on dark background */
     text-align: center;
     margin-top: 15px;
     font-weight: bold;
 }
 
 .success-message {
-    color: #28a745; /* Success messages: Green */
+    color: #4CAF50; /* Brighter green */
     text-align: center;
     margin-top: 25px;
     padding: 20px;
-    background-color: #e6ffe6;
-    border: 1px solid #a3e6a3;
+    background-color: #2e7d32; /* Darker green background */
+    border: 1px solid #66bb6a;
     border-radius: 8px;
 }
 
@@ -562,8 +570,8 @@ hr {
 
 /* --- Footer --- */
 .site-footer {
-    background-color: #1a1a1a; /* Footer background: Very dark gray (for contrast) */
-    color: #fff; /* Footer text: White */
+    background-color: #00FFFF; /* Footer background: CYAN */
+    color: #000; /* Footer text: BLACK */
     padding: 30px 0;
     margin-top: auto; /* Pushes footer to the bottom */
 }
@@ -582,11 +590,11 @@ hr {
 .footer-info p:last-child, .footer-legal p:last-child { margin-bottom: 0; }
 
 .footer-link {
-    color: #fff; /* Footer links: White */
+    color: #333; /* Footer links: Dark gray on cyan */
     text-decoration: underline;
     transition: color .3s ease;
 }
-.footer-link:hover { color: #ccc; }
+.footer-link:hover { color: #555; }
 
 /* --- Responsive Design --- */
 @media (max-width: 992px) {
@@ -598,7 +606,7 @@ hr {
 @media (max-width: 768px) {
     .header-container { flex-direction: column; gap: 15px; }
     .main-navigation ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
-    .main-navigation a { color: #000; } /* Nav links black on smaller screens too */
+    .main-navigation a { color: #00FFFF; } /* Nav links cyan on smaller screens too */
     .hero-section h1 { font-size: 2.2rem; }
     .hero-section p { font-size: 1rem; }
 
