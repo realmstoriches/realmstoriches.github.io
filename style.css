@@ -8,15 +8,15 @@
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    color: #333; /* Default text color for elements not explicitly styled */
-    background-color: #000; /* Body background consistently black */
+    color: #000; /* Default text color for elements not explicitly styled, for better contrast on cyan */
+    background-color: #00FFFF; /* Body background: CYAN */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 a {
-    color: #6a0dad; /* Purple for links */
+    color: #6a0dad; /* Standard link color: Purple */
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -25,11 +25,10 @@ a:hover {
     color: #4b0a7a;
 }
 
-/* IMPORTANT: Ensure images are found and displayed */
 img {
     max-width: 100%;
     height: auto;
-    display: block; /* Helps prevent extra space below images */
+    display: block; /* Removes extra space below images by default */
 }
 
 .container {
@@ -56,8 +55,8 @@ img {
 }
 
 .btn-primary {
-    background-color: #6a0dad; /* Primary button purple */
-    color: #fff;
+    background-color: #6a0dad; /* Primary button: Purple */
+    color: #fff; /* Primary button text: White */
 }
 
 .btn-primary:hover {
@@ -66,8 +65,8 @@ img {
 }
 
 .btn-secondary {
-    background-color: #f0f0f0; /* Secondary button light gray */
-    color: #333;
+    background-color: #f0f0f0; /* Secondary button: Light gray */
+    color: #333; /* Secondary button text: Dark gray */
     border: 1px solid #ddd;
 }
 
@@ -78,11 +77,11 @@ img {
 
 /* --- Header --- */
 .site-header {
-    background-color: #000; /* Header background black */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: #00FFFF; /* Header background: CYAN */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 10px 0;
     width: 100%;
-    color: #fff; /* Ensure any direct text in header is white */
+    color: #000; /* Ensure text directly in header (if any) is black for contrast */
 }
 
 .header-container {
@@ -91,12 +90,11 @@ img {
     align-items: center;
 }
 
-/* Ensure site logo (image) appears correctly */
 .logo-area img.site-logo {
-    height: 50px; /* Fixed height */
-    width: 50px; /* Fixed width */
-    border-radius: 50%; /* Circular */
-    object-fit: cover; /* Ensures image covers the area without distortion */
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover; /* Ensures logo fits well within circular shape */
 }
 
 .main-navigation ul {
@@ -106,7 +104,7 @@ img {
 }
 
 .main-navigation a {
-    color: #fff; /* Nav links white on black header */
+    color: #000; /* Nav links: Black on cyan header */
     font-weight: bold;
     padding: 5px 0;
     position: relative;
@@ -131,25 +129,28 @@ img {
 /* --- Main Content Layout & Sections --- */
 main {
     flex-grow: 1;
-    padding: 0; /* No padding on main to allow sections to stretch */
-    background-color: #000; /* Main background confirmed black */
-    color: #fff; /* Default text color for main content */
+    padding: 0; /* Important: No padding on main itself for full-width sections */
+    background-color: #00FFFF; /* Main background: CYAN */
+    color: #000; /* Default text color for main content: Black for contrast */
 }
 
 /* Hero Section (Full Width Banner) */
 .hero-section {
-    /* Critical: Correct path and background properties for banner image */
+    /* CRITICAL: Ensure this path is correct based on your file structure. */
+    /* If style.css is in a 'css' folder and 'img' is a sibling of 'css', use '../img/hero-bg.webp' */
+    /* If style.css is in the root and 'img' is also in the root, use 'img/hero-bg.webp' */
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/hero-bg.webp') no-repeat center center;
-    background-size: cover; /* Ensures image covers the entire section */
+    background-size: cover; /* Ensures the image covers the entire area */
+    background-position: center center; /* Centers the image */
     width: 100%; /* Ensures full width */
-    color: #fff; /* Text white on hero */
+    color: #fff; /* Hero text: White (to stand out on the dark overlay) */
     text-align: center;
     padding: 100px 20px;
     margin-bottom: 40px;
 }
 
 .hero-section h1 {
-    color: #fff; /* Hero title white */
+    color: #fff; /* Hero title: White */
     font-size: 3rem;
     margin-bottom: 15px;
 }
@@ -160,24 +161,24 @@ main {
     margin: 0 auto 30px;
 }
 
-/* General Section Styling */
+/* General Section Styling (Services, Courses, Tools, Secondary Services) */
 .section {
     padding: 60px 0;
     margin-bottom: 40px;
-    background-color: #000; /* All main content sections black */
-    color: #fff; /* Default text white on these sections */
+    background-color: #00FFFF; /* All main content sections: CYAN */
+    color: #000; /* Default text in these sections: Black for contrast */
 }
 
 .section-title {
     text-align: center;
     margin-bottom: 50px;
-    color: #fff; /* Section titles on black background are white */
+    color: #000; /* Section titles: Black */
 }
 
 /* Grid Items (the white content boxes INSIDE sections) */
 .grid-item {
-    background-color: #fff; /* Individual content boxes white */
-    color: #333; /* Text inside white boxes is dark */
+    background-color: #fff; /* Individual content boxes: White */
+    color: #333; /* Text inside white boxes: Dark gray */
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.08);
@@ -187,7 +188,7 @@ main {
     flex-direction: column;
     justify-content: flex-start; /* Align content to top of card */
     align-items: center;
-    height: 100%; /* Ensure all grid items in a row have same height */
+    height: 100%; /* Ensures all grid items in a row have same height */
 }
 
 .grid-item:hover {
@@ -196,19 +197,18 @@ main {
 }
 
 .grid-item h3 {
-    color: #6a0dad; /* Heading color for inside white box is purple */
+    color: #6a0dad; /* Heading color inside white boxes: Purple */
     margin-bottom: 15px;
 }
 
-/* Ensure grid item icons/images appear correctly */
 .grid-item img {
     margin: 0 auto 20px;
-    max-width: 80px; /* Constrain size */
+    max-width: 80px; /* Constrain size of icons */
     height: auto;
-    object-fit: contain; /* Ensures entire image fits without cropping */
+    object-fit: contain; /* Ensures entire icon fits without cropping */
 }
 
-/* Grid Layouts for Sections (Containers for the grid items) */
+/* Grid Layouts for Sections */
 .grid-4-col {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -223,8 +223,8 @@ main {
 
 /* Call to action section */
 .cta-section {
-    background-color: #6a0dad; /* CTA section purple */
-    color: #fff; /* Text white on CTA */
+    background-color: #6a0dad; /* CTA section background: Purple */
+    color: #fff; /* CTA text: White */
     text-align: center;
     padding: 60px 20px;
     border-radius: 8px;
@@ -232,13 +232,13 @@ main {
 }
 
 .cta-section h2 {
-    color: #fff; /* CTA title white */
+    color: #fff; /* CTA title: White */
     margin-bottom: 20px;
 }
 
 .cta-section .btn-primary {
-    background-color: #fff; /* CTA button white */
-    color: #6a0dad; /* CTA button text purple */
+    background-color: #fff; /* CTA button: White */
+    color: #6a0dad; /* CTA button text: Purple */
 }
 
 .cta-section .btn-primary:hover {
@@ -269,7 +269,7 @@ main {
 }
 
 .popup-content {
-    background-color: #fff; /* Popup content white */
+    background-color: #fff; /* Popup content background: White */
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -280,7 +280,7 @@ main {
     transform: translateY(-20px);
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    color: #333; /* Ensure popup text is readable (dark) */
+    color: #333; /* Popup content text: Dark gray */
 }
 
 .popup-overlay.visible .popup-content {
@@ -288,12 +288,11 @@ main {
     transform: translateY(0);
 }
 
-/* Ensure popup image appears correctly */
 .popup-content img {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    max-width: 100%; /* Ensure it doesn't overflow popup */
+    max-width: 100%; /* Ensure popup image fits */
     height: auto;
     object-fit: contain;
 }
@@ -321,8 +320,8 @@ main {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #333; /* Cookie popup dark gray */
-    color: #fff; /* Text white on cookie popup */
+    background-color: #1a1a1a; /* Cookie popup background: Very dark gray (contrast with cyan) */
+    color: #fff; /* Cookie popup text: White */
     padding: 15px 25px;
     border-radius: 8px;
     display: flex;
@@ -347,12 +346,12 @@ main {
 }
 
 .cookie-popup .cookie-link {
-    color: #8ac0ff; /* Link color for cookie popup */
+    color: #8ac0ff; /* Cookie link color: Light blue */
     text-decoration: underline;
 }
 
 .cookie-popup .btn-secondary {
-    background-color: #6a0dad; /* Cookie button purple */
+    background-color: #6a0dad; /* Cookie button: Purple */
     color: #fff;
     border: none;
     padding: 8px 15px;
@@ -377,7 +376,7 @@ main {
     text-align: left;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #333; /* Ensure form labels are dark on white background */
+    color: #333; /* Form labels: Dark gray */
 }
 
 .popup-content input[type="email"],
@@ -390,7 +389,7 @@ main {
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
-    color: #333; /* Ensure input text is dark */
+    color: #333; /* Input text: Dark gray */
 }
 
 .popup-content input[type="email"]:focus,
@@ -430,7 +429,7 @@ main {
     margin-top: 10px;
     font-size: 0.9rem;
     text-align: center;
-    color: #333; /* Form message text dark */
+    color: #333; /* Form message text: Dark gray */
 }
 
 /* --- Checkout Page Specific Styles --- */
@@ -438,26 +437,26 @@ main {
     padding: 40px 20px;
     max-width: 800px;
     margin: 40px auto;
-    background-color: #fff; /* Checkout page itself white */
+    background-color: #fff; /* Checkout page container: White */
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    color: #333; /* Default text dark for checkout page */
+    color: #333; /* Default text on checkout page: Dark gray */
 }
 
 .checkout-page-main h1 {
     text-align: center;
     margin-bottom: 30px;
-    color: #6a0dad; /* Checkout title purple */
+    color: #6a0dad; /* Checkout page title: Purple */
 }
 
 .product-summary,
 #cart-summary-items {
-    background-color: #f9f9f9; /* Light gray background for summaries */
+    background-color: #f9f9f9; /* Summary backgrounds: Light gray */
     border: 1px solid #eee;
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 30px;
-    color: #333; /* Text dark in summaries */
+    color: #333; /* Summary text: Dark gray */
 }
 
 .product-summary p,
@@ -492,7 +491,7 @@ main {
 .checkout-container h2 {
     margin-bottom: 25px;
     text-align: center;
-    color: #333; /* Checkout container titles dark */
+    color: #333; /* Checkout sub-headings: Dark gray */
 }
 
 .form-group {
@@ -517,18 +516,18 @@ hr {
     border: 1px solid #ddd;
     padding: 15px;
     border-radius: 5px;
-    background-color: #fff; /* White background for payment element */
+    background-color: #fff; /* Payment element background: White */
 }
 
 .error-message {
-    color: #df1b41; /* Red for errors */
+    color: #df1b41; /* Error messages: Red */
     text-align: center;
     margin-top: 15px;
     font-weight: bold;
 }
 
 .success-message {
-    color: #28a745; /* Green for success */
+    color: #28a745; /* Success messages: Green */
     text-align: center;
     margin-top: 25px;
     padding: 20px;
@@ -566,10 +565,10 @@ hr {
 
 /* --- Footer --- */
 .site-footer {
-    background-color: #333; /* Footer dark gray */
-    color: #fff; /* Footer text white */
+    background-color: #1a1a1a; /* Footer background: Very dark gray (for contrast) */
+    color: #fff; /* Footer text: White */
     padding: 30px 0;
-    margin-top: auto;
+    margin-top: auto; /* Pushes footer to the bottom */
 }
 
 .footer-container {
@@ -586,7 +585,7 @@ hr {
 .footer-info p:last-child, .footer-legal p:last-child { margin-bottom: 0; }
 
 .footer-link {
-    color: #fff; /* Footer links white */
+    color: #fff; /* Footer links: White */
     text-decoration: underline;
     transition: color .3s ease;
 }
@@ -602,10 +601,11 @@ hr {
 @media (max-width: 768px) {
     .header-container { flex-direction: column; gap: 15px; }
     .main-navigation ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
-    .main-navigation a { color: #fff; }
+    .main-navigation a { color: #000; } /* Nav links black on smaller screens too */
     .hero-section h1 { font-size: 2.2rem; }
     .hero-section p { font-size: 1rem; }
 
+    /* All grids become 2 columns on medium screens */
     .grid-3-col, .grid-4-col {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
@@ -629,6 +629,7 @@ hr {
     .popup-content { padding: 20px; }
     .checkout-page-main { padding: 20px; margin: 20px auto; }
 
+    /* All grids become 1 column on very small screens */
     .grid-3-col, .grid-4-col {
         grid-template-columns: 1fr;
     }
