@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const leadCaptureContent = document.getElementById('lead-capture-content');
     const closeLeadFormBtn = document.getElementById('close-lead-form');
     // Select both Formspree forms by their specific IDs
-    const leadCaptureFormIndex = document.getElementById('lead-capture-form-index');
-    const leadCaptureFormCheckout = document.getElementById('lead-capture-form-checkout');
+    const leadCaptureFormMain = document.getElementById('lead-capture-form-main'); // For index.html
+    const leadCaptureFormCheckout = document.getElementById('lead-capture-form-checkout'); // For checkout.html
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xvgajnqr"; // Your Formspree endpoint
 
 
     // --- Shopify Offer Page CTA Elements ---
@@ -35,7 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const paymentErrorMessageDiv = document.getElementById('error-message');
     const submitPaymentBtn = document.getElementById('submit-payment-btn');
     const paymentSuccessMessage = document.getElementById('payment-success-message');
-    const productPriceElement = document.getElementById('product-price'); // From checkout.html
+    const cartTotalPriceElement = document.getElementById('cart-total-price'); // Renamed from product-price
+
 
     // --- Helper function to show/hide the main popup container ---
     function showPopup(contentToShow) {
@@ -113,13 +115,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- Formspree Lead Capture Form Submission Logic ---
-    // Function to handle form submission for any lead capture form
     async function handleLeadCaptureFormSubmit(event) {
         event.preventDefault();
 
         const form = event.target;
         const formData = new FormData(form);
-        const formAction = form.action;
+        // Ensure the action attribute is correctly set to FORMSPREE_ENDPOINT
+        form.action = FORMSPREE_ENDPOINT;
 
         if (formMessage) {
             formMessage.style.display = 'none';
@@ -134,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         try {
-            const response = await fetch(formAction, {
+            const response = await fetch(form.action, { // Use form.action for safety
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -182,8 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add event listeners to all Formspree lead capture forms
-    if (leadCaptureFormIndex) {
-        leadCaptureFormIndex.addEventListener('submit', handleLeadCaptureFormSubmit);
+    if (leadCaptureFormMain) {
+        leadCaptureFormMain.addEventListener('submit', handleLeadCaptureFormSubmit);
     }
     if (leadCaptureFormCheckout) {
         leadCaptureFormCheckout.addEventListener('submit', handleLeadCaptureFormSubmit);
@@ -195,7 +197,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(handleCookieConsent, 1000); // Wait 1 second before checking cookies/showing popup
 
     // --- Shopify Offer Page CTA Conditional Display and Trigger ---
-    // Ensure this logic correctly triggers the general lead capture popup
     if (shopifyCta) {
         // Only show CTA if lead has NOT been captured (across sessions)
         if (localStorage.getItem('leadCaptured') === 'true') {
@@ -222,6 +223,14 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             cartCountElement.textContent = totalItems;
         }
+    }
+
+    function calculateCartTotal() {
+        let total = 0;
+        cart.forEach(item => {
+            total += item.price * item.quantity;
+        });
+        return total;
     }
 
     function saveCart() {
@@ -272,8 +281,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Only run this block if the payment form and its related elements exist on the page
     if (paymentForm && paymentElementContainer && submitPaymentBtn && paymentSuccessMessage) {
         console.log("Stripe checkout elements found. Initializing Stripe.");
+
+        // On checkout.html, update the cart total price element
+        if (window.location.pathname === '/checkout.html' && cartTotalPriceElement) {
+            const total = calculateCartTotal();
+            cartTotalPriceElement.textContent = total.toFixed(2); // Display total with 2 decimal places
+            console.log("Checkout page: Cart total displayed as $", total.toFixed(2));
+        }
+
         // Initialize Stripe.js with your **PUBLISHABLE KEY**.
-        // Get this from your Stripe Dashboard -> Developers -> API keys (starts with 'pk_live_').
         const stripe = Stripe('pk_live_51RSfPXFHtr1SOdkc0fjiQ9RPj66DoF4c4GPniCTJK6uCxCnsrDH97eR3F82uw2nfCorzsgUpJAsarYgmeCtzcDI700iFDHwLVJ');
 
         let elements;
@@ -282,23 +298,20 @@ document.addEventListener('DOMContentLoaded', function() {
         // Function to fetch the client secret from your Render.com backend
         async function fetchPaymentIntentClientSecret() {
             try {
-                // This is the URL to your Render.com backend API for creating a PaymentIntent
                 const backendUrl = 'https://my-stripe-backend-api.onrender.com';
                 const createIntentEndpoint = `${backendUrl}/create-payment-intent`;
 
-                // Ensure productPriceElement exists and has content before parsing
-                let amountValue = 10000; // Default to $100.00 (in cents) if element not found/parsed
-                if (productPriceElement && productPriceElement.textContent) {
-                    const priceText = productPriceElement.textContent.trim();
-                    const parsedPrice = parseFloat(priceText);
-                    if (!isNaN(parsedPrice)) {
-                        amountValue = parsedPrice * 100; // Convert to cents
-                        console.log(`Using product price: $${parsedPrice} (amount: ${amountValue} cents)`);
-                    } else {
-                        console.warn(`Could not parse product price from element text: "${priceText}". Using default of $100.`);
+                // Use the calculated cart total for the payment intent
+                const total = calculateCartTotal();
+                let amountValue = total * 100; // Convert to cents
+
+                if (amountValue <= 0) { // Prevent creating intent for $0 or less
+                    console.error("Cart total is zero or negative. Cannot create payment intent.");
+                    if (paymentErrorMessageDiv) {
+                        paymentErrorMessageDiv.textContent = "Cannot process an empty or zero-value order. Please add items to your cart.";
+                        paymentErrorMessageDiv.style.display = 'block';
                     }
-                } else {
-                    console.warn("Product price element not found or empty. Using default of $100.");
+                    return null;
                 }
 
                 const currency = 'usd'; // Assuming USD
@@ -401,14 +414,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     paymentSuccessMessage.style.display = 'block';
                 }
                 console.log("Payment confirmed successfully (no redirect).");
-                // You might want to clear the cart or perform other post-purchase actions here
+                // Clear cart or perform post-purchase actions here
+                localStorage.removeItem('shoppingCart'); // Example: clear cart after successful payment
+                updateCartCount(); // Update cart display to show 0
             }
         });
     }
 
     // --- Handle return from Stripe (e.g., after 3D Secure) on payment-success.html ---
-    // This part should be on your payment-success.html page or run conditionally
-    // if script.js is loaded on payment-success.html as well.
     const urlParams = new URLSearchParams(window.location.search);
     const clientSecretFromUrl = urlParams.get('payment_intent_client_secret');
     const redirectStatus = urlParams.get('redirect_status');
@@ -416,7 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (clientSecretFromUrl && redirectStatus && window.location.pathname === '/payment-success.html') {
         console.log("Processing Stripe redirect on payment-success.html.");
         // Re-initialize Stripe on the success page
-        const stripe = Stripe('pk_live_51RSfPXFHtr1SOdkc0fjiQ9RPj66DoF4c4GPniCTJK6uCxCnsrDH97eR3F82uw2nfCorzsgUpJAsarYgmeCtzcDI700iFDHwLVJ'); // *** Use your LIVE PUBLISHABLE KEY here too! ***
+        const stripe = Stripe('pk_live_51RSfPXFHtr1SOdkc0fjiQ9RPj66DoF4c4GPniCTJK6uCxCnsrDH97eR3F82uw2nfCorzsgUpJAsarYgmeCtzcDI700iFDHwLVJ'); // Use your LIVE PUBLISHABLE KEY here!
 
         const successMessageDiv = document.getElementById('payment-success-message');
         const errorMessageDiv = document.getElementById('error-message');
@@ -447,5 +460,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 }); // End of DOMContentLoaded listener
-
-    
