@@ -1,344 +1,351 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // --- Common DOM Elements (used across functionalities) ---
-    const mainPopupContainer = document.getElementById('main-popup-container');
+// --- Global Variables & Constants ---
+const stripe = Stripe('pk_test_TYooMQauvdEDq5PCxOjGlggCUJ8sHQpt58'); // Replace with your actual Stripe Publishable Key
+let elements; // For Stripe Elements
 
-    // --- Cookie Consent & Lead Capture Popup Elements ---
-    const cookieConsentContent = document.getElementById('cookie-consent-content');
-    const leadCaptureContent = document.getElementById('lead-capture-content');
-    const acceptCookiesBtn = document.getElementById('accept-cookies');
-    const leadCaptureForm = document.getElementById('lead-capture-form');
-    const closeLeadFormBtn = document.getElementById('close-lead-form');
-    const formMessage = document.getElementById('form-message');
+// --- DOM Element References ---
+const cookiePopup = document.getElementById('cookie-popup');
+const acceptButton = document.getElementById('accept-cookies');
 
-    // --- Shopify Offer Page CTA Elements ---
-    const shopifyCta = document.getElementById('shopify-offer-cta');
-    const triggerLeadPopupBtn = document.getElementById('trigger-lead-popup');
+const hubspotPopupOverlay = document.getElementById('hubspot-popup-overlay');
+const closeHubspotPopupButton = document.getElementById('close-hubspot-popup-btn');
+const formspreeLeadForm = document.getElementById('form-container') ? document.getElementById('form-container').querySelector('form') : null;
+const formMessage = document.getElementById('form-message'); // For Formspree messages if added to HTML
 
-    // --- Cart Count Elements ---
-    const cartCountElement = document.getElementById('cart-count');
+const cartCountElement = document.getElementById('cart-count'); // For header cart count
+const buyNowButtons = document.querySelectorAll('.buy-now-btn'); // For index.html services
 
-    // --- Stripe Payment Elements (for checkout.html) ---
-    const paymentForm = document.getElementById('payment-form');
-    const paymentElementContainer = document.getElementById('payment-element');
-    const paymentErrorMessageDiv = document.getElementById('error-message');
-    const submitPaymentBtn = document.getElementById('submit-payment-btn');
-    const paymentSuccessMessage = document.getElementById('payment-success-message');
-    const productPriceElement = document.getElementById('product-price');
+// Checkout page specific elements
+const cartSummaryItemsContainer = document.getElementById('cart-summary-items');
+const cartTotalPriceElement = document.getElementById('cart-total-price');
+const paymentForm = document.getElementById('payment-form');
+const submitPaymentBtn = document.getElementById('submit-payment-btn');
+const spinner = document.getElementById('spinner');
+const buttonText = document.getElementById('button-text');
+const errorMessageElement = document.getElementById('error-message');
+const paymentSuccessMessage = document.getElementById('payment-success-message');
 
-    // --- Helper function to show/hide the main popup container ---
-    function showPopup() {
-        if (mainPopupContainer) {
-            mainPopupContainer.classList.add('show');
-        }
+// --- Helper Functions ---
+function showElement(element) {
+    if (element) {
+        element.style.display = 'flex'; // Or 'block' depending on desired layout
+        setTimeout(() => element.classList.add('visible'), 50); // For fade-in effect
     }
+}
 
-    function hidePopup() {
-        if (mainPopupContainer) {
-            mainPopupContainer.classList.remove('show');
-        }
+function hideElement(element) {
+    if (element) {
+        element.classList.remove('visible');
+        setTimeout(() => element.style.display = 'none', 300); // Wait for fade-out
     }
+}
 
-    // --- Cookie Consent Logic ---
-    function handleCookieConsent() {
+function showSpinner() {
+    if (spinner && buttonText) {
+        spinner.classList.remove('hidden');
+        buttonText.classList.add('hidden');
+    }
+}
+
+function hideSpinner() {
+    if (spinner && buttonText) {
+        spinner.classList.add('hidden');
+        buttonText.classList.remove('hidden');
+    }
+}
+
+function displayMessage(message, isError = false, element = errorMessageElement) {
+    if (element) {
+        element.textContent = message;
+        element.style.color = isError ? 'red' : 'green';
+        element.style.display = 'block';
+    }
+}
+
+function clearMessage(element = errorMessageElement) {
+    if (element) {
+        element.textContent = '';
+        element.style.display = 'none';
+    }
+}
+
+// --- Cookie Consent Logic ---
+function initCookieConsent() {
+    if (cookiePopup && acceptButton) {
         if (!localStorage.getItem('cookiesAccepted')) {
-            if (cookieConsentContent) {
-                cookieConsentContent.style.display = 'block';
-            }
-            if (leadCaptureContent) {
-                leadCaptureContent.style.display = 'none';
-            }
-            setTimeout(showPopup, 1500); // Show main popup after a delay
-        } else {
-            handleLeadCaptureDisplay(); // Cookies already accepted, proceed to show lead form
+            setTimeout(() => { showElement(cookiePopup); }, 1500);
         }
-    }
-
-    if (acceptCookiesBtn) {
-        acceptCookiesBtn.addEventListener('click', function() {
+        acceptButton.addEventListener('click', function() {
             localStorage.setItem('cookiesAccepted', 'true');
-            if (cookieConsentContent) {
-                cookieConsentContent.style.display = 'none';
-            }
-            handleLeadCaptureDisplay(); // Now, show the lead capture form
+            hideElement(cookiePopup);
         });
     }
+}
 
-    // --- Lead Capture Form Display Logic ---
-    function handleLeadCaptureDisplay() {
-        if (localStorage.getItem('cookiesAccepted') === 'true' && !localStorage.getItem('leadCaptured')) {
-            if (leadCaptureContent) {
-                leadCaptureContent.style.display = 'block';
+// --- Lead Capture (Formspree) Popup Logic ---
+function showLeadCapturePopup() {
+    // Only show if cookies are accepted and not shown this session
+    if (localStorage.getItem('cookiesAccepted') && !sessionStorage.getItem('leadPopupShownThisSession')) {
+        showElement(hubspotPopupOverlay);
+    }
+}
+
+function hideLeadCapturePopup() {
+    hideElement(hubspotPopupOverlay);
+    sessionStorage.setItem('leadPopupShownThisSession', 'true');
+}
+
+async function handleFormspreeSubmission(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    if (!formspreeLeadForm) return;
+
+    showSpinner();
+    clearMessage(formMessage); // Clear previous messages
+
+    const formData = new FormData(formspreeLeadForm);
+    try {
+        const response = await fetch(formspreeLeadForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
             }
-            if (cookieConsentContent) {
-                cookieConsentContent.style.display = 'none';
-            }
-            setTimeout(showPopup, 500); // Show lead capture popup shortly after cookie action/initial load
+        });
+
+        if (response.ok) {
+            displayMessage("Thank you for signing up!", false, formMessage);
+            formspreeLeadForm.reset(); // Clear the form
+            // Optionally close the popup after a delay
+            setTimeout(() => {
+                hideLeadCapturePopup();
+            }, 2000);
         } else {
-            hidePopup(); // Either cookies not accepted yet, or lead already captured
-        }
-    }
-
-    // --- Lead Capture Form Submission Logic (Formspree) ---
-    if (leadCaptureForm) {
-        leadCaptureForm.addEventListener('submit', async function(event) {
-            event.preventDefault();
-
-            const form = event.target;
-            const formData = new FormData(form);
-            const formAction = form.action;
-
-            if (formMessage) {
-                formMessage.style.display = 'none';
-                formMessage.classList.remove('success', 'error');
+            const data = await response.json();
+            if (data.errors) {
+                displayMessage(data.errors.map(error => error.message).join(', '), true, formMessage);
+            } else {
+                displayMessage("Oops! There was a problem submitting your form.", true, formMessage);
             }
-
-            const submitButton = form.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton ? submitButton.textContent : 'Submit';
-            if (submitButton) {
-                submitButton.textContent = 'Submitting...';
-                submitButton.disabled = true;
-            }
-
-            try {
-                const response = await fetch(formAction, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-                    if (formMessage) {
-                        formMessage.textContent = "Thank you! Your strategies are on their way. Check your inbox.";
-                        formMessage.classList.add('success');
-                        formMessage.style.display = 'block';
-                    }
-                    form.reset();
-                    localStorage.setItem('leadCaptured', 'true');
-
-                    setTimeout(() => {
-                        if (leadCaptureContent) leadCaptureContent.style.display = 'none';
-                        hidePopup();
-                    }, 3000);
-
-                } else {
-                    const data = await response.json();
-                    if (formMessage) {
-                        formMessage.textContent = data.errors ? data.errors.map(err => err.message).join(', ') : 'Oops! Something went wrong. Please try again later.';
-                        formMessage.classList.add('error');
-                        formMessage.style.display = 'block';
-                    }
-                }
-            } catch (error) {
-                console.error('Form submission error:', error);
-                if (formMessage) {
-                    formMessage.textContent = 'Network error. Please check your connection and try again.';
-                    formMessage.classList.add('error');
-                    formMessage.style.display = 'block';
-                }
-            } finally {
-                if (submitButton) {
-                    submitButton.textContent = originalButtonText;
-                    submitButton.disabled = false;
-                }
-            }
-        });
-    }
-
-    if (closeLeadFormBtn) {
-        closeLeadFormBtn.addEventListener('click', function() {
-            hidePopup();
-        });
-    }
-
-    // --- Initial call to start the popup sequence on page load ---
-    handleCookieConsent();
-
-
-    // --- Shopify Offer Page CTA Conditional Display and Trigger ---
-    if (shopifyCta) {
-        if (localStorage.getItem('leadCaptured') === 'true') {
-            shopifyCta.style.display = 'none';
-        } else {
-            shopifyCta.style.display = 'block';
         }
-
-        if (triggerLeadPopupBtn) {
-            triggerLeadPopupBtn.addEventListener('click', function() {
-                if (cookieConsentContent) cookieConsentContent.style.display = 'none';
-                if (leadCaptureContent) leadCaptureContent.style.display = 'block';
-                showPopup();
-            });
-        }
+    } catch (error) {
+        console.error('Formspree submission error:', error);
+        displayMessage("Network error. Please try again.", true, formMessage);
+    } finally {
+        hideSpinner();
     }
+}
 
 
-    // --- Cart Count Update (Placeholder - assuming simple localStorage cart) ---
-    function updateCartCount() {
-        if (cartCountElement) {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cartCountElement.textContent = cart.length;
-        }
+// --- Shopping Cart Logic ---
+let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+function updateCartCount() {
+    if (cartCountElement) {
+        let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountElement.textContent = totalItems;
     }
+}
+
+function saveCart() {
+    localStorage.setItem('shoppingCart', JSON.stringify(cart));
     updateCartCount();
+}
 
+function addToCart(serviceId, serviceName, servicePrice) {
+    const price = parseFloat(servicePrice);
+    const existingItemIndex = cart.findIndex(item => item.id === serviceId);
 
-    // --- Stripe Payment Integration (for checkout.html) ---
-    if (paymentForm && paymentElementContainer && submitPaymentBtn && paymentSuccessMessage) {
-        // Initialize Stripe.js with your **LIVE PUBLISHABLE KEY**.
-        // Get this from your Stripe Dashboard -> Developers -> API keys (starts with 'pk_live_').
-        const stripe = Stripe('pk_live_51RSfPXFHtr1SOdkc0fjiQ9RPj66DoF4c4GPniCTJK6uCxCnsrDH97eR3F82uw2nfCorzsgUpJAsarYgmeCtzcDI700iFDHwLVJ'); // This should be your live key
+    if (existingItemIndex > -1) {
+        cart[existingItemIndex].quantity += 1;
+    } else {
+        cart.push({
+            id: serviceId,
+            name: serviceName,
+            price: price,
+            quantity: 1
+        });
+    }
+    saveCart();
+    alert(serviceName + " has been added to your cart!");
+}
 
-        let elements;
-        let clientSecret;
+function renderCartSummaryOnCheckout() {
+    if (!cartSummaryItemsContainer || !cartTotalPriceElement) return;
 
-        // Function to fetch the client secret from your Render.com backend
-        async function fetchPaymentIntentClientSecret() {
-            try {
-                // This is the URL to your Render.com backend API for creating a PaymentIntent
-                const backendUrl = 'https://my-stripe-backend-api.onrender.com';
-                const createIntentEndpoint = `${backendUrl}/create-payment-intent`;
+    cartSummaryItemsContainer.innerHTML = ''; // Clear previous content
+    let totalCartPrice = 0;
 
-                const amountValue = productPriceElement ? parseFloat(productPriceElement.textContent) * 100 : 10000;
-                const currency = 'usd';
+    if (cart.length === 0) {
+        cartSummaryItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+    } else {
+        cart.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('cart-item-summary');
+            itemElement.innerHTML = `
+                <p>${item.name} (x${item.quantity})</p>
+                <p>$${(item.price * item.quantity).toFixed(2)}</p>
+            `;
+            cartSummaryItemsContainer.appendChild(itemElement);
+            totalCartPrice += (item.price * item.quantity);
+        });
+    }
+    cartTotalPriceElement.textContent = totalCartPrice.toFixed(2);
+}
 
-                const response = await fetch(createIntentEndpoint, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ amount: amountValue, currency: currency })
-                });
+// --- Stripe Checkout Logic (specific to checkout.html) ---
+async function initializeStripe() {
+    if (!paymentForm) return; // Only run on checkout page
 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Failed to create payment intent on backend.');
-                }
+    try {
+        // 1. Fetch client secret from your backend
+        // THIS IS A PLACEHOLDER. Replace with a real API call to your server.
+        // Your server should create a PaymentIntent and return its client_secret.
+        const response = await fetch('/create-payment-intent', { // Replace with your actual backend endpoint
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            // You might send cart items or the total amount here
+            body: JSON.stringify({ items: cart, amount: parseFloat(cartTotalPriceElement.textContent) * 100 }) // amount in cents
+        });
+        const { clientSecret } = await response.json();
 
-                const data = await response.json();
-                return data.clientSecret;
-
-            } catch (error) {
-                console.error('Error fetching client secret:', error, error.message);
-                if (paymentErrorMessageDiv) {
-                    paymentErrorMessageDiv.textContent = `Payment initialization failed: ${error.message}. Please refresh and try again.`;
-                    paymentErrorMessageDiv.style.display = 'block';
-                }
-                return null;
+        const appearance = {
+            theme: 'stripe', // 'stripe', 'flat', 'none'
+            variables: {
+                colorPrimary: '#6a0dad', // Purple button for example
+                colorBackground: '#f9f9f9',
+                colorText: '#333',
+                colorDanger: '#df1b41',
+                fontFamily: 'Arial, sans-serif',
+                spacingUnit: '4px',
+                borderRadius: '4px',
             }
-        }
+        };
 
-        async function initializeStripeElements() {
-            clientSecret = await fetchPaymentIntentClientSecret();
+        elements = stripe.elements({ clientSecret, appearance });
 
-            if (clientSecret) {
-                elements = stripe.elements({ clientSecret });
-                const paymentElement = elements.create('payment');
-                paymentElement.mount('#payment-element');
-                paymentForm.style.display = 'block';
-            } else {
-                paymentForm.style.display = 'none';
-            }
-        }
+        const paymentElement = elements.create('payment');
+        paymentElement.mount('#payment-element');
 
-        initializeStripeElements();
+        paymentForm.addEventListener('submit', handleSubmit);
 
-        paymentForm.addEventListener('submit', async function(event) {
-            event.preventDefault();
+    } catch (error) {
+        console.error("Error initializing Stripe:", error);
+        displayMessage("Could not initialize payment. Please try again later.", true);
+        submitPaymentBtn.disabled = true; // Disable button if Stripe fails
+    }
+}
 
-            if (!elements || !clientSecret) {
-                if (paymentErrorMessageDiv) {
-                    paymentErrorMessageDiv.textContent = 'Payment system not ready. Please wait a moment and try again.';
-                    paymentErrorMessageDiv.style.display = 'block';
-                }
-                return;
-            }
+async function handleSubmit(e) {
+    e.preventDefault();
 
-            if (paymentErrorMessageDiv) {
-                paymentErrorMessageDiv.style.display = 'none';
-                paymentErrorMessageDiv.textContent = '';
-            }
-            if (submitPaymentBtn) {
-                submitPaymentBtn.disabled = true;
-                submitPaymentBtn.textContent = 'Processing...';
-            }
+    if (!stripe || !elements) {
+        // Stripe.js has not yet loaded.
+        return;
+    }
 
-            const customerNameInput = document.getElementById('customer-name');
-            const customerEmailInput = document.getElementById('customer-email');
-            const customerName = customerNameInput ? customerNameInput.value : null;
-            const customerEmail = customerEmailInput ? customerEmailInput.value : null;
+    showSpinner();
+    clearMessage(); // Clear previous error messages
 
-            const { error } = await stripe.confirmPayment({
-                elements,
-                clientSecret,
-                confirmParams: {
-                    return_url: `${window.location.origin}/payment-success.html`,
-                    payment_method_data: {
-                        billing_details: {
-                            name: customerName,
-                            email: customerEmail,
-                        },
-                    },
+    const customerName = document.getElementById('customer-name').value;
+    const customerEmail = document.getElementById('customer-email').value;
+
+    if (!customerName || !customerEmail) {
+        displayMessage("Please enter your full name and email.", true);
+        hideSpinner();
+        return;
+    }
+
+    const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+            // Make sure to change this to your payment completion page
+            return_url: window.location.origin + "/payment-success.html", // You might want a dedicated success page
+            receipt_email: customerEmail,
+            shipping: { // Example shipping data, adjust as needed
+                name: customerName,
+                address: {
+                    line1: '510 Townsend St',
+                    postal_code: '98140',
+                    city: 'San Francisco',
+                    state: 'CA',
+                    country: 'US',
                 },
-                redirect: 'if_required'
-            });
+            },
+        },
+        redirect: 'if_required' // Only redirect if necessary for 3D Secure etc.
+    });
 
-            if (error) {
-                if (paymentErrorMessageDiv) {
-                    paymentErrorMessageDiv.textContent = error.message;
-                }
-                if (submitPaymentBtn) {
-                    submitPaymentBtn.disabled = false;
-                    submitPaymentBtn.textContent = 'Pay Now';
-                }
-                // Ensure error message is visible only if there's an error
-                if (paymentErrorMessageDiv.textContent) {
-                    paymentErrorMessageDiv.style.display = 'block';
-                } else {
-                    paymentErrorMessageDiv.style.display = 'none';
-                }
-            } else {
-                paymentForm.style.display = 'none';
-                if (paymentSuccessMessage) {
-                    paymentSuccessMessage.style.display = 'block';
-                }
+    // This point will be reached if there is an immediate error or if redirect: 'if_required' was used
+    if (error) {
+        if (error.type === "card_error" || error.type === "validation_error") {
+            displayMessage(error.message, true);
+        } else {
+            displayMessage("An unexpected error occurred. Please try again.", true);
+        }
+        hideSpinner();
+    } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+        // Payment succeeded
+        displayMessage("Payment successful!", false);
+        paymentForm.style.display = 'none'; // Hide the form
+        showElement(paymentSuccessMessage); // Show success message
+        localStorage.removeItem('shoppingCart'); // Clear the cart after successful payment
+        updateCartCount(); // Update the cart count in the header
+    } else {
+        displayMessage("Payment status: " + paymentIntent.status, true); // Handle other statuses
+        hideSpinner();
+    }
+}
+
+
+// --- Main DOMContentLoaded Listener ---
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("script.js: DOM fully loaded and parsed.");
+
+    // Initialize core features
+    initCookieConsent();
+    updateCartCount(); // Always update cart count on page load
+
+    // Setup event listeners for lead capture popup
+    if (closeHubspotPopupButton) {
+        closeHubspotPopupButton.addEventListener('click', hideLeadCapturePopup);
+    }
+    if (hubspotPopupOverlay) {
+        // Close if clicking on the overlay itself, but not within the content
+        hubspotPopupOverlay.addEventListener('click', function(event) {
+            if (event.target === hubspotPopupOverlay) {
+                hideLeadCapturePopup();
             }
         });
     }
+    if (formspreeLeadForm) {
+        formspreeLeadForm.addEventListener('submit', handleFormspreeSubmission);
+    }
 
-    // --- Handle return from Stripe (e.g., after 3D Secure) on payment-success.html ---
-    const urlParams = new URLSearchParams(window.location.search);
-    const clientSecretFromUrl = urlParams.get('payment_intent_client_secret');
-    const redirectStatus = urlParams.get('redirect_status');
+    // Schedule lead capture popup
+    if (hubspotPopupOverlay && localStorage.getItem('cookiesAccepted') && !sessionStorage.getItem('leadPopupShownThisSession')) {
+        setTimeout(showLeadCapturePopup, 5000); // Show after 5 seconds if conditions met
+    }
 
-    if (clientSecretFromUrl && redirectStatus && window.location.pathname === '/payment-success.html') {
-        // Initialize Stripe.js again for retrieving payment intent status after redirect
-        // Use your **LIVE PUBLISHABLE KEY** here as well.
-        const stripe = Stripe('pk_live_51RSfPXFHtr1SOdkc0fjiQ9RPj66DoF4c4GPniCTJK6uCxCnsrDH97eR3F82uw2nfCorzsgUpJAsarYgmeCtzcDI700iFDHwLVJ');
-
-        stripe.retrievePaymentIntent(clientSecretFromUrl).then(({ paymentIntent }) => {
-            const successMessageDiv = document.getElementById('payment-success-message');
-            const errorMessageDiv = document.getElementById('error-message');
-
-            if (successMessageDiv && errorMessageDiv) {
-                if (paymentIntent.status === 'succeeded') {
-                    successMessageDiv.style.display = 'block';
-                    errorMessageDiv.style.display = 'none';
-                    console.log('Payment Succeeded:', paymentIntent);
-                    // Optionally, clear the cart or show a thank you message
-                } else {
-                    errorMessageDiv.textContent = `Payment failed: ${paymentIntent.status}. Please contact support.`;
-                    errorMessageDiv.style.display = 'block';
-                    successMessageDiv.style.display = 'none';
-                    console.error('Payment Failed:', paymentIntent);
-                }
-            }
-        }).catch(error => {
-            console.error('Error retrieving payment intent:', error);
-            const errorMessageDiv = document.getElementById('error-message');
-            if (errorMessageDiv) {
-                errorMessageDiv.textContent = `Error processing payment confirmation: ${error.message}.`;
-                errorMessageDiv.style.display = 'block';
-            }
+    // Add to Cart buttons for index.html (services)
+    if (buyNowButtons.length > 0) {
+        buyNowButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const serviceId = this.dataset.serviceId;
+                const serviceName = this.dataset.serviceName;
+                const servicePrice = this.dataset.servicePrice;
+                addToCart(serviceId, serviceName, servicePrice);
+            });
         });
+    }
+
+    // Checkout page specific logic
+    if (document.body.classList.contains('checkout-page-main')) { // Check if this is the checkout page
+        renderCartSummaryOnCheckout();
+        if (cart.length > 0) { // Only initialize Stripe if there are items in the cart
+            initializeStripe();
+        } else {
+            displayMessage("Your cart is empty. Please add items before checking out.", true);
+            if (paymentForm) paymentForm.style.display = 'none'; // Hide form if cart is empty
+        }
     }
 });
