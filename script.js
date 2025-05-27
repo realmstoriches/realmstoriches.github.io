@@ -1,4 +1,3 @@
-      
 document.addEventListener('DOMContentLoaded', function() {
     console.log("script.js DOMContentLoaded: All scripts loaded.");
 
@@ -478,6 +477,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     return null;
                 }
 
+                // *** This is the crucial line that defines currency ***
+                const currency = 'usd';
+
                 const response = await fetch(createIntentEndpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -493,6 +495,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return data.clientSecret;
 
             } catch (error) {
+                // This is line 496, where the error originated. Now it should reference the `currency`
                 console.error('Error fetching client secret:', error.message);
                 if (paymentErrorMessageDiv) {
                     paymentErrorMessageDiv.textContent = `Payment initialization failed: ${error.message}. Please refresh and try again.`;
@@ -642,5 +645,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 }); // End of DOMContentLoaded listener
-
-    
