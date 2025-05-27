@@ -4,105 +4,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realms to Riches - Checkout</title>
-    <link rel="icon" href="img/favicon.webp" type="image/webp">
+    <title>Checkout</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Stripe.js library must be loaded from Stripe's CDN -->
     <script src="https://js.stripe.com/v3/"></script>
+    <!-- Removed HubSpot Forms Embed Script -->
 </head>
-<body class="checkout-page"> <!-- Added class for specific CSS targeting -->
-
-    <header class="site-header">
-        <div class="container header-container">
-            <div class="logo-area">
-                <a href="index.html">
-                    <img src="img/logo.webp" alt="Realms to Riches Logo" class="site-logo" width="50" height="50">
-                </a>
+<body>
+    <div id="main-popup-container" class="popup-overlay">
+        <div id="cookie-consent-content" class="popup-content">
+            <h2>Cookie Consent</h2>
+            <p>We use cookies to ensure you get the best experience on our website. By continuing, you agree to our use of cookies.</p>
+            <div>
+                <a href="/privacy-policy.html" class="cookie-link">Learn More</a>
+                <button id="accept-cookies" class="btn btn-secondary" type="button">Accept</button>
             </div>
-            <nav class="main-navigation">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="/about.html">About</a></li>
-                    <li><a href="index.html#courses">Free Courses</a></li>
-                    <li><a href="index.html#tools">Recommended Tools</a></li>
-                    <li><a href="/shopify-offer.html">Shopify Offer</a></li>
-                    <li><a href="index.html#services">Our Services</a></li>
-                    <li><a href="/checkout.html" class="active">View Cart (<span id="cart-count">0</span>)</a></li>
-                </ul>
-            </nav>
         </div>
+        <div id="lead-capture-content" class="popup-content">
+            <button id="close-lead-form" class="close-button" type="button">×</button>
+            <img src="img/Drag drop done - English 300x250.webp" alt="Unlock exclusive strategies" style="max-width: 80%; height: auto; margin-bottom: 15px; border-radius: 4px;">
+            <h2>Unlock Exclusive Strategies!</h2>
+            <p>Enter your email to receive free market strategies and insights directly to your inbox.</p>
+            <form id="lead-capture-form-checkout" action="https://formspree.io/f/xvgajnqr" method="POST">
+                <input type="email" name="email" placeholder="Your Email" required>
+                <button type="submit">Get Strategies</button>
+            </form>
+            <div id="form-message"></div> <!-- For submission status/messages -->
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="view-cart.html">View Cart (<span id="cart-count">0</span>)</a>
+        </nav>
     </header>
 
-    <main>
-        <div class="checkout-page-main container"> <!-- Added container class -->
-            <h1>Complete Your Journey to Riches</h1>
+    <main class="checkout-page-main">
+        <h1>Your Order Summary</h1>
 
-            <section class="product-summary">
-                <h2>Order Summary</h2>
-                <div id="cart-summary-items">
-                    <!-- Cart items will be rendered here by JavaScript -->
-                    <p>Your cart is empty.</p>
+        <div class="product-summary">
+            <p>Product: **[Your Product Name Here]**</p>
+            <p>Price: $<span id="product-price">100.00</span></p>
+        </div>
+
+        <div class="checkout-container">
+            <h2>Payment Details</h2>
+
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="customer-name">Full Name:</label>
+                    <input type="text" id="customer-name" name="customer-name" placeholder="John Doe" required>
                 </div>
-                <p>Total: $<span id="total-price">0.00</span></p>
-            </section>
-
-            <section class="checkout-container">
-                <h2>Payment Information</h2>
-                <form id="payment-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                    </div>
-
-                    <hr>
-
-                    <!-- Stripe Payment Element will be mounted here -->
-                    <div id="payment-element">
-                        <p>Loading payment options...</p> <!-- Initial message while Stripe loads -->
-                    </div>
-
-                    <button id="submit-button" class="btn btn-primary">
-                        <span id="button-text">Pay Now</span>
-                        <span id="spinner" class="spinner hidden"></span>
-                    </button>
-                    <!-- Error messages from Stripe or validation will appear here -->
-                    <div id="payment-message" class="error-message"></div>
-                </form>
-
-                <!-- Success message container, initially hidden -->
-                <div id="success-container" class="success-message hidden">
-                    <h3>Payment Successful!</h3>
-                    <p>Your order has been placed. You're one step closer to claiming your riches!</p>
-                    <p>A confirmation email has been sent to your address.</p>
-                    <a href="index.html" class="btn btn-primary" style="margin-top: 20px;">Return Home</a>
+                <div class="form-group">
+                    <label for="customer-email">Email Address:</label>
+                    <input type="email" id="customer-email" name="customer-email" placeholder="john.doe@example.com" required>
                 </div>
-            </section>
+
+                <hr>
+                <div id="payment-element">
+                </div>
+
+                <div id="error-message" class="error-message" style="display: none;"></div>
+
+                <button id="submit-payment-btn">
+                    <div class="spinner hidden" id="spinner"></div>
+                    <span id="button-text">Pay Now</span>
+                </button>
+            </form>
+
+            <div id="payment-success-message" class="success-message" style="display: none;">
+                <p>Thank you! Your payment was successful.</p>
+                <p>A confirmation email has been sent to your address.</p>
+            </div>
+
         </div>
     </main>
 
-    <footer class="site-footer">
-        <div class="container footer-container">
-            <div class="footer-info">
-                <p>© 2025 Realms to Riches. All rights reserved.</p>
-                <p>CEO: Robert Demotto Jr</p>
-                <p>Mill Creek, WV 26280</p>
-                <p><a href="mailto:realmstoriches@gmail.com">realmstoriches@gmail.com</a></p>
-                <p><a href="tel:304-266-4833">304-266-4833</a></p>
-            </div>
-            <div class="footer-legal">
-                <p><a href="/terms-of-service.html" class="footer-link">Terms of Service</a></p>
-                <p><a href="/privacy-policy.html" class="footer-link">Privacy Policy</a></p>
-                <p class="disclaimer">
-                    <strong>Affiliate Disclaimer:</strong> This site may contain affiliate links. We may receive a
-                    commission if you sign up through these links, at no extra cost to you. This helps support our
-                    free content and resources.
-                </p>
-            </div>
-        </div>
+    <footer>
+        <p>© 2024 Realms to Riches. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>
