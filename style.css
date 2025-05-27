@@ -49,6 +49,7 @@ img {
     display: none !important;
 }
 
+/* Used for elements that should transition in/out */
 .visible {
     opacity: 1 !important;
     transform: translateY(0) !important;
@@ -92,6 +93,25 @@ img {
     background-color: #555;
     transform: translateY(-2px);
 }
+
+/* Spinner for loading states */
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 
 /* --- Header --- */
 .site-header {
@@ -440,6 +460,141 @@ h3 { font-size: 1.8rem; }
     /* Form message text: White */
 }
 
+/* --- Checkout Page Specific Styles --- */
+.checkout-page { /* Class added to body of checkout.html */
+    background-color: #000;
+    color: #fff;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.checkout-page h1 {
+    margin-bottom: 40px;
+}
+
+.checkout-container {
+    max-width: 700px;
+    margin: 40px auto;
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.product-summary {
+    max-width: 700px;
+    margin: 40px auto 20px auto;
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.product-summary h2, .checkout-container h2 {
+    color: #00FFFF;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+#cart-summary-items {
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.cart-item-summary {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 1.1rem;
+}
+
+.product-summary p {
+    text-align: right;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+#total-price {
+    color: #00FFFF; /* Cyan for total price */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus {
+    border-color: #00FFFF;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.4);
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #333;
+    margin: 30px 0;
+}
+
+#payment-element {
+    margin-bottom: 20px;
+    /* Ensure Stripe Elements have enough space */
+}
+
+#submit-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    display: flex; /* For spinner alignment */
+    justify-content: center;
+    align-items: center;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.success-message {
+    color: green;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.success-message h3 {
+    color: green;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+.success-message p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #fff; /* White for success message text */
+}
+
+
 /* --- Footer --- */
 .site-footer {
     background-color: #00FFFF;
@@ -558,6 +713,12 @@ h3 { font-size: 1.8rem; }
     .footer-legal {
         flex: none;
     }
+
+    .checkout-container, .product-summary {
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 20px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -590,4 +751,43 @@ h3 { font-size: 1.8rem; }
     .popup-content {
         padding: 20px;
     }
+
+    #submit-button {
+        font-size: 1rem;
+    }
+}
+
+/* Stripe Elements Specific Styles */
+/* These are general suggestions and might need tweaking based on actual Stripe rendering */
+.StripeElement {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid #555; /* Match your input borders */
+    border-radius: 5px;
+    background-color: #333; /* Match your input background */
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+    color: #fff; /* Text color inside stripe elements */
+}
+
+.StripeElement--focus {
+    box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.4); /* Cyan focus shadow */
+    border-color: #00FFFF;
+}
+
+.StripeElement--invalid {
+    border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}
+
+/* Specific styling for Stripe's 'payment' element iframe */
+/* You might need to inspect the actual rendered iframe for precise targeting */
+.StripeElement > div > div {
+    background-color: #333 !important; /* Forces background color on internal elements */
+    color: #fff !important; /* Forces text color on internal elements */
 }
