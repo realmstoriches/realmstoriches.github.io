@@ -7,9 +7,10 @@
     <title>Checkout</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://js.stripe.com/v3/"></script>
-    <!-- Removed HubSpot Forms Embed Script -->
+    <!-- Removed HubSpot Forms Embed Script as we're using Formspree -->
 </head>
 <body>
+    <!-- Unified Popup Container (Consistent across pages) -->
     <div id="main-popup-container" class="popup-overlay">
         <div id="cookie-consent-content" class="popup-content">
             <h2>Cookie Consent</h2>
@@ -24,6 +25,7 @@
             <img src="img/Drag drop done - English 300x250.webp" alt="Unlock exclusive strategies" style="max-width: 80%; height: auto; margin-bottom: 15px; border-radius: 4px;">
             <h2>Unlock Exclusive Strategies!</h2>
             <p>Enter your email to receive free market strategies and insights directly to your inbox.</p>
+            <!-- Formspree form for lead capture -->
             <form id="lead-capture-form-checkout" action="https://formspree.io/f/xvgajnqr" method="POST">
                 <div class="form-group">
                     <label for="email-checkout">Your email:</label>
@@ -72,7 +74,8 @@
 
                 <hr>
                 <!-- Stripe Payment Element will render here -->
-                <div id="payment-element"></div>
+                <div id="payment-element">
+                </div>
 
                 <div id="error-message" class="error-message" style="display: none;"></div>
 
