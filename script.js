@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Lead Capture (Formspree) Elements ---
     const leadCaptureContent = document.getElementById('lead-capture-content');
     const closeLeadFormBtn = document.getElementById('close-lead-form');
-    // Select both Formspree forms by their specific IDs
-    const leadCaptureFormMain = document.getElementById('lead-capture-form-main'); // For index.html
-    const leadCaptureFormCheckout = document.getElementById('lead-capture-form-checkout'); // For checkout.html
+    // Select Formspree forms by their specific IDs (one for main, one for checkout if different HTML)
+    const leadCaptureFormMain = document.getElementById('lead-capture-form-main'); // For index.html (and view-cart.html popup)
+    const leadCaptureFormCheckout = document.getElementById('lead-capture-form-checkout'); // For checkout.html popup
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/xvgajnqr"; // Your Formspree endpoint
 
 
@@ -293,6 +293,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Ensure all required DOM elements exist for rendering
         if (!cartItemsContainer || !cartTotalElement || !emptyCartMessageElement || !cartSummarySectionElement || !proceedToCheckoutBtn) {
             console.error("View Cart page: One or more critical display elements are missing from the DOM. Cannot render cart.");
+            // Log missing elements to help debug
+            console.log('Missing: cartItemsContainer', !!cartItemsContainer);
+            console.log('Missing: cartTotalElement', !!cartTotalElement);
+            console.log('Missing: emptyCartMessageElement', !!emptyCartMessageElement);
+            console.log('Missing: cartSummarySectionElement', !!cartSummarySectionElement);
+            console.log('Missing: proceedToCheckoutBtn', !!proceedToCheckoutBtn);
+
             return; // Exit if elements aren't found
         }
 
@@ -343,8 +350,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         cartTotalElement.innerHTML = `<strong>Grand Total: $${totalAmount.toFixed(2)}</strong>`;
-        attachCartActionListeners(); // Re-attach listeners after rendering
+        // Attach listeners only if they haven't been attached or if content was re-rendered
+        attachCartActionListeners();
         updateCartCount(); // Update the header cart count
+    }
+
+    // Function to (re)attach event listeners for cart actions
+    function attachCartActionListeners() {
+        if (!cartItemsContainer) return; // Only proceed if the container exists
+
+        // Remove old listeners to prevent duplicates (important if renderCartDisplay is called multiple times)
+        cartItemsContainer.removeEventListener('click', handleCartItemButtonClick);
+        // Add the new delegated listener
+        cartItemsContainer.addEventListener('click', handleCartItemButtonClick);
+    }
+
+    // Delegated event handler for cart item buttons
+    function handleCartItemButtonClick(event) {
+        if (event.target.classList.contains('btn-remove-item')) {
+            const indexToRemove = parseInt(event.target.dataset.index);
+            removeItemFromCart(indexToRemove);
+        } else if (event.target.classList.contains('btn-update-quantity')) {
+            const itemIndex = parseInt(event.target.dataset.index);
+            const action = event.target.dataset.action;
+            updateItemQuantity(itemIndex, action);
+        }
     }
 
     function removeItemFromCart(index) {
@@ -368,20 +398,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Event listener for "Remove" and Quantity buttons (delegated)
-    if (cartItemsContainer) { // Attach to the container to catch events from dynamically added buttons
-        cartItemsContainer.addEventListener('click', function(event) {
-            if (event.target.classList.contains('btn-remove-item')) {
-                const indexToRemove = parseInt(event.target.dataset.index);
-                removeItemFromCart(indexToRemove);
-            } else if (event.target.classList.contains('btn-update-quantity')) {
-                const itemIndex = parseInt(event.target.dataset.index);
-                const action = event.target.dataset.action;
-                updateItemQuantity(itemIndex, action);
-            }
-        });
-    }
-
     // Handle "Proceed to Checkout" button click on view-cart.html
     if (proceedToCheckoutBtn) {
         proceedToCheckoutBtn.addEventListener('click', function() {
@@ -389,7 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = '/checkout.html';
             } else {
                 alert("Your cart is empty. Please add items before proceeding to checkout.");
-                proceedToCheckoutBtn.disabled = true;
+                proceedToCheckoutBtn.disabled = true; // Just in case, keep it disabled
             }
         });
     }
@@ -406,9 +422,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- Stripe Payment Integration (for checkout.html) ---
-    // Only run this block if the payment form and its related elements exist on the page
-    if (paymentForm && paymentElementContainer && submitPaymentBtn && paymentSuccessMessage) {
-        console.log("Stripe checkout elements found. Initializing Stripe.");
+    // Only run this block if the payment form and its related elements exist AND we are on checkout.html
+    const isCheckoutPage = window.location.pathname === '/checkout.html';
+
+    console.log('DEBUG: On checkout page:', isCheckoutPage);
+    console.log('DEBUG: paymentForm exists:', !!paymentForm);
+    console.log('DEBUG: paymentElementContainer exists:', !!paymentElementContainer);
+    console.log('DEBUG: submitPaymentBtn exists:', !!submitPaymentBtn);
+    console.log('DEBUG: paymentSuccessMessage exists:', !!paymentSuccessMessage);
+
+    if (isCheckoutPage && paymentForm && paymentElementContainer && submitPaymentBtn && paymentSuccessMessage) {
+        console.log("Stripe checkout elements found AND on checkout page. Initializing Stripe.");
 
         // On checkout.html, update the cart total price element
         const checkoutTotal = calculateCartTotal();
@@ -444,8 +468,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     paymentForm.style.display = 'none';
                     return null;
                 }
-
-                const currency = 'usd'; // Assuming USD
 
                 const response = await fetch(createIntentEndpoint, {
                     method: 'POST',
@@ -610,4 +632,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-});
+}); // End of DOMContentLoaded listener
