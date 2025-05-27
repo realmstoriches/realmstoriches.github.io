@@ -1,264 +1,579 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realms to Riches - Home</title>
-    <link rel="stylesheet" href="style.css">
+
+    <title>Realms to Riches - Build Profitable Online Businesses & Digital Marketing Strategies</title>
+
+    <meta name="description" content="Realms to Riches empowers entrepreneurs to build, grow, and scale profitable online businesses. Discover proven digital marketing strategies, free courses on faceless brands, paid traffic, social media marketing, and recommended tools to achieve online success.">
+    <meta name="google-site-verification" content="lL4yI18XwSQV6mptDR_zU5ATMPNlIL3fvWTEAd1V380" />
+    <meta name="keywords" content="online business, entrepreneur, digital marketing, faceless brand, paid traffic, social media marketing, build online business, grow online business, scale online business, make money online, online business strategies, free digital marketing courses, online business tools, shopify offer">
     <link rel="icon" href="img/favicon.webp" type="image/webp">
-    <meta name="description" content="Explore Realms to Riches: Epic adventures, expert courses, and essential tools for digital success.">
-    <meta name="keywords" content="Realms to Riches, digital services, online courses, business tools, adventure, success">
-</head>
+
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="canonical" href="https://realmstoriches.github.io/">
+
+    <meta property="og:title" content="Realms to Riches - Build Profitable Online Businesses & Digital Marketing Strategies">
+    <meta property="og:description" content="Realms to Riches empowers entrepreneurs to build, grow, and scale profitable online businesses. Discover proven digital marketing strategies, free courses on faceless brands, paid traffic, social media marketing, and recommended tools to achieve online success.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://realmstoriches.github.io/">
+    <meta property="og:image" content="https://realmstoriches.github.io/img/image1.png">
+    <meta property="og:image:alt" content="Two entrepreneurs discussing online business strategies">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Realms to Riches - Build Profitable Online Businesses & Digital Marketing Strategies">
+    <meta name="twitter:description" content="Realms to Riches empowers entrepreneurs to build, grow, and scale profitable online businesses. Discover proven digital marketing strategies, free courses on faceless brands, paid traffic, social media marketing, and recommended tools to achieve online success.">
+    <meta name="twitter:image" content="https://realmstoriches.github.io/img/image1.png">
+    </head>
+
 <body>
 
     <header class="site-header">
         <div class="container header-container">
             <div class="logo-area">
-                <a href="index.html">
-                    <img src="img/logo.webp" alt="Realms to Riches Logo" class="site-logo">
+                <a href="/">
+                    <img src="img/logo.webp" alt="Realms to Riches Logo" class="site-logo" width="50" height="50">
                 </a>
             </div>
             <nav class="main-navigation">
                 <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="#services-section">Services</a></li>
-                    <li><a href="#courses-section">Courses</a></li>
-                    <li><a href="#tools-resources-section">Tools</a></li>
-                    <li><a href="#secondary-services-section">Secondary</a></li>
-                    <li><a href="checkout.html">Cart (<span id="cart-count">0</span>)</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="#courses">Free Courses</a></li>
+                    <li><a href="#tools">Recommended Tools</a></li>
+                    <li><a href="/shopify-offer.html">Shopify Offer</a></li>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="/view-cart.html">View Cart (<span id="cart-count">0</span>)</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
+    <div class="full-width-banner">
+        <img src="img/image1-800w.webp"
+            srcset="img/image1-800w.webp 800w, img/image1-1200w.webp 1200w, img/image1-1600w.webp 1600w"
+            sizes="(max-width: 767px) 100vw, (max-width: 991px) 90vw, (max-width: 1199px) 80vw, 1200px"
+            alt="Two entrepreneurs discussing online business strategies in a modern office" width="1600" height="913">
+    </div>
+
+    <div id="our-services" class="container">
+        <h2>Our Services & Pricing</h2>
+        <h3>Invest in Your Business Growth with Our Expert Solutions</h3>
+        <div class="row service-grid justify-content-center">
+
+            <div class="col-md-3">
+                <div class="area">
+                    <img src="img/service-consultation.svg" alt="Business Management Consultation icon" width="300"
+                        height="169">
+                    <h3>Business Management Consultation</h3>
+                    <p>Strategic guidance to streamline your business operations and growth.</p>
+                    <p><strong>Price: $300</strong></p>
+                    <button class="btn btn-primary buy-now-btn" data-service-id="consultation"
+                        data-service-name="Business Management Consultation" data-service-price="300">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="area">
+                    <img src="img/service-brandkitdesign.svg" alt="Basic Brand Kit icon" width="300" height="169">
+                    <h3>Basic Brand Kit</h3>
+                    <p>Essential branding elements including logo design, color palette, and typography.</p>
+                    <p><strong>Price: $450</strong></p>
+                    <button class="btn btn-primary buy-now-btn" data-service-id="brandkit"
+                        data-service-name="Basic Brand Kit" data-service-price="450">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="area">
+                    <img src="img/service-marketing.svg" alt="Marketing Campaign Management icon" width="300"
+                        height="169">
+                    <h3>Marketing Campaign Management</h3>
+                    <p>Expert setup and initial management of your marketing campaign (ad spend not included).</p>
+                    <p><strong>Price: $700</strong></p>
+                    <button class="btn btn-primary buy-now-btn" data-service-id="campaign"
+                        data-service-name="Marketing Campaign Management" data-service-price="700">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="area">
+                    <img src="img/service-webdesignbasic.png" alt="Website Design (Basic) icon" width="300"
+                        height="169">
+                    <h3>Website Design (Basic)</h3>
+                    <p>Professional, responsive website design for small businesses.</p>
+                    <p><strong>Price: $1500</strong></p>
+                    <button class="btn btn-primary buy-now-btn" data-service-id="web-basic"
+                        data-service-name="Website Design (Basic)" data-service-price="1500">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="area">
+                    <img src="img/service-webdesignadvanced.png" alt="Website Design (Advanced) icon" width="300"
+                        height="169">
+                    <h3>Website Design (Advanced)</h3>
+                    <p>Advanced website design with custom features and integrations for growing businesses.</p>
+                    <p><strong>Price: $3000</strong></p>
+                    <button class="btn btn-primary buy-now-btn" data-service-id="web-adv"
+                        data-service-name="Website Design (Advanced)" data-service-price="3000">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="area">
+                    <img src="img/service-ecommercewebdesign.png" alt="E-commerce Website Development icon" width="300"
+                        height="169">
+                    <h3>E-commerce Website Development</h3>
+                    <p>Full-featured online store development with payment gateway integration.</p>
+                    <p><strong>Price: $5000</strong></p>
+                    <button class="btn btn-primary buy-now-btn" data-service-id="ecommerce"
+                        data-service-name="E-commerce Website Development" data-service-price="5000">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="area">
+                    <img src="img/service-seo.svg" alt="SEO Optimization Package icon" width="300" height="169">
+                    <h3>SEO Optimization Package</h3>
+                    <p>Comprehensive search engine optimization to improve your online visibility.</p>
+                    <p><strong>Price: $800</strong></p>
+                    <button class="btn btn-primary buy-now-btn" data-service-id="seo-package"
+                        data-service-name="SEO Optimization Package" data-service-price="800">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="area">
+                    <img src="img/service-contentcreation.svg" alt="Social Media Management icon" width="300"
+                        height="169">
+                    <h3>Social Media Management</h3>
+                    <p>Professional management of your social media presence to engage your audience.</p>
+                    <p><strong>Price: $600</strong></p>
+                    <button class="btn btn-primary buy-now-btn" data-service-id="social-media"
+                        data-service-name="Social Media Management" data-service-price="600">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="area">
+                    <img src="img/service-monthlyelite.png" alt="Subscription support icon" width="300" height="169">
+                    <h3>Realms to Riches Elite Support</h3>
+                    <p>Gain exclusive access to priority support, monthly strategic coaching sessions, and a curated
+                        library of resources to ensure your business continuously thrives online.</p>
+                    <p><strong>Price: $250/month</strong></p>
+                    <button class="btn btn-primary buy-now-btn" data-service-id="elite-support"
+                        data-service-name="Realms to Riches Elite Support" data-service-price="250"
+                        data-service-type="subscription">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="area">
+                    <img src="img/service-monthlystartup.png" alt="Startup accelerator bundle icon" width="300"
+                        height="169">
+                    <h3>Startup Accelerator Bundle</h3>
+                    <p>Kickstart your online presence with strategic guidance, essential branding, and a professional
+                        basic website.</p>
+                    <p><strong>Price: $1999</strong></p>
+                    <button class="btn btn-primary buy-now-btn" data-service-id="startup-bundle"
+                        data-service-name="Startup Accelerator Bundle" data-service-price="1999">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="area">
+                    <img src="img/service-digitaldomination.png" alt="Digital domination package icon" width="300"
+                        height="169">
+                    <h3>Digital Domination Package</h3>
+                    <p>Take full control of your digital landscape with an advanced website, comprehensive marketing,
+                        and robust SEO and social media strategies.</p>
+                    <p><strong>Price: $4499</strong></p>
+                    <button class="btn btn-primary buy-now-btn" data-service-id="digital-domination"
+                        data-service-name="Digital Domination Package" data-service-price="4499">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="area">
+                    <img src="img/service-digitalgrowthmonthly.png" alt="Digital Growth Monthly icon" width="300"
+                        height="169">
+                    <h3>Digital Growth Monthly</h3>
+                    <p>Continuous optimization and support for your digital marketing channels, including monthly
+                        reports and strategic adjustments for sustained online performance.</p>
+                    <p><strong>Price: $400/month</strong></p>
+                    <button class="btn btn-primary buy-now-btn" data-service-id="digital-growth-monthly"
+                        data-service-name="Digital Growth Monthly" data-service-price="400"
+                        data-service-type="subscription">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <main>
-        <section class="hero-section">
-            <div class="container">
-                <h1>Unlock Your Digital Kingdom</h1>
-                <p>Embark on a journey to build wealth, master skills, and conquer the digital realm with Realms to Riches.</p>
-                <button class="btn btn-primary" id="call-to-action-btn">Start Your Adventure</button>
-            </div>
-        </section>
-
-        <section id="services-section" class="section">
-            <div class="container">
-                <h2 class="section-title">Our Core Services</h2>
-                <div class="grid-4-col">
-                    <div class="grid-item">
-                        <img src="img/service-marketing.svg" alt="Digital Marketing Icon">
-                        <h3>Digital Marketing Campaigns</h3>
-                        <p>Forge powerful marketing strategies to reach vast audiences.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="digi-marketing" data-product-name="Digital Marketing Campaigns" data-product-price="1000">Learn More</button>
-                    </div>
-                    <div class="grid-item">
-                        <img src="img/service-webdesign.svg" alt="Website Development Icon">
-                        <h3>Website Development</h3>
-                        <p>Build robust and enchanting online presences.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="web-dev" data-product-name="Website Development" data-product-price="2500">Learn More</button>
-                    </div>
-                    <div class="grid-item">
-                        <img src="img/service-contentcreation.svg" alt="Content Creation Icon">
-                        <h3>Content Creation</h3>
-                        <p>Craft compelling narratives that captivate and convert.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="content-creation" data-product-name="Content Creation" data-product-price="800">Learn More</button>
-                    </div>
-                    <div class="grid-item">
-                        <img src="img/service-seo.svg" alt="SEO Optimization Icon">
-                        <h3>SEO Optimization</h3>
-                        <p>Ascend the search rankings and claim your digital territory.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="seo-opt" data-product-name="SEO Optimization" data-product-price="1200">Learn More</button>
-                    </div>
-                    <div class="grid-item">
-                        <img src="img/service-businessmanagement.svg" alt="Social Media Management Icon"> <h3>Social Media Management</h3>
-                        <p>Command your social presence with expert guidance.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="social-mgmt" data-product-name="Social Media Management" data-product-price="700">Learn More</button>
-                    </div>
-                    <div class="grid-item">
-                        <img src="img/service-ecommercewebdesign.png" alt="E-commerce Solutions Icon">
-                        <h3>E-commerce Solutions</h3>
-                        <p>Equip your store with powerful sales mechanisms.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="ecommerce-sol" data-product-name="E-commerce Solutions" data-product-price="1800">Learn More</button>
-                    </div>
-                    <div class="grid-item">
-                        <img src="img/image17-400w.webp" alt="Cloud Hosting Icon"> <h3>Cloud Hosting</h3>
-                        <p>Secure your digital assets in the impenetrable cloud.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="cloud-host" data-product-name="Cloud Hosting" data-product-price="300">Learn More</button>
-                    </div>
-                    <div class="grid-item">
-                        <img src="img/image18-400w.webp" alt="Data Analytics Icon"> <h3>Data Analytics</h3>
-                        <p>Uncover hidden treasures in your business data.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="data-anal" data-product-name="Data Analytics" data-product-price="950">Learn More</button>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="area">
+                        <h1>Realms to Riches: Build & Scale Your Profitable Online Business Today</h1>
+                        <h2>Unlock Proven Digital Marketing Strategies for Entrepreneurs</h2>
+                        <p>
+                            Welcome to Realms to Riches, where we empower entrepreneurs like you to build and scale
+                            thriving online businesses. Our focus is on providing proven digital marketing strategies,
+                            tools, and resources covering everything from generating leads to converting sales. Whether
+                            you're just starting out or looking to grow, we have the expertise to help you navigate the
+                            world of online commerce and achieve your financial goals.
+                        </p>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section id="courses-section" class="section">
-            <div class="container">
-                <h2 class="section-title">Master Your Craft with Our Courses</h2>
-                <div class="grid-3-col">
-                    <div class="grid-item">
-                        <img src="img/image6-800w.webp" alt="Digital Marketing Course Icon">
-                        <h3>Digital Marketing Mastery</h3>
-                        <p>Comprehensive training to dominate online campaigns.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="dm-mastery" data-product-name="Digital Marketing Mastery" data-product-price="499">Enroll Now</button>
+            <div id="courses" class="container">
+                <h2>Free Digital Marketing Courses for Entrepreneurs</h2>
+                <h3>Learn Essential Online Business Skills with Our Free Academies</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="area"><img src="img/image2-400w.webp"
+                                srcset="img/image2-400w.webp 400w, img/image2-800w.webp 800w, img/image2-1200w.webp 1200w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px"
+                                alt="Faceless brand logo or icon or Abstract image representing a faceless online brand"
+                                width="1200" height="675">
+                            <h3>FACELESS CONTENT ACADEMY</h3>
+                            <p>This free course is designed for entrepreneurs who want to build a powerful online
+                                business presence without showing their face. Learn how to develop a successful
+                                faceless brand and master social media marketing techniques to attract and monetize your
+                                audience for greater chance at virality. It's a strategic digital marketing approach
+                                for modern online ventures.</p><a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches"
+                                class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The
+                                Course</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image7-800w.webp" alt="Web Development Course Icon">
-                        <h3>Web Development Fundamentals</h3>
-                        <p>Build the foundations for stunning websites.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="web-dev-course" data-product-name="Web Development Fundamentals" data-product-price="599">Enroll Now</button>
+                    <div class="col-md-4">
+                        <div class="area"><img src="img/image3-400w.webp"
+                                srcset="img/image3-400w.webp 400w, img/image3-800w.webp 800w, img/image3-1200w.webp 1200w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px"
+                                alt="Paid advertising graph or icon representing paid traffic or Image showing growth from paid social media marketing"
+                                width="1200" height="675">
+                            <h3>PAID TRAFFIC ACADEMY</h3>
+                            <p>Master the art of driving paid traffic to your online business with this free course.
+                                You'll learn how to create highly effective paid advertising campaigns on popular social
+                                media platforms like Facebook, Instagram, and TikTok. We cover essential strategies for
+                                entrepreneurs, including influencer outreach, to help you maximize your return on ad
+                                spend, even starting with a small budget.</p><a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches"
+                                class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The
+                                Course</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image2-800w.webp" alt="SEO Strategies Course Icon">
-                        <h3>Advanced SEO Strategies</h3>
-                        <p>Become an SEO wizard and rank higher.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="adv-seo" data-product-name="Advanced SEO Strategies" data-product-price="349">Enroll Now</button>
+                    <div class="col-md-4">
+                        <div class="area"><img src="img/image4-400w.webp"
+                                srcset="img/image4-400w.webp 400w, img/image4-800w.webp 800w, img/image4-1200w.webp 1200w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px"
+                                alt="Video editing icon or image representing short-form video clipping or Viral video content creation graphic"
+                                width="1200" height="675">
+                            <h3>VIRAL CLIPPING</h3>
+                            <p>Unlock massive social media marketing potential by turning long-form content into viral
+                                short-form videos like Reels, Shorts, and TikToks! This free course teaches you this
+                                essential digital marketing skill, helping entrepreneurs capture attention and drive
+                                significant, often viral traffic, back to their online business. It's an easy-to-learn
+                                method for boosting your online visibility.</p><a href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches"
+                                class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The
+                                Course</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image3-800w.webp" alt="Content Writing Course Icon">
-                        <h3>Content Writing for Conversions</h3>
-                        <p>Turn words into riches with engaging content.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="content-write" data-product-name="Content Writing for Conversions" data-product-price="299">Enroll Now</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="area"><img src="img/image5-400w.webp"
+                                srcset="img/image5-400w.webp 400w, img/image5-800w.webp 800w, img/image5-1200w.webp 1200w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px"
+                                alt="YouTube logo or icon representing YouTube marketing" width="1200" height="675">
+                            <h3>You Tube Marketing Academy</h3>
+                            <p>Learn how to start and grow a successful YouTube channel for your personal brand or
+                                online business. This free course provides beginner entrepreneurs with the essential
+                                digital marketing strategies needed to gain views, build an audience, and leverage the
+                                power of the second largest search engine for their brand.</p><a
+                                href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches"
+                                class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The
+                                Course</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image4-800w.webp" alt="Social Media Growth Icon">
-                        <h3>Social Media Growth Hacking</h3>
-                        <p>Rapidly expand your influence on social platforms.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="social-growth" data-product-name="Social Media Growth Hacking" data-product-price="249">Enroll Now</button>
+                    <div class="col-md-4">
+                        <div class="area"><img src="img/image6-400w.webp"
+                                srcset="img/image6-400w.webp 400w, img/image6-800w.webp 800w, img/image6-1200w.webp 1200w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px"
+                                alt="Image representing a bridge or connection in marketing or Bridge marketing strategy icon"
+                                width="1200" height="675">
+                            <h3>Bridge Marketing Academy</h3>
+                            <p>Discover the advanced digital marketing technique of bridge marketing, used by top
+                                entrepreneurs to significantly boost conversions for their online business. This free
+                                course teaches you how to create targeted offers that resonate with specific audiences,
+                                making your sales process far more effective than generic social media marketing or paid
+                                traffic campaigns alone.</p><a
+                                href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches"
+                                class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The
+                                Course</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image5-800w.webp" alt="E-commerce Success Course Icon">
-                        <h3>E-commerce Success Blueprint</h3>
-                        <p>Blueprint for launching and scaling online stores.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="ecommerce-blue" data-product-name="E-commerce Success Blueprint" data-product-price="699">Enroll Now</button>
+                    <div class="col-md-4">
+                        <div class="area"><img src="img/image7-400w.webp"
+                                srcset="img/image7-400w.webp 400w, img/image7-800w.webp 800w, img/image7-1200w.webp 1200w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px"
+                                alt="Icon representing access to multiple online courses and community or Graphic for free access to all digital marketing academies"
+                                width="1200" height="675">
+                            <h3>Free Access to All Academies</h3>
+                            <p>Gain free access to all our digital marketing academies, covering every aspect of
+                                building a successful online business for entrepreneurs. Beyond the featured courses,
+                                our community offers live daily sessions, including workshops on paid traffic and social
+                                media marketing tools, providing comprehensive support for your journey.</p><a
+                                href="https://thesuperlink.com/tiktokshop?ref=robertdemottojr&source=realmstoriches"
+                                class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Access The
+                                Course</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section id="tools-resources-section" class="section">
-            <div class="container">
-                <h2 class="section-title">Essential Tools & Resources</h2>
-                <div class="grid-4-col">
-                    <div class="grid-item">
-                        <img src="img/image14-300w.webp" alt="SEO Audit Software Icon">
-                        <h3>SEO Audit Software</h3>
-                        <p>Uncover hidden SEO issues and opportunities.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="seo-audit" data-product-name="SEO Audit Software" data-product-price="99">Get Tool</button>
+            <div id="tools" class="container">
+                <h2>Recommended Tools & Resources</h2>
+                <h3>We highly recommend a free trial of these powerful digital marketing tools</h3>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="area"><img src="img/image8-300w.webp"
+                                srcset="img/image8-300w.webp 300w, img/image8-600w.webp 600w, img/image8-900w.webp 900w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px"
+                                alt="HighLevel software logo" width="900" height="506">
+                            <h3>High Level</h3>
+                            <p>Go High Level: Helps you manage your entire business online.</p><a
+                                href="https://www.gohighlevel.com/?fp_ref=realmstoriches" class="btn btn-primary"
+                                target="_blank" rel="noopener noreferrer sponsored">Try High Level!</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image15-300w.webp" alt="Graphic Design Templates Icon">
-                        <h3>Graphic Design Templates</h3>
-                        <p>Stunning visuals made easy with our template library.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="design-temp" data-product-name="Graphic Design Templates" data-product-price="49">Get Tool</button>
+                    <div class="col-md-3">
+                        <div class="area"><img src="img/image9-300w.webp"
+                                srcset="img/image9-300w.webp 300w, img/image9-600w.webp 600w, img/image9-900w.webp 900w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px"
+                                alt="CapCut video editing app logo" width="900" height="506">
+                            <h3>Cap Cut</h3>
+                            <p>Cap Cut: Edit videos for social media marketing.</p><a
+                                href="https://capcutaffiliateprogram.pxf.io/realmstoriches" class="btn btn-primary"
+                                target="_blank" rel="noopener noreferrer sponsored">Try Cap Cut!</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image16-400w.webp" alt="CRM System Icon">
-                        <h3>CRM System Access</h3>
-                        <p>Manage your client relationships like a true king.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="crm-access" data-product-name="CRM System Access" data-product-price="149">Get Access</button>
+                    <div class="col-md-3">
+                        <div class="area"><img src="img/image10-300w.webp"
+                                srcset="img/image10-300w.webp 300w, img/image10-600w.webp 600w, img/image10-900w.webp 900w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px"
+                                alt="ClickFunnels software logo" width="900" height="506">
+                            <h3>ClickFunnels</h3>
+                            <p>ClickFunnels: Maximize conversions for your online business.</p><a
+                                href="https://www.plrfunnels.com/plr?aff=b227fabeecb5b9674bf510b0714f0569236d7bbd6ceb3c3ac3f92061ea372fab"
+                                class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Try Click
+                                Funnels!</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image17-400w.webp" alt="Automated Email Flows Icon">
-                        <h3>Automated Email Flows</h3>
-                        <p>Set up drip campaigns for effortless nurturing.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="email-flows" data-product-name="Automated Email Flows" data-product-price="79">Get Flows</button>
+                    <div class="col-md-3">
+                        <div class="area"><img src="img/image11-300w.webp"
+                                srcset="img/image11-300w.webp 300w, img/image11-600w.webp 600w, img/image11-900w.webp 900w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px"
+                                alt="Brand Push logo or icon representing personal branding" width="900" height="506">
+                            <h3>Brand Push</h3>
+                            <p>Brand Push: Dealing with your personal brand, essential for entrepreneurs online.</p><a
+                                href="https://www.brandpush.co/?ref=57120" class="btn btn-primary" target="_blank"
+                                rel="noopener noreferrer sponsored">Try Brand Push!</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image18-400w.webp" alt="Lead Generation Templates Icon">
-                        <h3>Lead Generation Templates</h3>
-                        <p>Templates to capture more prospects.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="lead-gen-temp" data-product-name="Lead Generation Templates" data-product-price="59">Get Templates</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="area"><img src="img/image12-300w.webp"
+                                srcset="img/image12-300w.webp 300w, img/image12-600w.webp 600w, img/image12-900w.webp 900w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px"
+                                alt="Pollo AI logo or icon representing AI content creation" width="900" height="506">
+                            <h3>Pollo AI</h3>
+                            <p>Pollo AI: Create talking avatars, images, and videos for digital marketing content.</p>
+                            <a href="https://pollo.ai/invitation-landing?invite_code=pIY2cF" class="btn btn-primary"
+                                target="_blank" rel="noopener noreferrer sponsored">Try Pollo AI!</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image19-800w.webp" alt="Project Management Icon">
-                        <h3>Project Management Suite</h3>
-                        <p>Keep your projects on track and on budget.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="proj-mgmt-suite" data-product-name="Project Management Suite" data-product-price="129">Get Suite</button>
+                    <div class="col-md-3">
+                        <div class="area"><img src="img/image13-300w.webp"
+                                srcset="img/image13-300w.webp 300w, img/image13-600w.webp 600w, img/image13-900w.webp 900w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px"
+                                alt="PlayHT AI voiceover platform logo" width="900" height="506">
+                            <h3>Play HT</h3>
+                            <p>Play HT: Create voiceovers for your content, useful for social media marketing videos.
+                            </p><a href="https://www.play.ht/?via=robert-demotto-jr" class="btn btn-primary"
+                                target="_blank" rel="noopener noreferrer sponsored">Try Play HT!</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image10-600w.webp" alt="Stock Photo Video Library Icon">
-                        <h3>Stock Photo & Video Library</h3>
-                        <p>Access millions of professional media assets.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="media-library" data-product-name="Stock Photo & Video Library" data-product-price="39">Get Access</button>
+                    <div class="col-md-3">
+                        <div class="area"><img src="img/image14-300w.webp"
+                                srcset="img/image14-300w.webp 300w, img/image14-600w.webp 600w, img/image14-900w.webp 900w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px"
+                                alt="Shopify ecommerce platform logo" width="900" height="506">
+                            <h3>Shopify</h3>
+                            <p>Shopify: Create an e-commerce store in just minutes online!, perfect for starting your
+                                online business.</p><a href="/shopify-offer.html" class="btn btn-primary">Try
+                                Shopify!</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image11-600w.webp" alt="AI Content Assistant Icon">
-                        <h3>AI Content Assistant</h3>
-                        <p>Speed up your content creation with AI power.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="ai-content" data-product-name="AI Content Assistant" data-product-price="199">Get Assistant</button>
+                    <div class="col-md-3">
+                        <div class="area"><img src="img/image15-300w.webp"
+                                srcset="img/image15-300w.webp 300w, img/image15-600w.webp 600w, img/image15-900w.webp 900w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 25vw, (max-width: 1199px) 25vw, 300px"
+                                alt=" VidIQ software logo for YouTube SEO" width="900" height="506">
+                            <h3>VidIQ</h3>
+                            <p>VidIQ: Help you create short videos for your online business, especially for YouTube
+                                digital marketing.</p><a href="https://vidiq.com/realmstoriches" class="btn btn-primary"
+                                target="_blank" rel="noopener noreferrer sponsored">Try VidIQ!</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section id="secondary-services-section" class="section">
-            <div class="container">
-                <h2 class="section-title">Additional Realm Enhancements</h2>
-                <div class="grid-3-col">
-                    <div class="grid-item">
-                        <img src="img/service-consultation.svg" alt="Cybersecurity Consulting Icon"> <h3>Cybersecurity Consulting</h3>
-                        <p>Fortify your defenses against digital threats.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="cyber-consult" data-product-name="Cybersecurity Consulting" data-product-price="900">Enquire</button>
+            <div id="services" class="container">
+                <h2>Realms to Riches Services</h2>
+                <h3>Expert Services to Grow Your Online Business Through Social Media Marketing and Paid Traffic</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="area"><img src="img/image16-400w.webp"
+                                srcset="img/image16-400w.webp 400w, img/image16-800w.webp 800w, img/image16-1200w.webp 1200w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px"
+                                alt="Icon representing video content creation services" width="1200" height="675">
+                            <h3>Let Us Create Your Content</h3>
+                            <p>Let Us Create Your Content: We create viral short-form video content for social media
+                                marketing, helping entrepreneurs boost their online business visibility.</p><a
+                                href="mailto:realmstoriches@gmail.com" class="btn btn-primary" target="_blank"
+                                rel="noopener noreferrer">Order Now!</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image12-600w.webp" alt="Legal Compliance Advisory Icon"> <h3>Legal & Compliance Advisory</h3>
-                        <p>Navigate the legal labyrinth with expert guidance.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="legal-adv" data-product-name="Legal & Compliance Advisory" data-product-price="750">Enquire</button>
+                    <div class="col-md-4">
+                        <div class="area"><img src="img/image17-400w.webp"
+                                srcset="img/image17-400w.webp 400w, img/image17-800w.webp 800w, img/image17-1200w.webp 1200w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px"
+                                alt="Icon representing online monetization services or Image showing revenue growth from social media monetization"
+                                width="1200" height="675">
+                            <h3>We'll Help You Make Money</h3>
+                            <p>We'll Help You Make Money: We specialize in social media monetization strategies to help
+                                entrepreneurs earn revenue from their online business presence on platforms like
+                                Facebook, Instagram, and YouTube.</p><a href="mailto:realmstoriches@gmail.com"
+                                class="btn btn-primary" target="_blank" rel="noopener noreferrer">Order Now!</a>
+                        </div>
                     </div>
-                    <div class="grid-item">
-                        <img src="img/image13-600w.webp" alt="Business Coaching Icon"> <h3>Business Coaching</h3>
-                        <p>Unlock your full potential with personalized strategies.</p>
-                        <button class="btn btn-secondary buy-now-btn" data-product-id="biz-coach" data-product-name="Business Coaching" data-product-price="1500">Enquire</button>
+                    <div class="col-md-4">
+                        <div class="area"><img src="img/image18-400w.webp"
+                                srcset="img/image18-400w.webp 400w, img/image18-800w.webp 800w, img/image18-1200w.webp 1200w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 33vw, (max-width: 1199px) 33vw, 400px"
+                                alt="Graphic design icon or image representing fast design services or Image showing social media graphics and logos"
+                                width="1200" height="675">
+                            <h3>24-hour turnaround time</h3>
+                            <p>24-hour turnaround time (Design): High-quality graphics like YouTube thumbnails, logos,
+                                and social media marketing visuals designed quickly to enhance your online business
+                                brand.</p><a href="mailto:realmstoriches@gmail.com" class="btn btn-primary"
+                                target="_blank" rel="noopener noreferrer">Order Now!</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section class="cta-section">
-            <div class="container">
-                <h2>Ready to Claim Your Riches?</h2>
-                <p>Join the ranks of successful digital entrepreneurs. Contact us today!</p>
-                <button class="btn btn-primary" id="cta-contact-btn">Contact Us</button>
+            <div id="partners" class="container">
+                <h2>Are you a vendor with a software product that is perfect for Entrepreneurs that you want our
+                    agency to promote?</h2>
+                <h3>Connect with Thousands of Entrepreneurs and Online Businesses Through Our Network</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="area">
+                            <img src="img/image19-800w.webp"
+                                srcset="img/image19-800w.webp 800w, img/image19-1200w.webp 1200w, img/image19-1600w.webp 1600w"
+                                sizes="(max-width: 767px) 100vw, (max-width: 991px) 90vw, (max-width: 1199px) 80vw, 1200px"
+                                alt="Two business partners shaking hands, representing a vendor partnership opportunity"
+                                width="1600" height="1600">
+                            <p>Partner with Realms to Riches to reach thousands of entrepreneurs building their online
+                                businesses. Our audience is actively seeking effective digital marketing tools and
+                                resources, including solutions for faceless brands, paid traffic, and social media
+                                marketing. Showcase your perfect product to our engaged community!</p>
+                            <a href="mailto:realmstoriches@gmail.com?subject=Partnership%20Inquiry"
+                                class="btn btn-primary" target="_blank" rel="noopener noreferrer">Become a Partner</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
 
-    </main>
-
-    <footer class="site-footer">
-        <div class="container footer-container">
-            <div class="footer-info">
-                <p>&copy; 2025 Realms to Riches. All rights reserved.</p>
-                <p>123 Digital Kingdom Way, Cyber City, CA 90210</p>
-                <p>info@realmstoriches.com</p>
+        </main>
+        <footer class="site-footer">
+            <div class="container footer-container">
+                <div class="footer-info">
+                    <p>© Realms to Riches Copyright 2025</p>
+                    <p>CEO: Robert Demotto Jr</p>
+                    <p>Mill Creek, WV 26280</p>
+                    <p><a href="mailto:realmstoriches@gmail.com">realmstoriches@gmail.com</a></p>
+                    <p><a href="tel:304-266-4833">304-266-4833</a></p>
+                </div>
+                <div class="footer-legal">
+                    <p><a href="/terms-of-service.html" class="footer-link">Terms of Service</a></p>
+                    <p><a href="/privacy-policy.html" class="footer-link">Privacy Policy</a></p>
+                    <p class="disclaimer">
+                        <strong>Affiliate Disclaimer:</strong> This site may contain affiliate links. We may receive a
+                        commission if you sign up through these links, at no extra cost to you. This helps support our
+                        free content and resources.
+                    </p>
+                </div>
             </div>
-            <div class="footer-legal">
-                <p><a href="#" class="footer-link">Privacy Policy</a></p>
-                <p><a href="#" class="footer-link">Terms of Service</a></p>
+        </footer>
+
+        <div id="cookie-consent-popup" class="cookie-popup hidden">
+            <p>This website uses cookies to ensure you get the best experience on our website. By continuing to use this
+                site, you agree to our use of cookies.</p>
+            <div>
+                <a href="/privacy-policy.html" class="cookie-link">Learn More</a>
+                <button id="accept-cookies-btn" class="btn btn-secondary" type="button">Accept</button>
             </div>
         </div>
-    </footer>
 
-    <div id="lead-capture-popup" class="popup-overlay hidden">
-        <div class="popup-content">
-            <button class="close-button" id="close-popup-btn">&times;</button>
-            <img src="img/Drag drop done - English 300x250.webp" alt="Exclusive Shopify Offer" style="max-width: 100%; margin-bottom: 20px;">
-            <h2>Claim Your FREE Shopify Setup Guide!</h2>
-            <p>Enter your email to get instant access and start your e-commerce journey.</p>
-            <form action="https://formspree.io/f/your_form_id" method="POST" id="lead-capture-form">
-                <input type="email" name="email" placeholder="Your Email Address" required>
-                <button type="submit" class="btn btn-primary">Download Now</button>
-            </form>
-            <p id="form-message"></p>
+        <div id="lead-capture-popup" class="popup-overlay hidden">
+            <div class="popup-content">
+                <button class="close-button" id="close-popup-btn">&times;</button>
+                <img src="img/Drag drop done - English 300x250.webp" alt="Exclusive Shopify Offer"
+                    style="max-width: 100%; margin-bottom: 20px;">
+                <h2>Claim Your FREE Shopify Setup Guide!</h2>
+                <p>Enter your email to get instant access and start your e-commerce journey.</p>
+                <form action="https://formspree.io/f/your_form_id" method="POST" id="lead-capture-form">
+                    <input type="email" name="email" placeholder="Your Email Address" required>
+                    <button type="submit" class="btn btn-primary">Download Now</button>
+                </form>
+                <p id="form-message"></p>
+            </div>
         </div>
-    </div>
 
-    <div id="cookie-consent-popup" class="cookie-popup hidden">
-        <p>We use cookies to ensure you get the best experience on our website. By continuing, you agree to our <a href="#" class="cookie-link">Privacy Policy</a>.</p>
-        <button class="btn btn-secondary" id="accept-cookies-btn">Accept</button>
-    </div>
-
-    <script src="script.js"></script>
+        <script src="script.js"></script>
 </body>
+
 </html>
