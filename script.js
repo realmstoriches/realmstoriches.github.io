@@ -1,9 +1,13 @@
-      
 // --- Global Variables & Constants ---
-// REPLACE 'pk_test_TYooMQauvdEDq5PCxOjGlggCUJ8sHQpt58' WITH YOUR ACTUAL STRIPE PUBLISHABLE KEY
-// You can get this from your Stripe Dashboard: https://dashboard.stripe.com/test/apikeys
-const stripe = Stripe('pk_live_51RSfPXFHtr1SOdkc0fjiQ9RPj66DoF4c4GPniCTJK6uCxCnsrDH97eR3F82uw2nfCorzsgUpJAsarYgmeCtzcDI700iFDHwLVJ'); 
+// IMPORTANT: Replace 'pk_test_YOUR_PUBLISHABLE_KEY' with your actual Stripe Publishable Key.
+// You can find this in your Stripe Dashboard under Developers > API keys.
+const stripe = Stripe('pk_test_51RSfPkFYrMlSfWVNwGvjB13ZoMIGx9TB7FORRVYm3piKN3UHwTlk0LYvhcB4Z7GFKHdrk6w4XOnjCwQjJFRj9nzH00Rr96P6ze'); 
 let elements; // For Stripe Elements
+
+// IMPORTANT: Replace this with the actual URL of your deployed Render.com backend.
+// For local testing, it might be 'http://localhost:3001'.
+// For Render.com, it will look like 'https://your-service-name.onrender.com'.
+const BACKEND_URL = 'https://my-stripe-backend-api.onrender.com'; 
 
 // --- DOM Element References ---
 const cookiePopup = document.getElementById('cookie-popup');
@@ -13,50 +17,58 @@ const hubspotPopupOverlay = document.getElementById('hubspot-popup-overlay');
 const closeHubspotPopupButton = document.getElementById('close-hubspot-popup-btn');
 // Ensure this correctly targets the form inside the popup
 const formspreeLeadForm = document.getElementById('hubspot-popup-overlay') ? document.getElementById('hubspot-popup-overlay').querySelector('form') : null; 
-const formMessage = document.getElementById('form-message'); // For Formspree messages
+const formMessage = document.getElementById('form-message'); 
 
-const cartCountElement = document.getElementById('cart-count'); // For header cart count
-const buyNowButtons = document.querySelectorAll('.buy-now-btn'); // For index.html services
+const cartCountElement = document.getElementById('cart-count'); 
+const buyNowButtons = document.querySelectorAll('.buy-now-btn'); 
 
 // Checkout page specific elements
 const cartSummaryItemsContainer = document.getElementById('cart-summary-items');
-const cartTotalPriceElement = document.getElementById('total-price'); // Corrected ID to match checkout.html
+const cartTotalPriceElement = document.getElementById('total-price'); 
 const paymentForm = document.getElementById('payment-form');
-const submitPaymentBtn = document.getElementById('submit-button'); // Corrected ID to match checkout.html
+const submitPaymentBtn = document.getElementById('submit-button'); 
 const spinner = document.getElementById('spinner');
 const buttonText = document.getElementById('button-text');
-const errorMessageElement = document.getElementById('payment-message'); // Corrected ID to match checkout.html
-const paymentSuccessMessage = document.getElementById('success-container'); // Corrected ID to match checkout.html
+const errorMessageElement = document.getElementById('payment-message'); 
+const paymentSuccessMessage = document.getElementById('success-container'); 
 
 
 // --- Helper Functions ---
 function showElement(element) {
     if (element) {
         element.style.display = 'flex'; // Or 'block' depending on desired layout (e.g., popup-overlay is flex)
-        setTimeout(() => element.classList.add('visible'), 50); // For fade-in effect
+        // Force a reflow/repaint to ensure 'display' is applied before 'visible' class transitions
+        element.offsetHeight; 
+        element.classList.add('visible'); 
+        console.log(`[UI] Showing element: #${element.id || element.className}`);
     }
 }
 
 function hideElement(element) {
     if (element) {
         element.classList.remove('visible');
-        setTimeout(() => element.style.display = 'none', 300); // Wait for fade-out
+        setTimeout(() => {
+            element.style.display = 'none';
+            console.log(`[UI] Hiding element: #${element.id || element.className}`);
+        }, 300); // Wait for fade-out transition
     }
 }
 
 function showSpinner() {
-    if (spinner && buttonText) {
+    if (spinner && buttonText && submitPaymentBtn) {
         spinner.classList.remove('hidden');
         buttonText.classList.add('hidden');
-        if (submitPaymentBtn) submitPaymentBtn.disabled = true; // Disable button during submission
+        submitPaymentBtn.disabled = true; // Disable button during submission
+        console.log("[UI] Spinner shown, button disabled.");
     }
 }
 
 function hideSpinner() {
-    if (spinner && buttonText) {
+    if (spinner && buttonText && submitPaymentBtn) {
         spinner.classList.add('hidden');
         buttonText.classList.remove('hidden');
-        if (submitPaymentBtn) submitPaymentBtn.disabled = false; // Re-enable button
+        submitPaymentBtn.disabled = false; // Re-enable button
+        console.log("[UI] Spinner hidden, button enabled.");
     }
 }
 
@@ -65,6 +77,7 @@ function displayMessage(message, isError = false, element = errorMessageElement)
         element.textContent = message;
         element.style.color = isError ? 'red' : 'green';
         element.style.display = 'block';
+        console.log(`[Message] ${isError ? 'ERROR' : 'SUCCESS'}: ${message}`);
     }
 }
 
@@ -72,40 +85,61 @@ function clearMessage(element = errorMessageElement) {
     if (element) {
         element.textContent = '';
         element.style.display = 'none';
+        console.log("[Message] Cleared.");
     }
 }
 
 // --- Cookie Consent Logic ---
 function initCookieConsent() {
+    console.log("[Init] Initializing cookie consent.");
     if (cookiePopup && acceptButton) {
         if (!localStorage.getItem('cookiesAccepted')) {
-            // Show the cookie popup after a delay if not accepted
+            console.log("[Cookie] Cookies not yet accepted, scheduling popup.");
             setTimeout(() => { showElement(cookiePopup); }, 1500);
+        } else {
+            console.log("[Cookie] Cookies already accepted, ensuring popup is hidden.");
+            hideElement(cookiePopup);
         }
         acceptButton.addEventListener('click', function() {
             localStorage.setItem('cookiesAccepted', 'true');
             hideElement(cookiePopup);
+            console.log("[Cookie] User accepted cookies.");
+            // After accepting cookies, check if lead popup should show
+            if (hubspotPopupOverlay && !sessionStorage.getItem('leadPopupShownThisSession')) {
+                setTimeout(showLeadCapturePopup, 500); // Small delay after cookie accepts
+            }
         });
+    } else {
+        console.warn("[Cookie] Cookie popup or accept button not found in DOM (expected on index.html).");
     }
 }
 
 // --- Lead Capture (Formspree) Popup Logic ---
 function showLeadCapturePopup() {
+    console.log("[Lead Popup] Attempting to show lead capture popup...");
     // Only show if cookies are accepted and not shown this session
     if (localStorage.getItem('cookiesAccepted') && !sessionStorage.getItem('leadPopupShownThisSession')) {
         showElement(hubspotPopupOverlay);
+        console.log("[Lead Popup] Conditions met, showing lead capture popup.");
+    } else {
+        console.log("[Lead Popup] Conditions not met (cookies not accepted or already shown this session), not showing popup.");
     }
 }
 
 function hideLeadCapturePopup() {
     hideElement(hubspotPopupOverlay);
     sessionStorage.setItem('leadPopupShownThisSession', 'true'); // Mark as shown for the session
+    console.log("[Lead Popup] Hidden and marked as shown for session.");
 }
 
 async function handleFormspreeSubmission(event) {
     event.preventDefault(); // Prevent default form submission
+    console.log("[Formspree] Submission initiated.");
 
-    if (!formspreeLeadForm) return;
+    if (!formspreeLeadForm) {
+        console.error("[Formspree] Form element not found.");
+        return;
+    }
 
     showSpinner();
     clearMessage(formMessage); // Clear previous messages
@@ -123,21 +157,24 @@ async function handleFormspreeSubmission(event) {
         if (response.ok) {
             displayMessage("Thank you for signing up!", false, formMessage);
             formspreeLeadForm.reset(); // Clear the form
-            // Optionally close the popup after a delay
             setTimeout(() => {
                 hideLeadCapturePopup();
             }, 2000);
+            console.log("[Formspree] Submission successful.");
         } else {
-            const data = await response.json();
-            if (data.errors) {
-                displayMessage(data.errors.map(error => error.message).join(', '), true, formMessage);
-            } else {
-                displayMessage("Oops! There was a problem submitting your form.", true, formMessage);
+            const errorText = await response.text(); // Read raw text for debugging
+            console.error("[Formspree] Submission failed. Status:", response.status, "Response text:", errorText);
+            try {
+                const errorData = JSON.parse(errorText); // Try to parse as JSON
+                const errorMessage = errorData.errors ? errorData.errors.map(err => err.message).join(', ') : "Unknown error from Formspree.";
+                displayMessage(`Oops! ${errorMessage}`, true, formMessage);
+            } catch (jsonError) {
+                displayMessage("Oops! There was a problem submitting your form. (Non-JSON response from Formspree, check Formspree dashboard)", true, formMessage);
             }
         }
     } catch (error) {
-        console.error('Formspree submission error:', error);
-        displayMessage("Network error. Please try again.", true, formMessage);
+        console.error('[Formspree] Network error or invalid Formspree setup:', error);
+        displayMessage("Network error or invalid Formspree setup. Please try again.", true, formMessage);
     } finally {
         hideSpinner();
     }
@@ -151,12 +188,14 @@ function updateCartCount() {
     if (cartCountElement) {
         let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         cartCountElement.textContent = totalItems;
+        console.log(`[Cart] Count updated: ${totalItems}`);
     }
 }
 
 function saveCart() {
     localStorage.setItem('shoppingCart', JSON.stringify(cart));
     updateCartCount();
+    console.log("[Cart] Saved to local storage.");
 }
 
 function addToCart(serviceId, serviceName, servicePrice) {
@@ -174,17 +213,23 @@ function addToCart(serviceId, serviceName, servicePrice) {
         });
     }
     saveCart();
-    alert(serviceName + " has been added to your cart!");
+    alert(`"${serviceName}" has been added to your cart!`);
+    console.log(`[Cart] Added "${serviceName}". Current cart:`, cart);
 }
 
 function renderCartSummaryOnCheckout() {
-    if (!cartSummaryItemsContainer || !cartTotalPriceElement) return;
+    console.log("[Checkout] Rendering cart summary.");
+    if (!cartSummaryItemsContainer || !cartTotalPriceElement) {
+        console.error("[Checkout] Cart summary container or total price element not found. Skipping render.");
+        return;
+    }
 
     cartSummaryItemsContainer.innerHTML = ''; // Clear previous content
     let totalCartPrice = 0;
 
     if (cart.length === 0) {
         cartSummaryItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+        console.log("[Checkout] Cart is empty.");
     } else {
         cart.forEach(item => {
             const itemElement = document.createElement('div');
@@ -196,46 +241,58 @@ function renderCartSummaryOnCheckout() {
             cartSummaryItemsContainer.appendChild(itemElement);
             totalCartPrice += (item.price * item.quantity);
         });
+        console.log("[Checkout] Cart items rendered.");
     }
     cartTotalPriceElement.textContent = totalCartPrice.toFixed(2);
+    console.log(`[Checkout] Total cart price: $${totalCartPrice.toFixed(2)}`);
 }
 
 // --- Stripe Checkout Logic (specific to checkout.html) ---
 async function initializeStripe() {
-    if (!paymentForm) return; // Only run on checkout page
+    console.log("[Stripe] Initializing Stripe.");
+    if (!paymentForm) {
+        console.warn("[Stripe] Payment form not found. Stripe initialization skipped.");
+        return; 
+    }
 
-    // Ensure cart is not empty before initializing Stripe elements
-    if (cart.length === 0 || parseFloat(cartTotalPriceElement.textContent) <= 0) {
+    const totalAmount = parseFloat(cartTotalPriceElement.textContent);
+
+    if (cart.length === 0 || totalAmount <= 0) {
         displayMessage("Your cart is empty or total is zero. Please add items before checking out.", true);
-        if (paymentForm) paymentForm.style.display = 'none'; // Hide form if cart is empty
+        if (paymentForm) paymentForm.style.display = 'none'; 
+        const paymentElementDiv = document.getElementById('payment-element');
+        if(paymentElementDiv) paymentElementDiv.innerHTML = '<p style="color: red;">Your cart is empty. Please add items to checkout.</p>';
+        console.log("[Stripe] Initialization skipped: cart empty or total zero.");
         return;
     }
 
     try {
-        // 1. Fetch client secret from your backend
-        // THIS IS A PLACEHOLDER. Replace with a real API call to your server.
-        // Your server should create a PaymentIntent and return its client_secret.
-        // Example: POST to /create-payment-intent with the total amount
-        const response = await fetch('/create-payment-intent', { // Make sure this URL is correct for your backend
+        console.log(`[Stripe] Fetching client secret from backend at ${BACKEND_URL}/create-payment-intent...`);
+        const response = await fetch(`${BACKEND_URL}/create-payment-intent`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            // Send the total amount (in cents) to your backend
-            body: JSON.stringify({ amount: Math.round(parseFloat(cartTotalPriceElement.textContent) * 100) }) 
+            body: JSON.stringify({ amount: Math.round(totalAmount * 100) }) // Amount in cents
         });
-        
+
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+            const errorText = await response.text(); // Read raw text for debugging
+            console.error(`[Stripe Error] Backend response not OK. Status: ${response.status}, Raw Response: "${errorText}"`);
+            throw new Error(`Failed to fetch client secret: ${response.statusText || 'Server error'}. Raw response: "${errorText}"`);
         }
 
-        const { clientSecret } = await response.json();
+        const data = await response.json(); // Attempt to parse JSON
+        if (!data.clientSecret) {
+            throw new Error("Client secret not received from backend. Backend response was: " + JSON.stringify(data));
+        }
+        const { clientSecret } = data;
+        console.log("[Stripe] Client secret received successfully.");
 
         const appearance = {
             theme: 'stripe', 
             variables: {
-                colorPrimary: '#00FFFF', // Cyan
-                colorBackground: '#1a1a1a', // Dark gray
-                colorText: '#fff', // White
+                colorPrimary: '#00FFFF', 
+                colorBackground: '#1a1a1a', 
+                colorText: '#fff', 
                 colorDanger: '#df1b41',
                 fontFamily: 'Arial, sans-serif',
                 spacingUnit: '4px',
@@ -247,61 +304,62 @@ async function initializeStripe() {
 
         const paymentElement = elements.create('payment');
         paymentElement.mount('#payment-element');
+        console.log("[Stripe] Payment Element mounted.");
 
         paymentForm.addEventListener('submit', handleSubmit);
 
     } catch (error) {
-        console.error("Error initializing Stripe:", error);
+        console.error("[Stripe Error] Could not initialize Stripe (check backend, CORS, or network):", error);
         displayMessage("Could not initialize payment. Please try again later. Error: " + error.message, true);
-        if (submitPaymentBtn) submitPaymentBtn.disabled = true; // Disable button if Stripe fails
+        if (submitPaymentBtn) submitPaymentBtn.disabled = true;
+        const paymentElementDiv = document.getElementById('payment-element');
+        if(paymentElementDiv) paymentElementDiv.innerHTML = '<p style="color: red;">Failed to load payment options. Make sure backend is running and accessible.</p>';
     }
 }
 
 async function handleSubmit(e) {
     e.preventDefault();
+    console.log("[Stripe] Payment form submitted.");
 
     if (!stripe || !elements) {
-        // Stripe.js has not yet loaded.
-        displayMessage("Stripe is not loaded. Please try again.", true);
+        displayMessage("Stripe.js has not loaded. Please refresh the page.", true);
+        console.error("[Stripe] Stripe.js or Elements not loaded.");
         return;
     }
 
     showSpinner();
-    clearMessage(); // Clear previous error messages
+    clearMessage();
 
-    const customerName = document.getElementById('name').value; // Corrected ID
-    const customerEmail = document.getElementById('email').value; // Corrected ID
+    const customerName = document.getElementById('name').value; 
+    const customerEmail = document.getElementById('email').value; 
 
     if (!customerName || !customerEmail) {
         displayMessage("Please enter your full name and email.", true);
         hideSpinner();
+        console.log("[Stripe] Validation failed: Name or email missing.");
         return;
     }
 
-    const { error } = await stripe.confirmPayment({
+    console.log("[Stripe] Confirming payment with Stripe...");
+    const { error, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-            // Make sure to change this to your payment completion page on your server
-            return_url: window.location.origin + "/payment-success.html", 
+            return_url: window.location.origin + "/payment-success.html", // Ensure you have this page
             receipt_email: customerEmail,
             shipping: { // Example shipping data, adjust as needed or remove if not applicable
                 name: customerName,
                 address: {
-                    line1: 'N/A', // Placeholder
-                    postal_code: 'N/A', // Placeholder
-                    city: 'N/A', // Placeholder
-                    state: 'N/A', // Placeholder
-                    country: 'US', // Placeholder, ideally collected from user
+                    line1: 'N/A', 
+                    postal_code: 'N/A', 
+                    city: 'N/A', 
+                    state: 'N/A', 
+                    country: 'US', 
                 },
             },
         },
-        // IMPORTANT: Use 'if_required' for client-side redirection after payment intent status is updated
-        // For a full server-side redirect, you'd handle return_url in your backend.
         redirect: 'if_required' 
     });
 
-    // This point is reached if there was an immediate error (e.g., card error, validation error)
-    // or if `redirect: 'if_required'` and no redirect happened.
     if (error) {
         if (error.type === "card_error" || error.type === "validation_error") {
             displayMessage(error.message, true);
@@ -309,16 +367,23 @@ async function handleSubmit(e) {
             displayMessage("An unexpected error occurred. Please try again.", true);
         }
         hideSpinner();
+        console.error("[Stripe Error] confirmPayment error:", error);
+    } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+        // This block might only be hit if redirect: 'never' was used, or on rare occasions
+        // when the payment succeeds immediately without needing a redirect.
+        // For 'if_required', usually a redirect happens.
+        displayMessage("Payment successful!", false);
+        paymentForm.style.display = 'none'; 
+        showElement(paymentSuccessMessage); 
+        localStorage.removeItem('shoppingCart'); 
+        updateCartCount(); 
+        console.log("[Stripe] Payment successful (client-side detected).");
     } else {
-        // This means the payment was confirmed client-side without immediate error,
-        // but it might still be pending or require further action.
-        // For 'if_required', you need to check the PaymentIntent status on your backend
-        // after the return_url is hit.
-        // On success, the return_url should typically lead to a success page that
-        // verifies the paymentIntent status from the URL parameters.
-        // If not redirecting, you might handle it here (though less common for full payments).
-        displayMessage("Payment processing. Please do not close this page...", false);
-        // If your backend handles the redirection, this client-side block might be minimal.
+        // This case handles payments that require further action (e.g., 3D Secure)
+        // but didn't trigger an immediate redirect. This is less common for simple flows.
+        displayMessage(`Payment status: ${paymentIntent ? paymentIntent.status : 'unknown'}. Please check your email or transaction history.`, true);
+        hideSpinner();
+        console.warn("[Stripe] PaymentIntent status not 'succeeded' after confirmPayment (no redirect or pending action):", paymentIntent);
     }
 }
 
@@ -329,15 +394,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize core features
     initCookieConsent();
-    updateCartCount(); // Always update cart count on page load
+    updateCartCount(); 
 
     // Setup event listeners for lead capture popup
     if (closeHubspotPopupButton) {
         closeHubspotPopupButton.addEventListener('click', hideLeadCapturePopup);
     }
     if (hubspotPopupOverlay) {
-        // Close if clicking on the overlay itself, but not within the content
         hubspotPopupOverlay.addEventListener('click', function(event) {
+            // Close popup only if clicking on the overlay itself, not the content
             if (event.target === hubspotPopupOverlay) {
                 hideLeadCapturePopup();
             }
@@ -347,10 +412,12 @@ document.addEventListener('DOMContentLoaded', function() {
         formspreeLeadForm.addEventListener('submit', handleFormspreeSubmission);
     }
 
-    // Schedule lead capture popup
-    // Only show if cookies are accepted and not explicitly opted out/shown this session
+    // Schedule lead capture popup to show after 5 seconds if conditions met
+    // (cookies accepted AND not shown this session)
     if (hubspotPopupOverlay && localStorage.getItem('cookiesAccepted') && !sessionStorage.getItem('leadPopupShownThisSession')) {
-        setTimeout(showLeadCapturePopup, 5000); // Show after 5 seconds if conditions met
+        setTimeout(showLeadCapturePopup, 5000); 
+    } else {
+        console.log("[Lead Popup] Will not show on initial load (conditions not met).");
     }
 
     // Add to Cart buttons for index.html (services)
@@ -363,18 +430,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 addToCart(serviceId, serviceName, servicePrice);
             });
         });
+        console.log("[Cart] Buy Now buttons listeners attached.");
     }
 
     // Checkout page specific logic
-    // Add a class to the body or a specific container on checkout.html for conditional logic
     if (document.body.classList.contains('checkout-page')) { 
+        console.log("[Page] On checkout page. Rendering cart summary and attempting Stripe initialization.");
         renderCartSummaryOnCheckout();
-        // Only initialize Stripe if cart has items and total is positive
-        if (cart.length > 0 && parseFloat(cartTotalPriceElement.textContent) > 0) { 
+        const currentTotal = parseFloat(cartTotalPriceElement.textContent);
+        if (cart.length > 0 && currentTotal > 0) { 
             initializeStripe();
         } else {
             displayMessage("Your cart is empty. Please add items before checking out.", true);
-            if (paymentForm) paymentForm.style.display = 'none'; // Hide form if cart is empty
+            if (paymentForm) paymentForm.style.display = 'none'; 
+            const paymentElementDiv = document.getElementById('payment-element');
+            if(paymentElementDiv) paymentElementDiv.innerHTML = '<p style="color: red;">Your cart is empty. Please add items to checkout.</p>';
+            console.log("[Stripe] Initialization skipped on checkout page: cart is empty or total is zero.");
         }
+    } else {
+        console.log("[Page] Not on checkout page (index.html or other).");
     }
 });
