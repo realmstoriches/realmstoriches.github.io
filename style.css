@@ -482,3 +482,217 @@ main .container h1,
 #payment-form input { background-color: #333; color: #eee; border: 1px solid #555; }
 #payment-form #payment-element { background-color: #333; }
 #payment-form #submit-payment-btn { background-color: #00FFFF; color: #000; }
+
+               .cart-container { /* This is the ID for the glowing box on view-cart.html */
+    background-color: #1a1a1a; /* Dark background for the cart area */
+    padding: 30px; /* Ample padding inside the container */
+    border-radius: 10px; /* Rounded corners for a softer look */
+    margin-top: 30px; /* Space above the container */
+    margin-bottom: 20px; /* Space before the summary section */
+    position: relative;
+    
+    /* The Glow Effect */
+    border: 1px solid #00FFFF; /* A thin border in the glow color */
+    box-shadow:
+        0 0 10px #00FFFF,   /* Smaller, tighter glow */
+        0 0 25px #00FFFF,   /* Medium glow */
+        0 0 40px #00FFFF,   /* Larger, blurrier glow */
+        inset 0 0 8px #00FFFF; /* Subtle inner glow for depth */
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out; /* Smooth transition for hover */
+}
+
+/* Optional: Add a subtle hover effect to make the glow more interactive */
+.cart-container:hover {
+    box-shadow:
+        0 0 15px #00FFFF,
+        0 0 35px #00FFFF,
+        0 0 50px #00FFFF,
+        inset 0 0 10px #00FFFF;
+}
+
+/* --- Styling for individual cart items --- */
+.cart-item {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    align-items: center; /* Vertically align items */
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px dashed rgba(0, 255, 255, 0.3); /* Dashed separator, matches glow theme */
+    color: #fff; /* White text for item details */
+}
+
+.cart-item:last-child {
+    border-bottom: none; /* No border for the last item */
+}
+
+.cart-item-details {
+    flex-grow: 1;
+    margin-right: 15px; /* Space before price/actions */
+    text-align: left; /* Ensure text aligns left within its column */
+}
+
+.cart-item-details strong {
+    font-size: 1.1em;
+    color: #00FFFF; /* Item name in glow color */
+}
+
+.cart-item-details p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #ccc; /* Lighter text for price per item */
+}
+
+.cart-item-price, .cart-item-subtotal {
+    min-width: 100px; /* Ensure some space for price */
+    text-align: right; /* Align numbers to the right */
+    color: #fff; /* Ensure subtotal text is white */
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    margin: 10px 15px 10px 0; /* Adjust margin for spacing, especially on smaller screens */
+}
+
+.cart-item-quantity button {
+    padding: 5px 10px;
+    font-size: 1em;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #333; /* Dark background for quantity buttons */
+    color: #00FFFF; /* Glow color for plus/minus signs */
+    border: 1px solid #00FFFF; /* Glow border */
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cart-item-quantity button:hover {
+    background-color: #00FFFF; /* Invert colors on hover */
+    color: #333;
+}
+.cart-item-quantity .item-quantity-display {
+    min-width: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff; /* White text for quantity display */
+}
+
+.cart-item-actions .btn-remove-item {
+    padding: 6px 12px;
+    font-size: 0.9em;
+    background-color: #dc3545; /* Red for remove */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px; /* Space from other elements */
+    transition: background-color 0.3s ease;
+}
+
+.cart-item-actions .btn-remove-item:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+/* --- Cart Summary Styling --- */
+.cart-summary-section { /* Matches the ID `cart-summary-section` */
+    background-color: #1a1a1a; /* Dark background */
+    padding: 20px 30px; /* Padding for summary */
+    border-radius: 10px; /* Rounded corners */
+    margin-top: 20px; /* Space from items list */
+    
+    /* The Glow Effect for Summary */
+    border: 1px solid #00FFFF;
+    box-shadow:
+        0 0 10px #00FFFF,
+        0 0 25px #00FFFF,
+        0 0 40px #00FFFF,
+        inset 0 0 8px #00FFFF;
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.cart-summary-section:hover {
+    box-shadow:
+        0 0 15px #00FFFF,
+        0 0 35px #00FFFF,
+        0 0 50px #00FFFF,
+        inset 0 0 10px #00FFFF;
+}
+
+
+.cart-total {
+    text-align: right;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #00FFFF; /* Total in glow color */
+}
+
+/* --- Cart Actions (buttons) Styling --- */
+.cart-actions-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.btn-continue-shopping,
+.btn-proceed-checkout {
+    padding: 12px 25px;
+    font-size: 1.1em;
+    text-decoration: none; /* For the anchor tag */
+    border-radius: 5px;
+    text-align: center;
+    border: none; /* Remove default button border */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-continue-shopping {
+    background-color: #555; /* Darker grey */
+    color: white;
+}
+
+.btn-continue-shopping:hover {
+    background-color: #666;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-proceed-checkout {
+    background-color: #00FFFF; /* Bright cyan for checkout */
+    color: #000; /* Black text */
+    font-weight: bold;
+}
+
+.btn-proceed-checkout:hover {
+    background-color: #00b3b3;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-proceed-checkout[disabled] {
+    background-color: #555; /* Grey out when disabled */
+    cursor: not-allowed;
+    transform: none; /* No lift effect when disabled */
+    color: #ccc;
+}
+
+
+/* Empty cart message */
+.empty-cart-message {
+    color: #ccc;
+    font-size: 1.1em;
+    text-align: center;
+    padding: 40px;
+    border: 1px dashed rgba(0, 255, 255, 0.3); /* Matches glow theme */
+    border-radius: 8px;
+    margin-top: 30px; /* Space from other content */
+    background-color: #1a1a1a; /* Dark background for empty message */
+}
+.empty-cart-message a {
+    color: #00FFFF; /* Link color in glow theme */
+    text-decoration: underline;
+}
+.empty-cart-message a:hover {
+    color: #fff;
+}
