@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <div id="main-popup-container" class="popup-container">
+        <div id="cookie-consent-content" class="popup-content">
+            <h2>Cookie Consent</h2>
+            <p>We use cookies to ensure you get the best experience on our website. By continuing, you agree to our use of cookies.</p>
+            <button id="accept-cookies">Accept Cookies</button>
+        </div>
+        <div id="lead-capture-content" class="popup-content">
+            <button id="close-lead-form" class="close-btn">&times;</button>
+            <h2>Unlock Exclusive Strategies!</h2>
+            <p>Enter your email to receive free market strategies and insights directly to your inbox.</p>
+            <form id="lead-capture-form" action="https://formspree.io/f/YOUR_FORMSPREE_CODE" method="POST">
+                <input type="email" name="email" placeholder="Your Email" required>
+                <button type="submit">Get Strategies</button>
+                <p id="form-message" style="display:none;"></p>
+            </form>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+
+    <main class="checkout-page-main">
+        <h1>Your Order Summary</h1>
+
+        <div class="product-summary">
+            <p>Product: **[Your Product Name Here]**</p>
+            <p>Price: $<span id="product-price">100.00</span></p> </div>
+
+        <div class="checkout-container">
+            <h2>Payment Details</h2>
+
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="customer-name">Full Name:</label>
+                    <input type="text" id="customer-name" name="customer-name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-email">Email Address:</label>
+                    <input type="email" id="customer-email" name="customer-email" placeholder="john.doe@example.com" required>
+                </div>
+
+                <hr> <div id="payment-element">
+                    </div>
+
+                <div id="error-message" class="error-message" style="display: none;"></div>
+
+                <button id="submit-payment-btn">
+                    <div class="spinner hidden" id="spinner"></div>
+                    <span id="button-text">Pay Now</span>
+                </button>
+            </form>
+
+            <div id="payment-success-message" class="success-message" style="display: none;">
+                <p>Thank you! Your payment was successful.</p>
+                <p>A confirmation email has been sent to your address.</p>
+                </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Realms to Riches. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
