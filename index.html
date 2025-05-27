@@ -547,29 +547,28 @@
             </div>
         </footer>
 
-        <div id="cookie-consent-popup" class="cookie-popup hidden">
+        <div id="cookie-popup" class="cookie-popup hidden"> 
             <p>This website uses cookies to ensure you get the best experience on our website. By continuing to use this
-                site, you agree to our use of cookies.</p>
-            <div>
-                <a href="/privacy-policy.html" class="cookie-link">Learn More</a>
-                <button id="accept-cookies-btn" class="btn btn-secondary" type="button">Accept</button>
-            </div>
+            site, you agree to our use of cookies.
+            </p>
+            <a href="/privacy-policy.html" class="cookie-link">Learn More</a>
+            <button id="accept-cookies" class="btn btn-secondary" type="button">Accept</button> 
         </div>
 
-        <div id="lead-capture-popup" class="popup-overlay hidden">
+
+        <div id="hubspot-popup-overlay" class="popup-overlay hidden"> 
             <div class="popup-content">
-                <button class="close-button" id="close-popup-btn">&times;</button>
-                <img src="img/Drag drop done - English 300x250.webp" alt="Exclusive Shopify Offer"
-                    style="max-width: 100%; margin-bottom: 20px;">
-                <h2>Claim Your FREE Shopify Setup Guide!</h2>
-                <p>Enter your email to get instant access and start your e-commerce journey.</p>
-                <form action="https://formspree.io/f/your_form_id" method="POST" id="lead-capture-form">
-                    <input type="email" name="email" placeholder="Your Email Address" required>
-                    <button type="submit" class="btn btn-primary">Download Now</button>
-                </form>
-                <p id="form-message"></p>
-            </div>
+            <button class="close-button" id="close-hubspot-popup-btn">&times;</button> <img src="img/Drag drop done - English 300x250.webp" alt="Exclusive Shopify Offer"
+            style="max-width: 100%; margin-bottom: 20px;">
+            <h2>Claim Your FREE Shopify Setup Guide!</h2>
+            <p>Enter your email to get instant access and start your e-commerce journey.</p>
+            <form action="https://formspree.io/f/your_form_id" method="POST" id="lead-capture-form">
+            <input type="email" name="email" placeholder="Your Email Address" required>
+            <button type="submit" class="btn btn-primary">Download Now</button>
+            </form>
+            <p id="form-message"></p>
         </div>
+</div>
 
         <script src="script.js"></script>
 </body>
