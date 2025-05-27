@@ -125,3 +125,129 @@ main .container h1,
     background-color: #f8d7da;
     color: #721c24;
 }
+
+#payment-form {
+    background-color: #1a1a1a; /* Dark background for the form itself */
+    padding: 30px; /* Ample padding inside the form container */
+    border-radius: 10px; /* Rounded corners for a softer look */
+    margin-top: 30px; /* Space above the form */
+    margin-bottom: 50px; /* Space below the form */
+    position: relative; /* Needed for z-index or other absolute positioning if you add more effects */
+    
+    /* The Glow Effect */
+    border: 1px solid #00FFFF; /* A thin border in the glow color */
+    box-shadow:
+        0 0 10px #00FFFF,   /* Smaller, tighter glow */
+        0 0 25px #00FFFF,   /* Medium glow */
+        0 0 40px #00FFFF,   /* Larger, blurrier glow */
+        inset 0 0 8px #00FFFF; /* Subtle inner glow for depth */
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out; /* Smooth transition for hover */
+}
+
+/* Optional: Add a subtle hover effect to make the glow more interactive */
+#payment-form:hover {
+    box-shadow:
+        0 0 15px #00FFFF,
+        0 0 35px #00FFFF,
+        0 0 50px #00FFFF,
+        inset 0 0 10px #00FFFF;
+}
+
+/* --- Ensure consistent spacing and styling for elements inside the form --- */
+
+/* Spacing between form groups (labels + inputs) */
+#payment-form .form-group {
+    margin-bottom: 20px;
+}
+
+/* Style for the horizontal rule separator */
+#payment-form hr {
+    border: none;
+    border-top: 1px solid rgba(0, 255, 255, 0.4); /* A lighter, semi-transparent line in glow color */
+    margin: 30px 0; /* Vertical spacing around the separator */
+}
+
+/* Labels within the form */
+#payment-form label {
+    display: block; /* Make labels take full width */
+    margin-bottom: 8px; /* Space between label and input */
+    font-weight: bold;
+    color: #00FFFF; /* Make labels match the glow color */
+}
+
+/* Input fields (Full Name, Email) within the form */
+#payment-form input[type="text"],
+#payment-form input[type="email"] {
+    background-color: #333; /* Darker background for inputs */
+    color: #eee; /* Light text color for input values */
+    border: 1px solid #555; /* Slightly lighter border */
+    padding: 12px; /* Comfortable padding */
+    border-radius: 6px; /* Slightly more rounded inputs */
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding doesn't increase element width */
+    font-size: 1em;
+}
+
+/* Focus state for input fields */
+#payment-form input[type="text"]:focus,
+#payment-form input[type="email"]:focus {
+    border-color: #00FFFF; /* Glow color border on focus */
+    outline: none; /* Remove default browser outline */
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.6); /* Subtle glow effect on focus */
+}
+
+/* Stripe Payment Element container styling */
+#payment-form #payment-element {
+    margin-bottom: 25px; /* Space below the Stripe element */
+    padding: 15px; /* Padding around the Stripe elements for visual separation */
+    border: 1px solid #555; /* Consistent border */
+    border-radius: 6px; /* Consistent border-radius */
+    background-color: #333; /* Consistent background */
+}
+
+/* Submit button styling */
+#payment-form #submit-payment-btn {
+    width: 100%;
+    padding: 18px; /* Larger padding for a more prominent button */
+    background-color: #00FFFF; /* Bright cyan button */
+    color: #000; /* Black text for contrast */
+    border: none;
+    border-radius: 8px;
+    font-size: 1.3em; /* Larger font size */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+#payment-form #submit-payment-btn:hover {
+    background-color: #00b3b3; /* Slightly darker cyan on hover */
+    color: #fff; /* White text on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+#payment-form #submit-payment-btn:disabled {
+    background-color: #555; /* Grey out when disabled */
+    cursor: not-allowed;
+    transform: none; /* No lift effect when disabled */
+}
+
+/* Error and success message styling within the form */
+#payment-form #error-message,
+#payment-form #payment-success-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1em;
+}
+
+#payment-form #error-message {
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red text */
+}
+
+#payment-form #payment-success-message {
+    background-color: #d4edda; /* Light green background */
+    color: #155724; /* Dark green text */
+}
