@@ -3,45 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
+    <title>Checkout - Realms to Riches</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
-    <div id="main-popup-container" class="popup-container">
-        <div id="cookie-consent-content" class="popup-content">
-            <h2>Cookie Consent</h2>
-            <p>We use cookies to ensure you get the best experience on our website. By continuing, you agree to our use of cookies.</p>
-            <button id="accept-cookies">Accept Cookies</button>
-        </div>
-        <div id="lead-capture-content" class="popup-content">
-            <button id="close-lead-form" class="close-btn">&times;</button>
-            <h2>Unlock Exclusive Strategies!</h2>
-            <p>Enter your email to receive free market strategies and insights directly to your inbox.</p>
-            <form id="lead-capture-form" action="https://formspree.io/f/YOUR_FORMSPREE_CODE" method="POST">
-                <input type="email" name="email" placeholder="Your Email" required>
-                <button type="submit">Get Strategies</button>
-                <p id="form-message" style="display:none;"></p>
-            </form>
+    <div id="cookie-popup" class="cookie-popup" style="display: none;">
+        <p>This website uses cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our use of cookies.</p>
+        <div>
+            <a href="/privacy-policy.html" class="cookie-link">Learn More</a>
+            <button id="accept-cookies" class="btn btn-secondary" type="button">Accept</button>
         </div>
     </div>
 
-    <header>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="products.html">Products</a>
-            <a href="about.html">About Us</a>
-            <a href="contact.html">Contact</a>
-            <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
-        </nav>
+    <div id="hubspot-popup-overlay" class="popup-overlay" style="display: none;">
+        <div class="popup-content">
+            <button id="close-hubspot-popup-btn" class="close-button" type="button">&times;</button>
+            <img src="img/Drag drop done - English 300x250.webp" alt="Shopify Offer" style="max-width: 80%; height: auto; margin-bottom: 15px; border-radius: 4px;">
+            <h2>Get Your Free Shopify Trial!</h2>
+            <p>Sign up below for exclusive tips & instant access to your Shopify free trial offer:</p>
+
+            <div id="form-container">
+                <form action="https://formspree.io/f/xvgajnqr" method="POST">
+                    <label>
+                        Your email:
+                        <input type="email" name="email">
+                    </label>
+                    <label>
+                        Your message:
+                        <textarea name="message"></textarea>
+                    </label>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="/">
+                    <img src="img/logo.webp" alt="Realms to Riches Logo" class="site-logo" width="50" height="50">
+                </a>
+            </div>
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html#courses">Free Courses</a></li>
+                    <li><a href="index.html#tools">Recommended Tools</a></li>
+                    <li><a href="/shopify-offer.html">Shopify Offer</a></li>
+                    <li><a href="index.html#services">Our Services</a></li>
+                    <li><a href="view-cart.html">View Cart (<span id="cart-count">0</span>)</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main class="checkout-page-main">
         <h1>Your Order Summary</h1>
 
+        <div id="cart-summary-items">
+            <p>Your cart is empty.</p>
+        </div>
+
         <div class="product-summary">
-            <p>Product: **[Your Product Name Here]**</p>
-            <p>Price: $<span id="product-price">100.00</span></p> </div>
+            <p>Total: $<span id="cart-total-price">0.00</span></p>
+        </div>
 
         <div class="checkout-container">
             <h2>Payment Details</h2>
@@ -56,7 +85,8 @@
                     <input type="email" id="customer-email" name="customer-email" placeholder="john.doe@example.com" required>
                 </div>
 
-                <hr> <div id="payment-element">
+                <hr>
+                <div id="payment-element">
                     </div>
 
                 <div id="error-message" class="error-message" style="display: none;"></div>
@@ -70,13 +100,26 @@
             <div id="payment-success-message" class="success-message" style="display: none;">
                 <p>Thank you! Your payment was successful.</p>
                 <p>A confirmation email has been sent to your address.</p>
-                </div>
+                <button class="btn btn-primary" onclick="window.location.href='index.html'">Continue Shopping</button>
+            </div>
 
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2024 Realms to Riches. All rights reserved.</p>
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-info">
+                <p>© Realms to Riches Copyright 2025</p>
+                <p>CEO: Robert Demotto Jr</p>
+                <p>Mill Creek, WV 26280</p>
+                <p><a href="mailto:realmstoriches@gmail.com">realmstoriches@gmail.com</a></p>
+                <p><a href="tel:304-266-4833">304-266-4833</a></p>
+            </div>
+            <div class="footer-legal">
+                <p><a href="/terms-of-service.html" class="footer-link">Terms of Service</a></p>
+                <p><a href="/privacy-policy.html" class="footer-link">Privacy Policy</a></p>
+            </div>
+        </div>
     </footer>
 
     <script src="script.js"></script>
