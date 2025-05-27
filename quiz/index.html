@@ -3,146 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your Perfect Vibe Coding Tool</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com?plugins=aspect-ratio"></script> <style>
-        /* Minimal inline styles for dynamic elements */
-        #quiz-progress-bar-inner {
-            transition: width 0.3s ease-in-out;
-        }
-        /* Ensure consistent button aspect ratio on mobile, video on desktop */
-        .answer-button {
-            aspect-ratio: 1 / 1; /* Mobile: aspect-square */
-        }
-        @media (min-width: 640px) { /* sm breakpoint */
-            .answer-button {
-                 /* aspect-ratio: 16 / 9; */ /* Desktop: sm:aspect-video - Adjusted to keep square for better emoji layout */
-                 aspect-ratio: 1 / 1; /* Keeping square on desktop too for better text fit */
-            }
-        }
-    </style>
+    <title>Realms to Riches - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/favicon.webp" type="image/webp">
+    <meta name="description" content="Explore Realms to Riches: Epic adventures, expert courses, and essential tools for digital success.">
+    <meta name="keywords" content="Realms to Riches, digital services, online courses, business tools, adventure, success">
 </head>
-<body class="bg-gray-50">
+<body>
 
-    <div id="vibe-quiz" data-results-src="results.json" class="max-w-lg mx-auto mt-8 mb-8 p-5 sm:p-8 bg-white rounded-lg shadow-xl border border-gray-200">
-
-        <h1 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-4" data-test="quiz-title">Find Your Perfect Vibe Coding Tool</h1>
-        <p class="text-center text-gray-600 mb-6" data-test="quiz-social-proof">⭐⭐⭐⭐⭐ Rated by 1,200+ devs</p>
-
-        <div class="w-full bg-gray-200 h-2 rounded mb-6">
-            <div id="quiz-progress-bar-inner" class="bg-indigo-600 h-2 rounded" style="width: 0%;"></div>
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <a href="index.html">
+                    <img src="img/logo.webp" alt="Realms to Riches Logo" class="site-logo">
+                </a>
+            </div>
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="#services-section">Services</a></li>
+                    <li><a href="#courses-section">Courses</a></li>
+                    <li><a href="#tools-resources-section">Tools</a></li>
+                    <li><a href="#secondary-services-section">Secondary</a></li>
+                    <li><a href="#partner-section">Partner</a></li> <li><a href="checkout.html">Cart (<span id="cart-count">0</span>)</a></li>
+                </ul>
+            </nav>
         </div>
-        <p id="quiz-progress-text" class="text-center text-sm text-indigo-700 mb-6 font-medium"></p>
+    </header>
 
-        <div id="quiz-steps">
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1>Unlock Your Digital Kingdom</h1>
+                <p>Embark on a journey to build wealth, master skills, and conquer the digital realm with Realms to Riches.</p>
+                <button class="btn btn-primary" id="call-to-action-btn">Start Your Adventure</button>
+            </div>
+        </section>
 
-            <div id="step-1" class="quiz-step" data-test="quiz-step-1">
-                <h2 class="text-lg sm:text-xl font-semibold text-center text-gray-800 mb-6">What's your project's energy level?</h2>
-                <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
-                    <button data-tool="tool-alpha" class="answer-button flex flex-col items-center justify-center w-16 h-16 sm:w-24 sm:h-24 text-3xl sm:text-4xl bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-105 transition-transform" data-test="quiz-answer">
-                        🚀
-                        <span class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-700 font-medium">High Octane</span>
-                    </button>
-                    <button data-tool="tool-beta" class="answer-button flex flex-col items-center justify-center w-16 h-16 sm:w-24 sm:h-24 text-3xl sm:text-4xl bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-105 transition-transform" data-test="quiz-answer">
-                        🧘
-                        <span class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-700 font-medium">Chill Focus</span>
-                    </button>
-                    <button data-tool="tool-gamma" class="answer-button flex flex-col items-center justify-center w-16 h-16 sm:w-24 sm:h-24 text-3xl sm:text-4xl bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-105 transition-transform" data-test="quiz-answer">
-                        🧪
-                        <span class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-700 font-medium">Experimental</span>
-                    </button>
+        <section id="services-section" class="section">
+            <div class="container">
+                <h2 class="section-title">Our Core Services</h2>
+                <div class="grid-4-col">
+                    <div class="grid-item">
+                        <img src="img/service-marketing.svg" alt="Digital Marketing Icon">
+                        <h3>Digital Marketing Campaigns</h3>
+                        <p>Forge powerful marketing strategies to reach vast audiences.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="digi-marketing" data-product-name="Digital Marketing Campaigns" data-product-price="1000">Learn More</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/service-webdesign.svg" alt="Website Development Icon">
+                        <h3>Website Development</h3>
+                        <p>Build robust and enchanting online presences.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="web-dev" data-product-name="Website Development" data-product-price="2500">Learn More</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/service-contentcreation.svg" alt="Content Creation Icon">
+                        <h3>Content Creation</h3>
+                        <p>Craft compelling narratives that captivate and convert.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="content-creation" data-product-name="Content Creation" data-product-price="800">Learn More</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/service-seo.svg" alt="SEO Optimization Icon">
+                        <h3>SEO Optimization</h3>
+                        <p>Ascend the search rankings and claim your digital territory.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="seo-opt" data-product-name="SEO Optimization" data-product-price="1200">Learn More</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/service-digitaldomination.png" alt="Social Media Management Icon"> <h3>Social Media Management</h3>
+                        <p>Command your social presence with expert guidance.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="social-mgmt" data-product-name="Social Media Management" data-product-price="700">Learn More</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/service-ecommercewebdesign.png" alt="E-commerce Solutions Icon">
+                        <h3>E-commerce Solutions</h3>
+                        <p>Equip your store with powerful sales mechanisms.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="ecommerce-sol" data-product-name="E-commerce Solutions" data-product-price="1800">Learn More</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/service-webdesignadvanced.png" alt="Cloud Hosting Icon"> <h3>Cloud Hosting</h3>
+                        <p>Secure your digital assets in the impenetrable cloud.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="cloud-host" data-product-name="Cloud Hosting" data-product-price="300">Learn More</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/service-businessmanagement.svg" alt="Data Analytics Icon"> <h3>Data Analytics</h3>
+                        <p>Uncover hidden treasures in your business data.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="data-anal" data-product-name="Data Analytics" data-product-price="950">Learn More</button>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div id="step-2" class="quiz-step hidden" data-test="quiz-step-2">
-                <h2 class="text-lg sm:text-xl font-semibold text-center text-gray-800 mb-6">How do you handle complexity?</h2>
-                <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
-                     <button data-tool="tool-beta" class="answer-button flex flex-col items-center justify-center w-16 h-16 sm:w-24 sm:h-24 text-3xl sm:text-4xl bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-105 transition-transform" data-test="quiz-answer">
-                        🧩
-                        <span class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-700 font-medium">Piece by Piece</span>
-                    </button>
-                    <button data-tool="tool-alpha" class="answer-button flex flex-col items-center justify-center w-16 h-16 sm:w-24 sm:h-24 text-3xl sm:text-4xl bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-105 transition-transform" data-test="quiz-answer">
-                        ⚡
-                        <span class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-700 font-medium">Direct Assault</span>
-                    </button>
-                    <button data-tool="tool-gamma" class="answer-button flex flex-col items-center justify-center w-16 h-16 sm:w-24 sm:h-24 text-3xl sm:text-4xl bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-105 transition-transform" data-test="quiz-answer">
-                        🗺️
-                        <span class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-700 font-medium">Explore Options</span>
-                    </button>
+        <section id="courses-section" class="section">
+            <div class="container">
+                <h2 class="section-title">Master Your Craft with Our Courses</h2>
+                <div class="grid-3-col">
+                    <div class="grid-item">
+                        <img src="img/image2-800w.webp" alt="Digital Marketing Course Icon">
+                        <h3>Digital Marketing Mastery</h3>
+                        <p>Comprehensive training to dominate online campaigns.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="dm-mastery" data-product-name="Digital Marketing Mastery" data-product-price="499">Enroll Now</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image3-800w.webp" alt="Web Development Course Icon">
+                        <h3>Web Development Fundamentals</h3>
+                        <p>Build the foundations for stunning websites.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="web-dev-course" data-product-name="Web Development Fundamentals" data-product-price="599">Enroll Now</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image4-800w.webp" alt="SEO Strategies Course Icon">
+                        <h3>Advanced SEO Strategies</h3>
+                        <p>Become an SEO wizard and rank higher.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="adv-seo" data-product-name="Advanced SEO Strategies" data-product-price="349">Enroll Now</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image5-800w.webp" alt="Content Writing Course Icon">
+                        <h3>Content Writing for Conversions</h3>
+                        <p>Turn words into riches with engaging content.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="content-write" data-product-name="Content Writing for Conversions" data-product-price="299">Enroll Now</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image6-800w.webp" alt="Social Media Growth Icon">
+                        <h3>Social Media Growth Hacking</h3>
+                        <p>Rapidly expand your influence on social platforms.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="social-growth" data-product-name="Social Media Growth Hacking" data-product-price="249">Enroll Now</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image7-800w.webp" alt="E-commerce Success Blueprint">
+                        <h3>E-commerce Success Blueprint</h3>
+                        <p>Blueprint for launching and scaling online stores.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="ecommerce-blue" data-product-name="E-commerce Success Blueprint" data-product-price="699">Enroll Now</button>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div id="step-3" class="quiz-step hidden" data-test="quiz-step-3">
-                 <h2 class="text-lg sm:text-xl font-semibold text-center text-gray-800 mb-6">Collaboration style?</h2>
-                <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
-                    <button data-tool="tool-gamma" class="answer-button flex flex-col items-center justify-center w-16 h-16 sm:w-24 sm:h-24 text-3xl sm:text-4xl bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-105 transition-transform" data-test="quiz-answer">
-                        🤝
-                        <span class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-700 font-medium">Team Player</span>
-                    </button>
-                     <button data-tool="tool-alpha" class="answer-button flex flex-col items-center justify-center w-16 h-16 sm:w-24 sm:h-24 text-3xl sm:text-4xl bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-105 transition-transform" data-test="quiz-answer">
-                        🎯
-                        <span class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-700 font-medium">Lead the Charge</span>
-                    </button>
-                    <button data-tool="tool-beta" class="answer-button flex flex-col items-center justify-center w-16 h-16 sm:w-24 sm:h-24 text-3xl sm:text-4xl bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-105 transition-transform" data-test="quiz-answer">
-                        🧑‍💻
-                        <span class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-700 font-medium">Solo Coder</span>
-                    </button>
+        <section id="tools-resources-section" class="section">
+            <div class="container">
+                <h2 class="section-title">Essential Tools & Resources</h2>
+                <div class="grid-4-col">
+                    <div class="grid-item">
+                        <img src="img/image8-900w.webp" alt="SEO Audit Software Icon">
+                        <h3>SEO Audit Software</h3>
+                        <p>Uncover hidden SEO issues and opportunities.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="seo-audit" data-product-name="SEO Audit Software" data-product-price="99">Get Tool</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image9-900w.webp" alt="Graphic Design Templates Icon">
+                        <h3>Graphic Design Templates</h3>
+                        <p>Stunning visuals made easy with our template library.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="design-temp" data-product-name="Graphic Design Templates" data-product-price="49">Get Tool</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image10-900w.webp" alt="CRM System Icon">
+                        <h3>CRM System Access</h3>
+                        <p>Manage your client relationships like a true king.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="crm-access" data-product-name="CRM System Access" data-product-price="149">Get Access</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image11-900w.webp" alt="Automated Email Flows Icon">
+                        <h3>Automated Email Flows</h3>
+                        <p>Set up drip campaigns for effortless nurturing.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="email-flows" data-product-name="Automated Email Flows" data-product-price="79">Get Flows</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image12-900w.webp" alt="Lead Generation Templates Icon">
+                        <h3>Lead Generation Templates</h3>
+                        <p>Templates to capture more prospects.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="lead-gen-temp" data-product-name="Lead Generation Templates" data-product-price="59">Get Templates</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image13-900w.webp" alt="Project Management Icon">
+                        <h3>Project Management Suite</h3>
+                        <p>Keep your projects on track and on budget.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="proj-mgmt-suite" data-product-name="Project Management Suite" data-product-price="129">Get Suite</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image14-900w.webp" alt="Stock Photo Video Library Icon">
+                        <h3>Stock Photo & Video Library</h3>
+                        <p>Access millions of professional media assets.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="media-library" data-product-name="Stock Photo & Video Library" data-product-price="39">Get Access</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image15-900w.webp" alt="AI Content Assistant Icon">
+                        <h3>AI Content Assistant</h3>
+                        <p>Speed up your content creation with AI power.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="ai-content" data-product-name="AI Content Assistant" data-product-price="199">Get Assistant</button>
+                    </div>
                 </div>
             </div>
+        </section>
 
-             <div id="step-4" class="quiz-step hidden" data-test="quiz-step-4">
-                 <h2 class="text-lg sm:text-xl font-semibold text-center text-gray-800 mb-6">Preferred learning curve?</h2>
-                <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
-                    <button data-tool="tool-alpha" class="answer-button flex flex-col items-center justify-center w-16 h-16 sm:w-24 sm:h-24 text-3xl sm:text-4xl bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-105 transition-transform" data-test="quiz-answer">
-                        📈
-                        <span class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-700 font-medium">Steep & Powerful</span>
-                    </button>
-                    <button data-tool="tool-gamma" class="answer-button flex flex-col items-center justify-center w-16 h-16 sm:w-24 sm:h-24 text-3xl sm:text-4xl bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-105 transition-transform" data-test="quiz-answer">
-                        🤸
-                        <span class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-700 font-medium">Flexible</span>
-                    </button>
-                     <button data-tool="tool-beta" class="answer-button flex flex-col items-center justify-center w-16 h-16 sm:w-24 sm:h-24 text-3xl sm:text-4xl bg-gray-100 rounded-lg hover:bg-gray-200 hover:scale-105 transition-transform" data-test="quiz-answer">
-                        📉
-                        <span class="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-700 font-medium">Gentle & Easy</span>
-                    </button>
+        <section id="secondary-services-section" class="section">
+            <div class="container">
+                <h2 class="section-title">Additional Realm Enhancements</h2>
+                <div class="grid-3-col">
+                    <div class="grid-item">
+                        <img src="img/image16-800w.webp" alt="Cybersecurity Consulting Icon">
+                        <h3>Cybersecurity Consulting</h3>
+                        <p>Fortify your defenses against digital threats.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="cyber-consult" data-product-name="Cybersecurity Consulting" data-product-price="900">Enquire</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image17-800w.webp" alt="Legal Compliance Advisory Icon">
+                        <h3>Legal & Compliance Advisory</h3>
+                        <p>Navigate the legal labyrinth with expert guidance.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="legal-adv" data-product-name="Legal & Compliance Advisory" data-product-price="750">Enquire</button>
+                    </div>
+                    <div class="grid-item">
+                        <img src="img/image18-800w.webp" alt="Business Coaching Icon">
+                        <h3>Business Coaching</h3>
+                        <p>Unlock your full potential with personalized strategies.</p>
+                        <button class="btn btn-secondary buy-now-btn" data-product-id="biz-coach" data-product-name="Business Coaching" data-product-price="1500">Enquire</button>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div id="step-5" class="quiz-step hidden text-center" data-test="quiz-step-5">
-                <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-3">Almost there!</h2>
-                <p class="text-gray-600 mb-6">Enter your email to see your perfect vibe coding tool!</p>
-                <input type="email" id="email" placeholder="you@example.com" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none mb-3 text-gray-700"
-                       data-test="quiz-email-input">
-                <div id="error-message" class="text-red-500 text-sm mb-3 h-4"></div> {/* Placeholder for error */}
-                <button id="submit-quiz"
-                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-md focus:outline-none focus:shadow-outline flex items-center justify-center transition-colors"
-                        data-test="quiz-submit">
-                    See My Tool
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </button>
-                 <p class="text-gray-500 text-xs mt-4 flex items-center justify-center" data-test="quiz-privacy">
-                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v2H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-1V6a4 4 0 00-4-4zm2 6V6a2 2 0 10-4 0v2h4z" clip-rule="evenodd" />
-                    </svg>
-                    We respect your privacy. No spam, ever.
-                </p>
+        <section id="partner-section" class="section partner-section">
+            <div class="container partner-content">
+                <div class="partner-text">
+                    <h2 class="section-title">Become a Realms to Riches Partner!</h2>
+                    <p>Collaborate with us and expand your digital kingdom. Gain access to exclusive resources, joint ventures, and a network of visionary entrepreneurs.</p>
+                    <button class="btn btn-primary">Join Our Partnership Program</button>
+                </div>
+                <div class="partner-image">
+                    <img src="img/image19-1600w.webp" alt="Become a Partner">
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Claim Your Riches?</h2>
+                <p>Join the ranks of successful digital entrepreneurs. Contact us today!</p>
+                <button class="btn btn-primary" id="cta-contact-btn">Contact Us</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-info">
+                <p>&copy; 2025 Realms to Riches. All rights reserved.</p>
+                <p>123 Digital Kingdom Way, Cyber City, CA 90210</p>
+                <p>info@realmstoriches.com</p>
+            </div>
+            <div class="footer-legal">
+                <p><a href="#" class="footer-link">Privacy Policy</a></p>
+                <p><a href="#" class="footer-link">Terms of Service</a></p>
             </div>
         </div>
+    </footer>
 
-        <div id="quiz-result" class="hidden text-center" data-test="quiz-result">
-            <h2 id="result-headline" class="text-2xl sm:text-3xl font-bold text-indigo-600 mb-6"></h2>
-            <a id="result-cta" href="#" target="_blank"
-               class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-md focus:outline-none focus:shadow-outline transition-colors text-lg hover:scale-105 transition-transform"
-               data-test="quiz-result-cta">
-               Learn More & Get Started
-            </a>
+    <div id="lead-capture-popup" class="popup-overlay hidden">
+        <div class="popup-content">
+            <button class="close-button" id="close-popup-btn">&times;</button>
+            <img src="img/Drag drop done - English 300x250.webp" alt="Exclusive Shopify Offer" style="max-width: 100%; margin-bottom: 20px;">
+            <h2>Claim Your FREE Shopify Setup Guide!</h2>
+            <p>Enter your email to get instant access and start your e-commerce journey.</p>
+            <form action="https://formspree.io/f/your_form_id" method="POST" id="lead-capture-form">
+                <input type="email" name="email" placeholder="Your Email Address" required>
+                <button type="submit" class="btn btn-primary">Download Now</button>
+            </form>
+            <p id="form-message"></p>
         </div>
-
     </div>
 
-    <script src="vibe-quiz.js"></script>
+    <div id="cookie-consent-popup" class="cookie-popup hidden">
+        <p>We use cookies to ensure you get the best experience on our website. By continuing, you agree to our <a href="#" class="cookie-link">Privacy Policy</a>.</p>
+        <button class="btn btn-secondary" id="accept-cookies-btn">Accept</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
