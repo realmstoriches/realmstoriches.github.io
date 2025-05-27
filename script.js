@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeLeadFormBtn = document.getElementById('close-lead-form');
     // Select both Formspree forms by their specific IDs
     const leadCaptureFormMain = document.getElementById('lead-capture-form-main'); // For index.html
-    const leadCaptureFormCheckout = document.getElementById('lead-capture-form-checkout'); // For checkout.html (now uses the same form structure)
+    const leadCaptureFormCheckout = document.getElementById('lead-capture-form-checkout'); // For checkout.html
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/xvgajnqr"; // Your Formspree endpoint
 
 
@@ -23,29 +23,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const shopifyCta = document.getElementById('shopify-offer-cta');
     const triggerLeadPopupBtn = document.getElementById('trigger-lead-popup');
 
-    // --- Cart Elements ---
+    // --- Cart Elements (Universal for header and other pages) ---
     const cartCountElement = document.getElementById('cart-count'); // Universal cart count in header
     const buyNowButtons = document.querySelectorAll('.buy-now-btn'); // On index.html
 
     // Cart elements specific to view-cart.html
-    const cartItemsListElement = document.getElementById('cart-items-list');
-    const cartTotalDisplayElement = document.getElementById('cart-total-display');
-    const proceedToCheckoutBtn = document.getElementById('proceed-to-checkout-btn');
-    const emptyCartMessage = document.querySelector('.empty-cart-message');
+    const cartItemsContainer = document.getElementById('cart-items-container-main'); // This holds the glowing container
+    const cartTotalElement = document.getElementById('cart-total'); // This displays the total within the summary
+    const proceedToCheckoutBtn = document.getElementById('proceed-to-checkout-btn'); // Button to checkout
+    const emptyCartMessageElement = document.getElementById('empty-cart-message-main'); // Message for empty cart
+    const cartSummarySectionElement = document.getElementById('cart-summary-section'); // Section holding total and actions
 
 
     // Load cart from localStorage or initialize as empty array
-    let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-
-    // --- Stripe Payment Elements (for checkout.html) ---
-    const paymentForm = document.getElementById('payment-form');
-    const paymentElementContainer = document.getElementById('payment-element');
-    const paymentErrorMessageDiv = document.getElementById('error-message');
-    const submitPaymentBtn = document.getElementById('submit-payment-btn');
-    const paymentSuccessMessage = document.getElementById('payment-success-message');
-    // For checkout, we will get the total directly from the cart in localStorage
-    const checkoutCartTotalDisplayElement = document.getElementById('cart-total-price'); // On checkout.html, renamed from product-price
-
+    let cart = [];
+    try {
+        const storedCart = localStorage.getItem('shoppingCart');
+        if (storedCart) {
+            cart = JSON.parse(storedCart);
+            console.log("Script init: Cart loaded from localStorage:", JSON.stringify(cart, null, 2));
+        } else {
+            console.log("Script init: No cart found in localStorage. Initializing as empty.");
+        }
+    } catch (e) {
+        console.error("Script init: Error parsing cart from localStorage:", e);
+    }
 
     // --- Helper function to show/hide the main popup container ---
     function showPopup(contentToShow) {
@@ -56,8 +58,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Show the specific content
             if (contentToShow === 'cookie' && cookieConsentContent) {
-                cookieConsentContent.style.display = 'flex'; // Use flex for cookie popup as per original style
+                // For cookie popup, use flex to enable original bottom-sticky behavior
+                cookieConsentContent.style.display = 'flex';
             } else if (contentToShow === 'lead' && leadCaptureContent) {
+                // For lead capture, block display is fine within the centered overlay
                 leadCaptureContent.style.display = 'block';
             }
 
@@ -83,13 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Cookie Consent Logic ---
     function handleCookieConsent() {
-        // If cookies haven't been accepted and it's not the checkout page
-        // (to prevent cookie popup from interfering with payment on checkout load)
-        if (!localStorage.getItem('cookiesAccepted') && window.location.pathname !== '/checkout.html') {
+        // If cookies haven't been accepted AND it's not the checkout or success page
+        if (!localStorage.getItem('cookiesAccepted') && !['/checkout.html', '/payment-success.html'].includes(window.location.pathname)) {
              showPopup('cookie');
              console.log("Cookie popup shown.");
         } else {
-            // If cookies accepted, or on checkout page, proceed to lead capture logic
+            // If cookies accepted, or on checkout/success page, proceed to lead capture logic
             handleLeadCaptureDisplay();
         }
     }
@@ -246,6 +249,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveCart() {
         localStorage.setItem('shoppingCart', JSON.stringify(cart));
         updateCartCount();
+        // If on cart page, re-render display after save
+        if (window.location.pathname === '/view-cart.html') {
+            renderCartDisplay();
+        }
     }
 
     function addToCart(serviceId, serviceName, servicePrice) {
@@ -280,50 +287,97 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- Cart Page Specific Functionality (view-cart.html) ---
-    function renderCartItems() {
-        if (cartItemsListElement && cartTotalDisplayElement) {
-            if (cart.length === 0) {
-                cartItemsListElement.innerHTML = '<p class="empty-cart-message">Your cart is empty.</p>';
-                if (proceedToCheckoutBtn) proceedToCheckoutBtn.disabled = true;
-            } else {
-                cartItemsListElement.innerHTML = ''; // Clear existing items
-                if (emptyCartMessage) emptyCartMessage.style.display = 'none'; // Hide empty message
-                if (proceedToCheckoutBtn) proceedToCheckoutBtn.disabled = false;
+    function renderCartDisplay() {
+        console.log("View Cart page: renderCartDisplay() called. Current cart state:", JSON.stringify(cart, null, 2));
 
-                cart.forEach((item, index) => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.classList.add('cart-item');
-                    itemDiv.innerHTML = `
-                        <div class="cart-item-info">
-                            <h3>${item.name}</h3>
-                            <p>Price: $${item.price.toFixed(2)}</p>
-                            <p>Quantity: ${item.quantity}</p>
-                        </div>
-                        <div class="cart-item-actions">
-                            <button class="btn btn-remove-item" data-index="${index}">Remove</button>
-                        </div>
-                    `;
-                    cartItemsListElement.appendChild(itemDiv);
-                });
-            }
-            cartTotalDisplayElement.textContent = calculateCartTotal().toFixed(2);
+        // Ensure all required DOM elements exist for rendering
+        if (!cartItemsContainer || !cartTotalElement || !emptyCartMessageElement || !cartSummarySectionElement || !proceedToCheckoutBtn) {
+            console.error("View Cart page: One or more critical display elements are missing from the DOM. Cannot render cart.");
+            return; // Exit if elements aren't found
         }
+
+        cartItemsContainer.innerHTML = ''; // Clear existing items
+        let totalAmount = 0;
+
+        if (cart.length === 0) {
+            console.log("View Cart page: Cart is empty. Displaying empty message.");
+            emptyCartMessageElement.style.display = 'block';
+            cartSummarySectionElement.style.display = 'none';
+            cartItemsContainer.style.display = 'none'; // Hide the glowing container if empty
+            proceedToCheckoutBtn.disabled = true; // Disable checkout button
+        } else {
+            console.log(`View Cart page: Cart has ${cart.length} item(s). Rendering...`);
+            emptyCartMessageElement.style.display = 'none';
+            cartSummarySectionElement.style.display = 'block';
+            cartItemsContainer.style.display = 'block'; // Show the glowing container
+            proceedToCheckoutBtn.disabled = false; // Enable checkout button
+
+            cart.forEach((item, index) => {
+                if (typeof item.price !== 'number' || typeof item.quantity !== 'number') {
+                    console.error("View Cart page: Invalid item in cart (price or quantity is not a number):", item);
+                    return; // Skip invalid items
+                }
+
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+                itemElement.innerHTML = `
+                    <div class="cart-item-details">
+                        <strong>${item.name || 'Unnamed Item'}</strong>
+                        <p>Price per item: $${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <button class="btn-update-quantity" data-index="${index}" data-action="decrease" title="Decrease Quantity">-</button>
+                        <span class="item-quantity-display">${item.quantity}</span>
+                        <button class="btn-update-quantity" data-index="${index}" data-action="increase" title="Increase Quantity">+</button>
+                    </div>
+                    <div class="cart-item-subtotal">
+                        <strong>Subtotal: $${(item.price * item.quantity).toFixed(2)}</strong>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button class="btn-remove-item" data-index="${index}" title="Remove Item">Remove</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+                totalAmount += item.price * item.quantity;
+            });
+        }
+
+        cartTotalElement.innerHTML = `<strong>Grand Total: $${totalAmount.toFixed(2)}</strong>`;
+        attachCartActionListeners(); // Re-attach listeners after rendering
+        updateCartCount(); // Update the header cart count
     }
 
-    function removeFromCart(index) {
+    function removeItemFromCart(index) {
         if (index > -1 && index < cart.length) {
-            cart.splice(index, 1); // Remove item at index
-            saveCart();
-            renderCartItems(); // Re-render cart after removal
+            cart.splice(index, 1);
+            saveCart(); // This calls renderCartDisplay()
         }
     }
 
-    // Event listener for "Remove" buttons on cart page
-    if (cartItemsListElement) {
-        cartItemsListElement.addEventListener('click', function(event) {
+    function updateItemQuantity(index, action) {
+        if (index > -1 && index < cart.length) {
+            if (action === 'increase') {
+                cart[index].quantity += 1;
+            } else if (action === 'decrease') {
+                cart[index].quantity -= 1;
+                if (cart[index].quantity <= 0) {
+                    cart.splice(index, 1); // Remove if quantity drops to 0 or less
+                }
+            }
+            saveCart(); // This calls renderCartDisplay()
+        }
+    }
+
+    // Event listener for "Remove" and Quantity buttons (delegated)
+    if (cartItemsContainer) { // Attach to the container to catch events from dynamically added buttons
+        cartItemsContainer.addEventListener('click', function(event) {
             if (event.target.classList.contains('btn-remove-item')) {
                 const indexToRemove = parseInt(event.target.dataset.index);
-                removeFromCart(indexToRemove);
+                removeItemFromCart(indexToRemove);
+            } else if (event.target.classList.contains('btn-update-quantity')) {
+                const itemIndex = parseInt(event.target.dataset.index);
+                const action = event.target.dataset.action;
+                updateItemQuantity(itemIndex, action);
             }
         });
     }
@@ -335,19 +389,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = '/checkout.html';
             } else {
                 alert("Your cart is empty. Please add items before proceeding to checkout.");
+                proceedToCheckoutBtn.disabled = true;
             }
         });
     }
 
-    // Initialize cart items rendering if on view-cart.html
+    // Initial cart rendering if on view-cart.html when script loads
     if (window.location.pathname === '/view-cart.html') {
-        renderCartItems();
+        renderCartDisplay();
     }
 
 
-    // Initial cart count update on page load (for header)
+    // Initial update of cart count in header on any page load
     updateCartCount();
-    console.log("Cart script initialized.");
+    console.log("Cart functionality initialized across site.");
 
 
     // --- Stripe Payment Integration (for checkout.html) ---
@@ -356,10 +411,10 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Stripe checkout elements found. Initializing Stripe.");
 
         // On checkout.html, update the cart total price element
+        const checkoutTotal = calculateCartTotal();
         if (checkoutCartTotalDisplayElement) {
-            const total = calculateCartTotal();
-            checkoutCartTotalDisplayElement.textContent = total.toFixed(2); // Display total with 2 decimal places
-            console.log("Checkout page: Cart total displayed as $", total.toFixed(2));
+            checkoutCartTotalDisplayElement.textContent = checkoutTotal.toFixed(2); // Display total with 2 decimal places
+            console.log("Checkout page: Cart total displayed as $", checkoutTotal.toFixed(2));
         }
 
         // Initialize Stripe.js with your **PUBLISHABLE KEY**.
@@ -376,8 +431,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const createIntentEndpoint = `${backendUrl}/create-payment-intent`;
 
                 // Use the calculated cart total for the payment intent
-                const total = calculateCartTotal();
-                let amountValue = total * 100; // Convert to cents
+                let amountValue = checkoutTotal * 100; // Convert to cents
 
                 if (amountValue <= 0) { // Prevent creating intent for $0 or less
                     console.error("Cart total is zero or negative. Cannot create payment intent.");
@@ -385,6 +439,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         paymentErrorMessageDiv.textContent = "Cannot process an empty or zero-value order. Please add items to your cart.";
                         paymentErrorMessageDiv.style.display = 'block';
                     }
+                    // Disable submit button and hide form if amount is invalid
+                    if (submitPaymentBtn) submitPaymentBtn.disabled = true;
+                    paymentForm.style.display = 'none';
                     return null;
                 }
 
@@ -410,6 +467,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     paymentErrorMessageDiv.textContent = `Payment initialization failed: ${error.message}. Please refresh and try again.`;
                     paymentErrorMessageDiv.style.display = 'block';
                 }
+                // Disable submit button and hide form on backend error
+                if (submitPaymentBtn) submitPaymentBtn.disabled = true;
+                paymentForm.style.display = 'none';
                 return null;
             }
         }
@@ -421,10 +481,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 elements = stripe.elements({ clientSecret });
                 const paymentElement = elements.create('payment');
                 paymentElement.mount('#payment-element');
-                paymentForm.style.display = 'block';
+                paymentForm.style.display = 'block'; // Show form only after element mounts
                 console.log("Stripe Payment Element mounted.");
             } else {
-                paymentForm.style.display = 'none';
+                paymentForm.style.display = 'none'; // Hide form if no client secret
                 console.error("Could not get client secret, hiding payment form.");
             }
         }
@@ -550,6 +610,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-}); // End of DOMContentLoaded listener
-
-    
+});
