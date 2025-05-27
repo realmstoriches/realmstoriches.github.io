@@ -2,7 +2,7 @@
 // --- Global Variables & Constants ---
 // REPLACE 'pk_test_TYooMQauvdEDq5PCxOjGlggCUJ8sHQpt58' WITH YOUR ACTUAL STRIPE PUBLISHABLE KEY
 // You can get this from your Stripe Dashboard: https://dashboard.stripe.com/test/apikeys
-const stripe = Stripe('pk_test_TYooMQauvdEDq5PCxOjGlggCUJ8sHQpt58'); 
+const stripe = Stripe('pk_live_51RSfPXFHtr1SOdkc0fjiQ9RPj66DoF4c4GPniCTJK6uCxCnsrDH97eR3F82uw2nfCorzsgUpJAsarYgmeCtzcDI700iFDHwLVJ'); 
 let elements; // For Stripe Elements
 
 // --- DOM Element References ---
