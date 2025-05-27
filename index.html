@@ -381,8 +381,16 @@
         <img src="img/Drag drop done - English 300x250.webp" alt="Unlock exclusive strategies" style="max-width: 80%; height: auto; margin-bottom: 15px; border-radius: 4px;">
         <h2>Unlock Exclusive Strategies!</h2>
         <p>Enter your email to receive free market strategies and insights directly to your inbox.</p>
-        <form id="lead-capture-form-index" action="https://formspree.io/f/xvgajnqr" method="POST">
-            <input type="email" name="email" placeholder="Your Email" required>
+        <form id="lead-capture-form-main" action="https://formspree.io/f/xvgajnqr" method="POST">
+            <div class="form-group">
+                <label for="email-index">Your email:</label>
+                <input type="email" id="email-index" name="email" placeholder="Your Email" required>
+            </div>
+            <!-- Added a name field for consistency, though not required by Formspree -->
+            <div class="form-group">
+                <label for="name-index">Your name (optional):</label>
+                <input type="text" id="name-index" name="name" placeholder="Your Name">
+            </div>
             <button type="submit">Get Strategies</button>
         </form>
         <div id="form-message"></div> <!-- For submission status/messages -->
@@ -394,5 +402,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
-    
