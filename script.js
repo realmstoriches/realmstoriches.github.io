@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeLeadFormBtn = document.getElementById('close-lead-form');
     // Select both Formspree forms by their specific IDs
     const leadCaptureFormMain = document.getElementById('lead-capture-form-main'); // For index.html
-    const leadCaptureFormCheckout = document.getElementById('lead-capture-form-checkout'); // For checkout.html
+    const leadCaptureFormCheckout = document.getElementById('lead-capture-form-checkout'); // For checkout.html (now uses the same form structure)
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/xvgajnqr"; // Your Formspree endpoint
 
 
@@ -23,9 +23,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const shopifyCta = document.getElementById('shopify-offer-cta');
     const triggerLeadPopupBtn = document.getElementById('trigger-lead-popup');
 
-    // --- Cart Count Elements ---
-    const cartCountElement = document.getElementById('cart-count');
-    const buyNowButtons = document.querySelectorAll('.buy-now-btn');
+    // --- Cart Elements ---
+    const cartCountElement = document.getElementById('cart-count'); // Universal cart count in header
+    const buyNowButtons = document.querySelectorAll('.buy-now-btn'); // On index.html
+
+    // Cart elements specific to view-cart.html
+    const cartItemsListElement = document.getElementById('cart-items-list');
+    const cartTotalDisplayElement = document.getElementById('cart-total-display');
+    const proceedToCheckoutBtn = document.getElementById('proceed-to-checkout-btn');
+    const emptyCartMessage = document.querySelector('.empty-cart-message');
+
 
     // Load cart from localStorage or initialize as empty array
     let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
@@ -36,7 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const paymentErrorMessageDiv = document.getElementById('error-message');
     const submitPaymentBtn = document.getElementById('submit-payment-btn');
     const paymentSuccessMessage = document.getElementById('payment-success-message');
-    const cartTotalPriceElement = document.getElementById('cart-total-price'); // Renamed from product-price
+    // For checkout, we will get the total directly from the cart in localStorage
+    const checkoutCartTotalDisplayElement = document.getElementById('cart-total-price'); // On checkout.html, renamed from product-price
 
 
     // --- Helper function to show/hide the main popup container ---
@@ -48,13 +56,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Show the specific content
             if (contentToShow === 'cookie' && cookieConsentContent) {
-                cookieConsentContent.style.display = 'block';
+                cookieConsentContent.style.display = 'flex'; // Use flex for cookie popup as per original style
             } else if (contentToShow === 'lead' && leadCaptureContent) {
                 leadCaptureContent.style.display = 'block';
             }
 
             // Make the overlay visible and handle transitions
-            mainPopupContainer.style.display = 'flex'; // Ensure display is flex for centering
+            mainPopupContainer.style.display = 'flex'; // Ensure display is flex for centering the popup-content
             setTimeout(() => {
                 mainPopupContainer.classList.add('visible');
             }, 50); // Small delay for transition
@@ -66,17 +74,23 @@ document.addEventListener('DOMContentLoaded', function() {
             mainPopupContainer.classList.remove('visible');
             setTimeout(() => {
                 mainPopupContainer.style.display = 'none';
+                // Reset content display after hiding to avoid flicker if shown again
+                if (cookieConsentContent) cookieConsentContent.style.display = 'none';
+                if (leadCaptureContent) leadCaptureContent.style.display = 'none';
             }, 300); // Wait for transition to complete before hiding
         }
     }
 
     // --- Cookie Consent Logic ---
     function handleCookieConsent() {
-        if (!localStorage.getItem('cookiesAccepted')) {
-            showPopup('cookie');
-            console.log("Cookie popup shown.");
+        // If cookies haven't been accepted and it's not the checkout page
+        // (to prevent cookie popup from interfering with payment on checkout load)
+        if (!localStorage.getItem('cookiesAccepted') && window.location.pathname !== '/checkout.html') {
+             showPopup('cookie');
+             console.log("Cookie popup shown.");
         } else {
-            handleLeadCaptureDisplay(); // Cookies already accepted, proceed to show lead form
+            // If cookies accepted, or on checkout page, proceed to lead capture logic
+            handleLeadCaptureDisplay();
         }
     }
 
@@ -84,7 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
         acceptCookiesBtn.addEventListener('click', function() {
             localStorage.setItem('cookiesAccepted', 'true');
             hidePopup(); // Hide cookie popup immediately
-            handleLeadCaptureDisplay(); // Then, attempt to show lead capture form
+            // Short delay before showing lead capture to make transition smoother
+            setTimeout(handleLeadCaptureDisplay, 300);
             console.log("Cookies accepted, attempting to show lead capture.");
         });
     }
@@ -92,18 +107,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Lead Capture Form Display Logic ---
     function handleLeadCaptureDisplay() {
         // Only show lead capture if cookies accepted AND lead not already captured this session
-        if (localStorage.getItem('cookiesAccepted') === 'true' && !sessionStorage.getItem('leadCapturedThisSession')) {
-            // Do NOT show if on payment-success.html or shopify-offer.html#thank-you (after redirect)
-            if (window.location.pathname === '/payment-success.html' || window.location.hash === '#thank-you') {
-                console.log("Lead capture popup suppressed on success/thank-you page.");
-                return;
-            }
+        // AND not on payment success page
+        if (localStorage.getItem('cookiesAccepted') === 'true' && !sessionStorage.getItem('leadCapturedThisSession') && window.location.pathname !== '/payment-success.html') {
             showPopup('lead');
             console.log("Lead capture popup shown.");
             sessionStorage.setItem('leadCapturedThisSession', 'true'); // Mark as shown for the session
         } else {
-            console.log("Lead capture popup suppressed: cookies not accepted, or already shown this session, or on special page.");
-            hidePopup();
+            console.log("Lead capture popup suppressed: conditions not met.");
+            hidePopup(); // Ensure popup is hidden if conditions not met
         }
     }
 
@@ -120,8 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const form = event.target;
         const formData = new FormData(form);
-        // Ensure the action attribute is correctly set to FORMSPREE_ENDPOINT
-        form.action = FORMSPREE_ENDPOINT;
+        form.action = FORMSPREE_ENDPOINT; // Ensure the action attribute is correctly set
 
         if (formMessage) {
             formMessage.style.display = 'none';
@@ -136,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         try {
-            const response = await fetch(form.action, { // Use form.action for safety
+            const response = await fetch(form.action, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -214,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- Cart Functionality ---
+    // --- Cart Functionality (Universal for all pages) ---
     function updateCartCount() {
         if (cartCountElement) {
             let totalItems = 0;
@@ -243,10 +253,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const existingItemIndex = cart.findIndex(item => item.id === serviceId);
 
         if (existingItemIndex > -1) {
-            // If item already in cart, increase quantity
             cart[existingItemIndex].quantity += 1;
         } else {
-            // Add new item to cart
             cart.push({
                 id: serviceId,
                 name: serviceName,
@@ -259,6 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Cart updated:", cart);
     }
 
+    // Add event listeners for "Buy Now" buttons on index.html
     if (buyNowButtons.length > 0) {
         buyNowButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -268,11 +277,75 @@ document.addEventListener('DOMContentLoaded', function() {
                 addToCart(serviceId, serviceName, servicePrice);
             });
         });
-    } else {
-        console.log("No 'Buy Now' buttons found for cart functionality.");
     }
 
-    // Initial cart count update on page load
+    // --- Cart Page Specific Functionality (view-cart.html) ---
+    function renderCartItems() {
+        if (cartItemsListElement && cartTotalDisplayElement) {
+            if (cart.length === 0) {
+                cartItemsListElement.innerHTML = '<p class="empty-cart-message">Your cart is empty.</p>';
+                if (proceedToCheckoutBtn) proceedToCheckoutBtn.disabled = true;
+            } else {
+                cartItemsListElement.innerHTML = ''; // Clear existing items
+                if (emptyCartMessage) emptyCartMessage.style.display = 'none'; // Hide empty message
+                if (proceedToCheckoutBtn) proceedToCheckoutBtn.disabled = false;
+
+                cart.forEach((item, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('cart-item');
+                    itemDiv.innerHTML = `
+                        <div class="cart-item-info">
+                            <h3>${item.name}</h3>
+                            <p>Price: $${item.price.toFixed(2)}</p>
+                            <p>Quantity: ${item.quantity}</p>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button class="btn btn-remove-item" data-index="${index}">Remove</button>
+                        </div>
+                    `;
+                    cartItemsListElement.appendChild(itemDiv);
+                });
+            }
+            cartTotalDisplayElement.textContent = calculateCartTotal().toFixed(2);
+        }
+    }
+
+    function removeFromCart(index) {
+        if (index > -1 && index < cart.length) {
+            cart.splice(index, 1); // Remove item at index
+            saveCart();
+            renderCartItems(); // Re-render cart after removal
+        }
+    }
+
+    // Event listener for "Remove" buttons on cart page
+    if (cartItemsListElement) {
+        cartItemsListElement.addEventListener('click', function(event) {
+            if (event.target.classList.contains('btn-remove-item')) {
+                const indexToRemove = parseInt(event.target.dataset.index);
+                removeFromCart(indexToRemove);
+            }
+        });
+    }
+
+    // Handle "Proceed to Checkout" button click on view-cart.html
+    if (proceedToCheckoutBtn) {
+        proceedToCheckoutBtn.addEventListener('click', function() {
+            if (cart.length > 0) {
+                window.location.href = '/checkout.html';
+            } else {
+                alert("Your cart is empty. Please add items before proceeding to checkout.");
+            }
+        });
+    }
+
+    // Initialize cart items rendering if on view-cart.html
+    if (window.location.pathname === '/view-cart.html') {
+        renderCartItems();
+    }
+
+
+    // Initial cart count update on page load (for header)
     updateCartCount();
     console.log("Cart script initialized.");
 
@@ -283,13 +356,14 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Stripe checkout elements found. Initializing Stripe.");
 
         // On checkout.html, update the cart total price element
-        if (window.location.pathname === '/checkout.html' && cartTotalPriceElement) {
+        if (checkoutCartTotalDisplayElement) {
             const total = calculateCartTotal();
-            cartTotalPriceElement.textContent = total.toFixed(2); // Display total with 2 decimal places
+            checkoutCartTotalDisplayElement.textContent = total.toFixed(2); // Display total with 2 decimal places
             console.log("Checkout page: Cart total displayed as $", total.toFixed(2));
         }
 
         // Initialize Stripe.js with your **PUBLISHABLE KEY**.
+        // Get this from your Stripe Dashboard -> Developers -> API keys (starts with 'pk_live_' or 'pk_test_').
         const stripe = Stripe('pk_live_51RSfPXFHtr1SOdkc0fjiQ9RPj66DoF4c4GPniCTJK6uCxCnsrDH97eR3F82uw2nfCorzsgUpJAsarYgmeCtzcDI700iFDHwLVJ');
 
         let elements;
@@ -377,12 +451,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitPaymentBtn.textContent = 'Processing...';
             }
 
+            // --- FIX FOR STRIPE elements.submit() ERROR ---
+            // 1. First, submit the Payment Element itself for validation
+            const { error: submitError } = await elements.submit();
+
+            if (submitError) {
+                // Show error message from Payment Element validation
+                if (paymentErrorMessageDiv) {
+                    paymentErrorMessageDiv.textContent = submitError.message;
+                    paymentErrorMessageDiv.style.display = 'block';
+                }
+                if (submitPaymentBtn) {
+                    submitPaymentBtn.disabled = false;
+                    submitPaymentBtn.textContent = 'Pay Now';
+                }
+                console.error("Stripe elements.submit() error:", submitError);
+                return; // Stop further processing
+            }
+
+            // 2. If elements.submit() succeeded, then confirm the payment
             const customerNameInput = document.getElementById('customer-name');
             const customerEmailInput = document.getElementById('customer-email');
             const customerName = customerNameInput ? customerNameInput.value : null;
             const customerEmail = customerEmailInput ? customerEmailInput.value : null;
 
-            const { error } = await stripe.confirmPayment({
+            const { error: confirmError } = await stripe.confirmPayment({
                 elements,
                 clientSecret,
                 confirmParams: {
@@ -397,16 +490,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 redirect: 'if_required' // Crucial for 3D Secure and other redirects
             });
 
-            if (error) {
+            if (confirmError) {
                 if (paymentErrorMessageDiv) {
-                    paymentErrorMessageDiv.textContent = error.message;
+                    paymentErrorMessageDiv.textContent = confirmError.message;
                     paymentErrorMessageDiv.style.display = 'block';
                 }
                 if (submitPaymentBtn) {
                     submitPaymentBtn.disabled = false;
                     submitPaymentBtn.textContent = 'Pay Now';
                 }
-                console.error("Stripe confirmPayment error:", error);
+                console.error("Stripe confirmPayment error:", confirmError);
             } else {
                 // Payment succeeded on the client side (e.g., no 3D Secure redirect needed)
                 paymentForm.style.display = 'none';
@@ -414,8 +507,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     paymentSuccessMessage.style.display = 'block';
                 }
                 console.log("Payment confirmed successfully (no redirect).");
-                // Clear cart or perform post-purchase actions here
-                localStorage.removeItem('shoppingCart'); // Example: clear cart after successful payment
+                localStorage.removeItem('shoppingCart'); // Clear cart after successful payment
                 updateCartCount(); // Update cart display to show 0
             }
         });
@@ -440,8 +532,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     successMessageDiv.style.display = 'block';
                     errorMessageDiv.style.display = 'none';
                     console.log('Payment Succeeded:', paymentIntent);
-                    // Clear cart or perform post-purchase actions here
-                    localStorage.removeItem('shoppingCart'); // Example: clear cart after successful payment
+                    localStorage.removeItem('shoppingCart'); // Clear cart after successful payment
                     updateCartCount(); // Update cart display to show 0
                 } else {
                     errorMessageDiv.textContent = `Payment failed: ${paymentIntent.status}. Please contact support.`;
@@ -460,3 +551,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 }); // End of DOMContentLoaded listener
+
+    
