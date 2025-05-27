@@ -25,7 +25,14 @@
             <h2>Unlock Exclusive Strategies!</h2>
             <p>Enter your email to receive free market strategies and insights directly to your inbox.</p>
             <form id="lead-capture-form-checkout" action="https://formspree.io/f/xvgajnqr" method="POST">
-                <input type="email" name="email" placeholder="Your Email" required>
+                <div class="form-group">
+                    <label for="email-checkout">Your email:</label>
+                    <input type="email" id="email-checkout" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="name-checkout">Your name (optional):</label>
+                    <input type="text" id="name-checkout" name="name" placeholder="Your Name">
+                </div>
                 <button type="submit">Get Strategies</button>
             </form>
             <div id="form-message"></div> <!-- For submission status/messages -->
@@ -46,13 +53,13 @@
         <h1>Your Order Summary</h1>
 
         <div class="product-summary">
-            <p>Product: **[Your Product Name Here]**</p>
-            <p>Price: $<span id="product-price">100.00</span></p>
+            <p>Your Cart Total: $<span id="cart-total-price">0.00</span></p>
         </div>
 
         <div class="checkout-container">
             <h2>Payment Details</h2>
 
+            <!-- Combined customer info and payment form into one -->
             <form id="payment-form">
                 <div class="form-group">
                     <label for="customer-name">Full Name:</label>
@@ -64,8 +71,8 @@
                 </div>
 
                 <hr>
-                <div id="payment-element">
-                </div>
+                <!-- Stripe Payment Element will render here -->
+                <div id="payment-element"></div>
 
                 <div id="error-message" class="error-message" style="display: none;"></div>
 
