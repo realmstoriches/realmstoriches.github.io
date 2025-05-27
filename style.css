@@ -130,17 +130,16 @@ main {
     flex-grow: 1;
     padding: 0; /* Important: No padding on main itself for full-width sections */
     background-color: #000; /* Main background: BLACK */
-    color: #fff; /* Default text color for main content: White */
+    color: #fff; /* Default text for main content: White */
 }
 
 /* Hero Section (Full Width Banner) */
 .hero-section {
-    /* HERO IMAGE: Changed to one of the computer mockups */
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/image19-1600w.webp') no-repeat center center; /* Using a larger computer mockup */
-    background-size: cover; /* Ensures the image covers the entire area */
-    background-position: center center; /* Centers the image */
-    width: 100%; /* Ensures full width */
-    color: #fff; /* Hero text: White (to stand out on the dark overlay) */
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/image1-1600w.webp') no-repeat center center;
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+    color: #fff;
     text-align: center;
     padding: 100px 20px;
     margin-bottom: 40px;
@@ -205,7 +204,7 @@ main {
 
 .grid-item img {
     margin: 0 auto 20px;
-    max-width: 120px; /* INCREASED SIZE for icons */
+    max-width: 120px; /* INCREASED SIZE for icons/images in grid items */
     height: auto;
     object-fit: contain; /* Ensures entire icon fits without cropping */
 }
@@ -224,6 +223,52 @@ main {
     gap: 30px;
     align-items: stretch; /* Ensures all grid items in a row stretch to the height of the tallest */
 }
+
+/* "Become a Partner" Specific Section Styles */
+.become-partner-section {
+    background-color: #1a1a1a; /* Slightly lighter black for contrast */
+    padding: 60px 0; /* Adjusted padding */
+    margin-bottom: 40px;
+}
+
+.become-partner-content {
+    display: flex;
+    flex-direction: row; /* Default desktop layout */
+    align-items: center;
+    gap: 50px; /* Spacing between image and text */
+}
+
+.partner-image-area {
+    flex: 1;
+    min-width: 300px; /* Minimum width for image area */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.partner-image-area img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.partner-text-area {
+    flex: 1;
+    min-width: 300px; /* Minimum width for text area */
+    text-align: left; /* Align text to the left within its container */
+}
+
+.partner-text-area .section-title {
+    text-align: left; /* Keep title aligned left in this specific section */
+    margin-bottom: 20px;
+}
+
+.partner-text-area p {
+    margin-bottom: 25px;
+    color: #fff;
+}
+
 
 /* Call to action section */
 .cta-section {
@@ -600,6 +645,13 @@ hr {
 @media (max-width: 992px) {
     .grid-4-col {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .become-partner-content {
+        flex-direction: column; /* Stack image and text vertically on smaller screens */
+        text-align: center;
+    }
+    .partner-text-area .section-title {
+        text-align: center; /* Center title when stacked */
     }
 }
 
