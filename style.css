@@ -1,5 +1,7 @@
 /* --- General Reset & Body Styles --- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -8,27 +10,32 @@
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    color: #fff; /* Default text color: White for black background */
-    background-color: #000; /* Body background: BLACK */
+    color: #fff;
+    /* Default text color: White for black background */
+    background-color: #000;
+    /* Body background: BLACK */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 a {
-    color: #00FFFF; /* Standard link color: CYAN */
+    color: #00FFFF;
+    /* Standard link color: CYAN */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #00A3A3; /* Darker Cyan on hover */
+    color: #00A3A3;
+    /* Darker Cyan on hover */
 }
 
 img {
     max-width: 100%;
     height: auto;
-    display: block; /* Removes extra space below images by default */
+    display: block;
+    /* Removes extra space below images by default */
 }
 
 .container {
@@ -38,8 +45,14 @@ img {
 }
 
 /* --- Utility Classes --- */
-.hidden { display: none !important; }
-.visible { opacity: 1 !important; transform: translateY(0) !important; }
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
 
 /* Buttons */
 .btn {
@@ -55,18 +68,23 @@ img {
 }
 
 .btn-primary {
-    background-color: #00FFFF; /* Primary button: CYAN */
-    color: #000; /* Primary button text: Black */
+    background-color: #00FFFF;
+    /* Primary button: CYAN */
+    color: #000;
+    /* Primary button text: Black */
 }
 
 .btn-primary:hover {
-    background-color: #00A3A3; /* Darker Cyan on hover */
+    background-color: #00A3A3;
+    /* Darker Cyan on hover */
     transform: translateY(-2px);
 }
 
 .btn-secondary {
-    background-color: #333; /* Secondary button: Dark gray on black background */
-    color: #fff; /* Secondary button text: White */
+    background-color: #333;
+    /* Secondary button: Dark gray on black background */
+    color: #fff;
+    /* Secondary button text: White */
     border: 1px solid #555;
 }
 
@@ -77,10 +95,13 @@ img {
 
 /* --- Header --- */
 .site-header {
-    background-color: #000; /* Header background: BLACK */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Darker shadow for black background */
+    background-color: #000;
+    /* Header background: BLACK */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    /* Darker shadow for black background */
     padding: 10px 0;
-    color: #fff; /* Header text: White */
+    color: #fff;
+    /* Header text: White */
 }
 
 .header-container {
@@ -93,7 +114,8 @@ img {
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    object-fit: cover; /* Ensures logo fits well within circular shape */
+    object-fit: cover;
+    /* Ensures logo fits well within circular shape */
 }
 
 .main-navigation ul {
@@ -103,7 +125,8 @@ img {
 }
 
 .main-navigation a {
-    color: #00FFFF; /* Nav links: CYAN on black header */
+    color: #00FFFF;
+    /* Nav links: CYAN on black header */
     font-weight: bold;
     padding: 5px 0;
     position: relative;
@@ -116,7 +139,8 @@ img {
     bottom: 0;
     width: 0;
     height: 2px;
-    background-color: #00FFFF; /* Cyan underline */
+    background-color: #00FFFF;
+    /* Cyan underline */
     transition: width 0.3s ease;
 }
 
@@ -125,173 +149,124 @@ img {
     width: 100%;
 }
 
-/* --- Main Content Layout & Sections --- */
+/* --- Full Width Banner --- */
+.full-width-banner {
+    width: 100%;
+    overflow: hidden; /* Ensure image doesn't overflow */
+    margin-bottom: 40px; /* Space after banner */
+}
+
+.full-width-banner img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    /* Ensure image covers the area */
+    display: block;
+}
+
+/* --- Main Content Area & Sections --- */
 main {
     flex-grow: 1;
-    padding: 0; /* Important: No padding on main itself for full-width sections */
-    background-color: #000; /* Main background: BLACK */
-    color: #fff; /* Default text for main content: White */
-}
-
-/* Hero Section (Full Width Banner) */
-.hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/image1-1600w.webp') no-repeat center center;
-    background-size: cover;
-    background-position: center center;
-    width: 100%;
+    padding: 0;
+    background-color: #000;
     color: #fff;
+}
+
+/* General Section Styling */
+.container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+h1, h2, h3 {
+    color: #00FFFF; /* Headings default to CYAN */
     text-align: center;
-    padding: 100px 20px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
-.hero-section h1 {
-    color: #00FFFF; /* Hero title: CYAN */
-    font-size: 3rem;
-    margin-bottom: 15px;
+h1 { font-size: 2.8rem; }
+h2 { font-size: 2.2rem; }
+h3 { font-size: 1.8rem; }
+
+
+/* Original HTML's .row and .col-md-X grid system */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px; /* Compensate for col padding */
+    margin-right: -15px; /* Compensate for col padding */
+    margin-bottom: 30px; /* Space between rows */
 }
 
-.hero-section p {
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin: 0 auto 30px;
+.row.justify-content-center {
+    justify-content: center;
 }
 
-/* General Section Styling (Services, Courses, Tools, Secondary Services) */
-.section {
-    padding: 60px 0;
-    margin-bottom: 40px;
-    background-color: #000; /* All main content sections: BLACK */
-    color: #fff; /* Default text in these sections: White */
+/* Column styles based on Bootstrap-like structure */
+.col-md-3,
+.col-md-4,
+.col-md-12 {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 30px; /* Space between columns in a row */
 }
 
-.section-title {
-    text-align: center;
-    margin-bottom: 50px;
-    color: #00FFFF; /* Section titles: CYAN */
+.col-md-12 {
+    flex-basis: 100%;
+    max-width: 100%;
 }
 
-/* Grid Items (the content boxes INSIDE sections) */
-.grid-item {
-    background-color: #1a1a1a; /* Individual content boxes: Dark gray for contrast on black */
-    color: #fff; /* Text inside dark gray boxes: White */
+.col-md-4 {
+    flex-basis: 33.333%;
+    max-width: 33.333%;
+}
+
+.col-md-3 {
+    flex-basis: 25%;
+    max-width: 25%;
+}
+
+
+/* Styling for the .area (cards) */
+.area {
+    background-color: #1a1a1a;
+    /* Card background: Dark gray */
+    color: #fff;
+    /* Text inside dark gray boxes: White */
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Align content to top of card */
+    justify-content: flex-start;
     align-items: center;
-    height: 100%; /* Ensures all grid items in a row have same height */
+    height: 100%; /* Ensures all cards in a row have same height */
 }
 
-.grid-item:hover {
+.area:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
 
-.grid-item h3 {
-    color: #00FFFF; /* Heading color inside grid items: CYAN */
+.area h3 {
+    color: #00FFFF;
+    /* Heading color inside areas: CYAN */
     margin-bottom: 15px;
+    font-size: 1.5rem;
 }
 
-.grid-item p {
-    flex-grow: 1; /* Allows paragraph to take up available space, pushing button down */
-    margin-bottom: 20px; /* Space before button */
+.area p {
+    flex-grow: 1;
+    margin-bottom: 20px;
 }
 
-.grid-item img {
+.area img {
     margin: 0 auto 20px;
-    max-width: 120px; /* INCREASED SIZE for icons/images in grid items */
+    max-width: 150px; /* Adjusted size for service/course/tool icons */
     height: auto;
-    object-fit: contain; /* Ensures entire icon fits without cropping */
-}
-
-/* Grid Layouts for Sections */
-.grid-4-col {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    align-items: stretch; /* Ensures all grid items in a row stretch to the height of the tallest */
-}
-
-.grid-3-col {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    align-items: stretch; /* Ensures all grid items in a row stretch to the height of the tallest */
-}
-
-/* "Become a Partner" Specific Section Styles */
-.become-partner-section {
-    background-color: #1a1a1a; /* Slightly lighter black for contrast */
-    padding: 60px 0; /* Adjusted padding */
-    margin-bottom: 40px;
-}
-
-.become-partner-content {
-    display: flex;
-    flex-direction: row; /* Default desktop layout */
-    align-items: center;
-    gap: 50px; /* Spacing between image and text */
-}
-
-.partner-image-area {
-    flex: 1;
-    min-width: 300px; /* Minimum width for image area */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.partner-image-area img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.partner-text-area {
-    flex: 1;
-    min-width: 300px; /* Minimum width for text area */
-    text-align: left; /* Align text to the left within its container */
-}
-
-.partner-text-area .section-title {
-    text-align: left; /* Keep title aligned left in this specific section */
-    margin-bottom: 20px;
-}
-
-.partner-text-area p {
-    margin-bottom: 25px;
-    color: #fff;
-}
-
-
-/* Call to action section */
-.cta-section {
-    background-color: #00FFFF; /* CTA section background: CYAN */
-    color: #000; /* CTA text: BLACK */
-    text-align: center;
-    padding: 60px 20px;
-    border-radius: 8px;
-    margin-bottom: 40px;
-}
-
-.cta-section h2 {
-    color: #000; /* CTA title: BLACK */
-    margin-bottom: 20px;
-}
-
-.cta-section .btn-primary {
-    background-color: #333; /* CTA button: Dark gray */
-    color: #fff; /* CTA button text: White */
-}
-
-.cta-section .btn-primary:hover {
-    background-color: #555;
+    object-fit: contain;
 }
 
 
@@ -302,7 +277,8 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Darker overlay for black background */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Darker overlay for black background */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -318,10 +294,12 @@ main {
 }
 
 .popup-content {
-    background-color: #1a1a1a; /* Popup content background: Very dark gray */
+    background-color: #1a1a1a;
+    /* Popup content background: Very dark gray */
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Darker shadow */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    /* Darker shadow */
     text-align: center;
     max-width: 500px;
     width: 90%;
@@ -329,21 +307,13 @@ main {
     transform: translateY(-20px);
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    color: #fff; /* Popup content text: White */
+    color: #fff;
+    /* Popup content text: White */
 }
 
 .popup-overlay.visible .popup-content {
     opacity: 1;
     transform: translateY(0);
-}
-
-.popup-content img {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    max-width: 100%; /* Ensure popup image fits */
-    height: auto;
-    object-fit: contain;
 }
 
 
@@ -355,12 +325,14 @@ main {
     border: none;
     font-size: 2rem;
     cursor: pointer;
-    color: #ccc; /* Lighter close button */
+    color: #ccc;
+    /* Lighter close button */
     transition: color 0.2s ease;
 }
 
 .close-button:hover {
-    color: #00FFFF; /* Cyan on hover */
+    color: #00FFFF;
+    /* Cyan on hover */
 }
 
 /* Cookie Consent Specific */
@@ -369,8 +341,10 @@ main {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #00FFFF; /* Cookie popup background: CYAN */
-    color: #000; /* Cookie popup text: Black */
+    background-color: #00FFFF;
+    /* Cookie popup background: CYAN */
+    color: #000;
+    /* Cookie popup text: Black */
     padding: 15px 25px;
     border-radius: 8px;
     display: flex;
@@ -395,73 +369,56 @@ main {
 }
 
 .cookie-popup .cookie-link {
-    color: #333; /* Cookie link color: Dark gray on cyan */
+    color: #333;
+    /* Cookie link color: Dark gray on cyan */
     text-decoration: underline;
 }
 
-.cookie-popup .btn-secondary {
-    background-color: #333; /* Cookie button: Dark gray */
-    color: #fff;
-    border: none;
-    padding: 8px 15px;
-    font-size: 0.9rem;
-}
-
-.cookie-popup .btn-secondary:hover {
-    background-color: #555;
-}
-
 /* Forms within popups and checkout */
-.popup-content form,
-.checkout-container form {
+.popup-content form {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-top: 20px;
 }
 
-.popup-content label,
-.checkout-container label {
+.popup-content label {
     text-align: left;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #fff; /* Form labels: White on dark popup */
+    color: #fff;
+    /* Form labels: White on dark popup */
 }
 
-.popup-content input[type="email"],
-.popup-content textarea,
-.checkout-container input[type="text"],
-.checkout-container input[type="email"] {
+.popup-content input[type="email"] {
     width: 100%;
     padding: 12px;
-    border: 1px solid #555; /* Darker border */
+    border: 1px solid #555;
+    /* Darker border */
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
-    color: #fff; /* Input text: White */
-    background-color: #333; /* Darker input background */
+    color: #fff;
+    /* Input text: White */
+    background-color: #333;
+    /* Darker input background */
 }
 
-.popup-content input[type="email"]:focus,
-.popup-content textarea:focus,
-.checkout-container input[type="text"]:focus,
-.checkout-container input[type="email"]:focus {
-    border-color: #00FFFF; /* Cyan focus border */
+.popup-content input[type="email"]:focus {
+    border-color: #00FFFF;
+    /* Cyan focus border */
     outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.4); /* Cyan shadow */
+    box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.4);
+    /* Cyan shadow */
 }
 
-.popup-content textarea {
-    resize: vertical;
-    min-height: 80px;
-}
-
-.popup-content button[type="submit"],
-.checkout-container button[type="submit"] {
+.popup-content button[type="submit"] {
     width: 100%;
     padding: 15px;
-    background-color: #00FFFF; /* Cyan submit button */
-    color: #000; /* Black text */
+    background-color: #00FFFF;
+    /* Cyan submit button */
+    color: #000;
+    /* Black text */
     border: none;
     border-radius: 5px;
     font-size: 1.1rem;
@@ -469,9 +426,9 @@ main {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.popup-content button[type="submit"]:hover,
-.checkout-container button[type="submit"]:hover {
-    background-color: #00A3A3; /* Darker Cyan */
+.popup-content button[type="submit"]:hover {
+    background-color: #00A3A3;
+    /* Darker Cyan */
     transform: translateY(-2px);
 }
 
@@ -479,146 +436,19 @@ main {
     margin-top: 10px;
     font-size: 0.9rem;
     text-align: center;
-    color: #fff; /* Form message text: White */
-}
-
-/* --- Checkout Page Specific Styles --- */
-.checkout-page-main {
-    padding: 40px 20px;
-    max-width: 800px;
-    margin: 40px auto;
-    background-color: #1a1a1a; /* Checkout page container: Dark gray */
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    color: #fff; /* Default text on checkout page: White */
-}
-
-.checkout-page-main h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #00FFFF; /* Checkout page title: CYAN */
-}
-
-.product-summary,
-#cart-summary-items {
-    background-color: #333; /* Summary backgrounds: Medium dark gray */
-    border: 1px solid #555;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    color: #fff; /* Summary text: White */
-}
-
-.product-summary p,
-.cart-item-summary p {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 1.1rem;
-}
-
-.product-summary p:last-child {
-    font-weight: bold;
-    font-size: 1.3rem;
-    border-top: 1px dashed #555;
-    padding-top: 15px;
-    margin-top: 15px;
-}
-
-.cart-item-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px dotted #555;
-}
-
-.cart-item-summary:last-of-type {
-    border-bottom: none;
-}
-
-
-.checkout-container h2 {
-    margin-bottom: 25px;
-    text-align: center;
-    color: #00FFFF; /* Checkout sub-headings: CYAN */
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid #333; /* Darker HR */
-    margin: 30px 0;
-}
-
-/* Stripe Elements container */
-#payment-element {
-    margin-bottom: 20px;
-    border: 1px solid #555;
-    padding: 15px;
-    border-radius: 5px;
-    background-color: #333; /* Payment element background: Medium dark gray */
-}
-
-.error-message {
-    color: #ff4d4d; /* Brighter red for visibility on dark background */
-    text-align: center;
-    margin-top: 15px;
-    font-weight: bold;
-}
-
-.success-message {
-    color: #4CAF50; /* Brighter green */
-    text-align: center;
-    margin-top: 25px;
-    padding: 20px;
-    background-color: #2e7d32; /* Darker green background */
-    border: 1px solid #66bb6a;
-    border-radius: 8px;
-}
-
-.success-message p {
-    margin-bottom: 10px;
-}
-.success-message p:last-child {
-    margin-bottom: 0;
-}
-
-/* Spinner for payment button */
-.spinner {
-    border: 4px solid rgba(255,255,255,.3);
-    border-radius: 50%;
-    border-top: 4px solid #fff;
-    width: 24px;
-    height: 24px;
-    -webkit-animation: spin 1s linear infinite;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-}
-@-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    color: #fff;
+    /* Form message text: White */
 }
 
 /* --- Footer --- */
 .site-footer {
-    background-color: #00FFFF; /* Footer background: CYAN */
-    color: #000; /* Footer text: BLACK */
+    background-color: #00FFFF;
+    /* Footer background: CYAN */
+    color: #000;
+    /* Footer text: BLACK */
     padding: 30px 0;
-    margin-top: auto; /* Pushes footer to the bottom */
+    margin-top: auto;
+    /* Pushes footer to the bottom */
 }
 
 .footer-container {
@@ -629,65 +459,135 @@ hr {
     font-size: .9rem;
 }
 
-.footer-info, .footer-legal { flex: 1 1 250px; }
+.footer-info,
+.footer-legal {
+    flex: 1 1 250px;
+}
 
-.footer-info p, .footer-legal p { margin-bottom: 8px; }
-.footer-info p:last-child, .footer-legal p:last-child { margin-bottom: 0; }
+.footer-info p,
+.footer-legal p {
+    margin-bottom: 8px;
+}
+
+.footer-info p:last-child,
+.footer-legal p:last-child {
+    margin-bottom: 0;
+}
 
 .footer-link {
-    color: #333; /* Footer links: Dark gray on cyan */
+    color: #333;
+    /* Footer links: Dark gray on cyan */
     text-decoration: underline;
     transition: color .3s ease;
 }
-.footer-link:hover { color: #555; }
+
+.footer-link:hover {
+    color: #555;
+}
+
+/* Affiliate Disclaimer specific styling */
+.footer-legal .disclaimer {
+    font-size: 0.85rem;
+    color: #333; /* Darker text for disclaimer on cyan background */
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #555; /* A subtle separator */
+}
+.footer-legal .disclaimer strong {
+    color: #000; /* Keep strong text black */
+}
 
 /* --- Responsive Design --- */
 @media (max-width: 992px) {
-    .grid-4-col {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
     }
-    .become-partner-content {
-        flex-direction: column; /* Stack image and text vertically on smaller screens */
-        text-align: center;
+
+    .main-navigation ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
     }
-    .partner-text-area .section-title {
-        text-align: center; /* Center title when stacked */
+
+    .main-navigation a {
+        color: #00FFFF;
+    }
+    .col-md-3,
+    .col-md-4 {
+        flex-basis: 50%;
+        max-width: 50%;
+    }
+    .full-width-banner img {
+        height: 400px; /* Adjust height for medium screens */
     }
 }
 
 @media (max-width: 768px) {
-    .header-container { flex-direction: column; gap: 15px; }
-    .main-navigation ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
-    .main-navigation a { color: #00FFFF; } /* Nav links cyan on smaller screens too */
-    .hero-section h1 { font-size: 2.2rem; }
-    .hero-section p { font-size: 1rem; }
-
-    /* All grids become 2 columns on medium screens */
-    .grid-3-col, .grid-4-col {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    h1 {
+        font-size: 2.2rem;
     }
 
-    .footer-container { flex-direction: column; text-align: center; }
-    .footer-info, .footer-legal { flex: none; }
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+    }
+    .col-md-3,
+    .col-md-4 {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .col-md-3,
+    .col-md-4,
+    .col-md-12 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-info,
+    .footer-legal {
+        flex: none;
+    }
 }
 
 @media (max-width: 480px) {
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.7rem; }
-    .site-header { padding: 5px 0; }
-    .main-navigation ul { gap: 10px; }
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+    .site-header {
+        padding: 5px 0;
+    }
+
+    .main-navigation ul {
+        gap: 10px;
+    }
+
     .cookie-popup {
         flex-direction: column;
         padding: 15px;
         bottom: 10px;
         width: calc(100% - 40px);
     }
-    .cookie-popup p { text-align: center; }
-    .popup-content { padding: 20px; }
-    .checkout-page-main { padding: 20px; margin: 20px auto; }
 
-    /* All grids become 1 column on very small screens */
-    .grid-3-col, .grid-4-col {
-        grid-template-columns: 1fr;
+    .cookie-popup p {
+        text-align: center;
+    }
+
+    .popup-content {
+        padding: 20px;
     }
 }
