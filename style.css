@@ -80,7 +80,6 @@ img {
     background-color: #00FFFF; /* Header background: CYAN */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 10px 0;
-    width: 100%;
     color: #000; /* Ensure text directly in header (if any) is black for contrast */
 }
 
@@ -136,10 +135,8 @@ main {
 
 /* Hero Section (Full Width Banner) */
 .hero-section {
-    /* CRITICAL: Ensure this path is correct based on your file structure. */
-    /* If style.css is in a 'css' folder and 'img' is a sibling of 'css', use '../img/hero-bg.webp' */
-    /* If style.css is in the root and 'img' is also in the root, use 'img/hero-bg.webp' */
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/hero-bg.webp') no-repeat center center;
+    /* HERO IMAGE: Using the provided image1-1600w.webp */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/image1-1600w.webp') no-repeat center center;
     background-size: cover; /* Ensures the image covers the entire area */
     background-position: center center; /* Centers the image */
     width: 100%; /* Ensures full width */
