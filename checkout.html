@@ -1,0 +1,102 @@
+      
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://js.stripe.com/v3/"></script>
+    <!-- Removed HubSpot Forms Embed Script as we're using Formspree -->
+</head>
+<body>
+    <!-- Unified Popup Container (Consistent across pages) -->
+    <div id="main-popup-container" class="popup-overlay">
+        <div id="cookie-consent-content" class="popup-content">
+            <h2>Cookie Consent</h2>
+            <p>We use cookies to ensure you get the best experience on our website. By continuing, you agree to our use of cookies.</p>
+            <div>
+                <a href="/privacy-policy.html" class="cookie-link">Learn More</a>
+                <button id="accept-cookies" class="btn btn-secondary" type="button">Accept</button>
+            </div>
+        </div>
+        <div id="lead-capture-content" class="popup-content">
+            <button id="close-lead-form" class="close-button" type="button">×</button>
+            <img src="img/Drag drop done - English 300x250.webp" alt="Unlock exclusive strategies" style="max-width: 80%; height: auto; margin-bottom: 15px; border-radius: 4px;">
+            <h2>Unlock Exclusive Strategies!</h2>
+            <p>Enter your email to receive free market strategies and insights directly to your inbox.</p>
+            <!-- Formspree form for lead capture -->
+            <form id="lead-capture-form-checkout" action="https://formspree.io/f/xvgajnqr" method="POST">
+                <div class="form-group">
+                    <label for="email-checkout">Your email:</label>
+                    <input type="email" id="email-checkout" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="name-checkout">Your name (optional):</label>
+                    <input type="text" id="name-checkout" name="name" placeholder="Your Name">
+                </div>
+                <button type="submit">Get Strategies</button>
+            </form>
+            <div id="form-message"></div> <!-- For submission status/messages -->
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="view-cart.html">View Cart (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+
+    <main class="checkout-page-main">
+        <h1>Your Order Summary</h1>
+
+        <div class="product-summary">
+            <p>Your Cart Total: $<span id="cart-total-price">0.00</span></p>
+        </div>
+
+        <div class="checkout-container">
+            <h2>Payment Details</h2>
+
+            <!-- Combined customer info and payment form into one -->
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="customer-name">Full Name:</label>
+                    <input type="text" id="customer-name" name="customer-name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-email">Email Address:</label>
+                    <input type="email" id="customer-email" name="customer-email" placeholder="john.doe@example.com" required>
+                </div>
+
+                <hr>
+                <!-- Stripe Payment Element will render here -->
+                <div id="payment-element">
+                </div>
+
+                <div id="error-message" class="error-message" style="display: none;"></div>
+
+                <button id="submit-payment-btn">
+                    <div class="spinner hidden" id="spinner"></div>
+                    <span id="button-text">Pay Now</span>
+                </button>
+            </form>
+
+            <div id="payment-success-message" class="success-message" style="display: none;">
+                <p>Thank you! Your payment was successful.</p>
+                <p>A confirmation email has been sent to your address.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Realms to Riches. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
