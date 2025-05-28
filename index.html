@@ -23,6 +23,7 @@
   <meta name="google-site-verification" content="lL4yI18XwSQV6mptDR_zU5ATMPNlIL3fvWTEAd1V380" />
   <meta name="keywords" content="online business, entrepreneur, digital marketing, faceless brand, paid traffic, social media marketing, build online business, grow online business, scale online business, make money online, online business strategies, free digital marketing courses, online business tools, shopify offer">
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
   <link rel="stylesheet" href="style.css">
@@ -79,7 +80,11 @@
           <li><a href="#tools">Recommended Tools</a></li>
           <li><a href="/shopify-offer.html">Shopify Offer</a></li>
           <li><a href="#services">Our Services</a></li>
-          <li><a href="/view-cart.html">View Cart (<span id="cart-count">0</span>)</a></li>
+          <li><a href="/view-cart.html" id="cart-link" aria-label="View Shopping Cart">
+                <i class="fas fa-shopping-cart cart-icon"></i>
+                <span id="cart-count" class="cart-count-badge">0</span>
+              </a>
+          </li>
         </ul>
       </nav>
     </div>
