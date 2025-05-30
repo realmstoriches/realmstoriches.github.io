@@ -149,7 +149,7 @@
     overflow: hidden; /* Hide parts of bear if it goes outside */
     background-image: url('../img/service-marketing.jpg'); /* Blue E Bear image */
     background-size: 85%; /* Adjust size of the bear */
-    background-position: center; /* Position bear at the bottom center */
+    background-position: center top; /* Position bear at the bottom center */
     background-repeat: no-repeat;
     border-radius: 50%; /* Make the whole container a sphere for effect */
     box-shadow: 0 0 30px rgba(0,255,255,0.7), 0 0 60px rgba(0,255,255,0.4); /* Intense, layered glow */
