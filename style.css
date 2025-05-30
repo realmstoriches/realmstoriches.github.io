@@ -147,7 +147,7 @@
     height: 350px; /* Larger container for the bear */
     position: relative;
     overflow: hidden; /* Hide parts of bear if it goes outside */
-    background-image: url('http://googleusercontent.com/image_generation_content/0'); /* Blue E Bear image */
+    background-image: url('../img/service-marketing.jpg'); /* Blue E Bear image */
     background-size: 85%; /* Adjust size of the bear */
     background-position: center bottom; /* Position bear at the bottom center */
     background-repeat: no-repeat;
