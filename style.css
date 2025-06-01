@@ -226,6 +226,9 @@
     will-change: transform; /* Optimize for animation */
     animation: gemRotate 10s linear infinite, gemPulse 3s ease-in-out infinite alternate; /* Rotate and subtle pulse */
     z-index: 2; /* Ensure gem is on top of aura */
+    
+    content: url('img/floating-gem.png');
+    display: block;
 }
 
 /* Keyframes for the Gem's rotation */
@@ -259,6 +262,9 @@
     animation: auraPulse 4s ease-in-out infinite alternate; /* Subtle pulse for the aura */
     z-index: 1; /* Place aura behind the gem */
     opacity: 0.8; /* Make aura slightly transparent */
+    
+    content: url('subtle-aura.png');
+    display: block;
 }
 
 /* Keyframes for the Aura's pulse */
