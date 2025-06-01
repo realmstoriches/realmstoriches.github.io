@@ -263,7 +263,7 @@
     z-index: 1; /* Place aura behind the gem */
     opacity: 0.8; /* Make aura slightly transparent */
     
-    content: url('subtle-aura.png');
+    content: url('img/subtle-aura.png');
     display: block;
 }
 
