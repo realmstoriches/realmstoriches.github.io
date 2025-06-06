@@ -135,9 +135,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(form);
         form.action = FORMSPREE_ENDPOINT; // Ensure the action attribute is correctly set
 
-        if (formMessage) {
-            formMessage.style.display = 'none';
-            formMessage.classList.remove('success', 'error');
+        // Find the message container within the specific popup
+        // This is more robust than a single global formMessage
+        const popupContent = form.closest('.popup-content');
+        const messageContainer = popupContent ? popupContent.querySelector('#form-message') : null;
+
+        if (messageContainer) {
+            messageContainer.style.display = 'none';
+            messageContainer.classList.remove('success', 'error');
         }
 
         const submitButton = form.querySelector('button[type="submit"]');
@@ -151,77 +156,57 @@ document.addEventListener('DOMContentLoaded', function() {
             const response = await fetch(form.action, {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
+                headers: { 'Accept': 'application/json' }
             });
 
             if (response.ok) {
-                if (formMessage) {
-                    formMessage.textContent = "Thank you! Your strategies are on their way. Check your inbox.";
-                    formMessage.classList.add('success');
-                    formMessage.style.display = 'block';
-                }
-                form.reset();
-                localStorage.setItem('leadCaptured', 'true'); // Persist lead capture status
-                sessionStorage.setItem('leadCapturedThisSession', 'true'); // Mark for current session
+                // --- SUCCESS LOGIC CHANGES ---
 
+                // 1. Hide the form fields to make room for the thank you message.
+                form.style.display = 'none';
+
+                // 2. Display the success message.
+                if (messageContainer) {
+                    messageContainer.textContent = "Thank you! Your strategies are on their way. Check your inbox.";
+                    messageContainer.classList.add('success');
+                    messageContainer.style.display = 'block';
+                }
+
+                localStorage.setItem('leadCaptured', 'true');
+                sessionStorage.setItem('leadCapturedThisSession', 'true');
+
+                // 3. REMOVED the window.location.href redirect.
+                //    Instead, we'll just hide the popup after a few seconds.
                 setTimeout(() => {
-                    hidePopup(); // Hide the popup
-                    window.location.href = '/shopify-offer.html#thank-you'; // Redirect after a delay
-                }, 1500); // Delay redirect slightly for message to be seen
+                    hidePopup();
+                    // After hiding, it's good practice to reset the form's visibility
+                    // in case the user opens the popup again in the same session.
+                    form.style.display = 'block';
+                    form.reset();
+                }, 4000); // Increased delay to 4 seconds for the user to read the message.
 
             } else {
                 const data = await response.json();
-                if (formMessage) {
-                    formMessage.textContent = data.errors ? data.errors.map(err => err.message).join(', ') : 'Oops! Something went wrong. Please try again later.';
-                    formMessage.classList.add('error');
-                    formMessage.style.display = 'block';
+                if (messageContainer) {
+                    messageContainer.textContent = data.errors ? data.errors.map(err => err.message).join(', ') : 'Oops! Something went wrong. Please try again.';
+                    messageContainer.classList.add('error');
+                    messageContainer.style.display = 'block';
                 }
                 console.error('Formspree submission error:', data);
             }
         } catch (error) {
             console.error('Network error during form submission:', error);
-            if (formMessage) {
-                formMessage.textContent = 'Network error. Please check your connection and try again.';
-                formMessage.classList.add('error');
-                formMessage.style.display = 'block';
+            if (messageContainer) {
+                messageContainer.textContent = 'Network error. Please check your connection and try again.';
+                messageContainer.classList.add('error');
+                messageContainer.style.display = 'block';
             }
         } finally {
+            // This part now only runs on error, since on success the button is hidden.
             if (submitButton) {
                 submitButton.textContent = originalButtonText;
                 submitButton.disabled = false;
             }
-        }
-    }
-
-    // Add event listeners to all Formspree lead capture forms
-    if (leadCaptureFormMain) {
-        leadCaptureFormMain.addEventListener('submit', handleLeadCaptureFormSubmit);
-    }
-    if (leadCaptureFormCheckout) {
-        leadCaptureFormCheckout.addEventListener('submit', handleLeadCaptureFormSubmit);
-    }
-
-
-    // --- Initial call to start the popup sequence on page load ---
-    // Delay initial check to allow all DOM elements to be ready
-    setTimeout(handleCookieConsent, 1000); // Wait 1 second before checking cookies/showing popup
-
-    // --- Shopify Offer Page CTA Conditional Display and Trigger ---
-    if (shopifyCta) {
-        // Only show CTA if lead has NOT been captured (across sessions)
-        if (localStorage.getItem('leadCaptured') === 'true') {
-            shopifyCta.style.display = 'none';
-        } else {
-            shopifyCta.style.display = 'block';
-        }
-
-        if (triggerLeadPopupBtn) {
-            triggerLeadPopupBtn.addEventListener('click', function() {
-                // When this button is clicked, force show the lead capture popup
-                showPopup('lead');
-            });
         }
     }
 
