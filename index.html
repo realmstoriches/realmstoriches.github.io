@@ -59,6 +59,46 @@
         }
     }
     </script>
+
+    <!-- Scripts for AI Website Concept Generator -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#3490dc', // Matches React app's primary
+              secondary: '#ffed4a', // Matches React app's secondary
+              accent: '#38c172', // Matches React app's accent
+              neutral: '#f8fafc', // Matches React app's neutral
+              dark: '#3d4852', // Matches React app's dark
+            },
+            animation: {
+              'spin-slow': 'spin 3s linear infinite',
+              fadeIn: 'fadeIn 0.5s ease-in-out',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.1.0",
+        "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+        "react/": "https://esm.sh/react@^19.1.0/",
+        "@google/genai": "https://esm.sh/@google/genai@^1.4.0"
+      }
+    }
+    </script>
+    <!-- End Scripts for AI Website Concept Generator -->
+
 </head>
 <body>
 
@@ -511,6 +551,23 @@
             </div>
         </div>
 
+        <!-- AI Website Concept Generator Section -->
+        <div class="container section-padding" id="ai-concept-generator-tool-section">
+             <div class="row">
+                <div class="col-md-12">
+                    <div class="area text-center"> <!-- Added text-center for centering content within this area -->
+                        <h2>AI Website Concept Generator</h2>
+                        <p>Unleash creativity with our AI-powered tool. Describe your ideal website, and let our AI craft a unique concept for you, complete with a tagline, key pages, color schemes, and font suggestions. Perfect for kickstarting your next online project!</p>
+                        <div id="ai-concept-app-container" style="margin-top: 20px; margin-bottom: 20px; background-color: #1f2937; /* Tailwind's gray-800 or similar dark background */ padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <!-- Placeholder content until React loads -->
+                            <p style="text-align: center; padding: 20px; color: #e5e7eb; /* Lighter text for dark background */">Loading AI Website Concept Generator...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End AI Website Concept Generator Section -->
+
         <div id="partners" class="container">
             <h2>Are you a vendor with a software product that is perfect for Entrepreneurs that you want our agency to promote?</h2>
             <h3>Connect with Thousands of Entrepreneurs and Online Businesses Through Our Network</h3>
@@ -551,5 +608,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <!-- Script for AI Website Concept Generator - loaded as a module -->
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>
