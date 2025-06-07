@@ -1,6 +1,0 @@
-{
-  "name": "AI Website Concept Generator",
-  "description": "A web application that uses AI to generate a concept for a new website based on user input. Users can then proceed through a simulated payment step to download the generated concept.",
-  "requestFramePermissions": [],
-  "prompt": ""
-}
