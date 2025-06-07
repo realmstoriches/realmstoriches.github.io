@@ -1,0 +1,246 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import WebsiteForm from './components/WebsiteForm';
+import Alert from './components/Alert';
+import { AppStep, WebsiteFormData, AlertMessage } from './types';
+import { GEMINI_TEXT_MODEL } from './constants';
+import { SparklesIcon, CreditCardIcon, DownloadIcon, SpinnerIcon } from './icons';
+
+// Attempt to get the API key from the global window scope
+const apiKeyFromWindow = (window as any).__GEMINI_API_KEY__;
+
+const App: React.FC = () => {
+  const [currentStep, setCurrentStep] = useState<AppStep>(AppStep.FORM);
+  const [formData, setFormData] = useState<WebsiteFormData | null>(null);
+  const [generatedHtml, setGeneratedHtml] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [alertMessage, setAlertMessage] = useState<AlertMessage | null>(null);
+  const [apiKeyAvailable, setApiKeyAvailable] = useState<boolean>(true);
+
+  const ai = React.useMemo(() => {
+    if (typeof apiKeyFromWindow === 'string' && apiKeyFromWindow.length > 0 && apiKeyFromWindow !== "YOUR_ACTUAL_GEMINI_API_KEY_HERE") {
+      return new GoogleGenAI({ apiKey: apiKeyFromWindow });
+    }
+    return null;
+  }, []); // apiKeyFromWindow is stable after initial load, so no dependency needed if defined outside component.
+
+
+  useEffect(() => {
+    if (!apiKeyFromWindow || apiKeyFromWindow === "YOUR_ACTUAL_GEMINI_API_KEY_HERE") {
+      setAlertMessage({
+        type: 'error',
+        message: 'Gemini API Key is not configured or is using the placeholder. AI features will not work. Please ensure the API Key is correctly set in the HTML file.'
+      });
+      setApiKeyAvailable(false);
+    } else {
+      setApiKeyAvailable(true);
+    }
+  }, []); // Runs once on mount
+
+  const handleAlertDismiss = useCallback(() => {
+    setAlertMessage(null);
+  }, []);
+
+  const generateWebsiteContent = useCallback(async (data: WebsiteFormData) => {
+    if (!ai) {
+      setAlertMessage({ type: 'error', message: 'AI client is not initialized. API Key might be missing or invalid.' });
+      setCurrentStep(AppStep.FORM);
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
+    setAlertMessage(null);
+    setCurrentStep(AppStep.GENERATING_WEBSITE);
+
+    const prompt = `
+      Generate a single, self-contained HTML file content for a website.
+      Do not include any explanations, introductory or concluding remarks, or markdown code fences like \`\`\`html ... \`\`\` - just the raw HTML code starting with <!DOCTYPE html>.
+      The website should be named: '${data.websiteName}'.
+      Its target audience is: '${data.targetAudience}'.
+      Key features to highlight are: '${data.keyFeatures}'.
+      The preferred color scheme/style is: '${data.colorScheme}'.
+      Content ideas/keywords: '${data.contentIdeas}'.
+
+      The HTML structure should include:
+      1. A <head> section with the website title, meta tags (charset, viewport), and a <style> tag for CSS.
+      2. Inline CSS within the <style> tag to implement the color scheme and provide basic, clean styling. Make it visually appealing and attempt a responsive layout.
+         - Use the color scheme '${data.colorScheme}' for background, text, links, and accents.
+         - Style common elements: body, headers (h1, h2, h3), paragraphs, links, buttons, nav, footer.
+      3. A <body> section containing:
+         - A header with the website name ('${data.websiteName}').
+         - A simple navigation menu (e.g., Home, Features, About, Contact) with placeholder links (#home, #features, etc.).
+         - A main content area with distinct sections that reflect the key features ('${data.keyFeatures}') and content ideas ('${data.contentIdeas}'). Use placeholder text if full content is not detailed.
+         - A footer with a copyright notice for '${data.websiteName}' and the current year.
+
+      Ensure the output is only the HTML code itself.
+    `;
+
+    try {
+      const response: GenerateContentResponse = await ai.models.generateContent({
+        model: GEMINI_TEXT_MODEL,
+        contents: prompt,
+      });
+      
+      const htmlContent = response.text;
+      setGeneratedHtml(htmlContent);
+      setCurrentStep(AppStep.PAYMENT);
+      setAlertMessage({ type: 'success', message: 'Website concept generated successfully! Proceed to payment.' });
+    } catch (error) {
+      console.error("Error generating website content:", error);
+      let message = 'Failed to generate website content. Please try again.';
+      if (error instanceof Error) {
+        message = `Failed to generate website content: ${error.message}. Please check your API key, its restrictions, and network connection.`;
+      }
+      setAlertMessage({ type: 'error', message });
+      setCurrentStep(AppStep.FORM);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [ai]);
+
+  const handleFormSubmit = useCallback((data: WebsiteFormData) => {
+    if (!apiKeyAvailable) { // Check our derived state
+       setAlertMessage({ type: 'error', message: 'Cannot submit form. API Key is not configured or is invalid.' });
+       return;
+    }
+    setFormData(data);
+    generateWebsiteContent(data);
+  }, [apiKeyAvailable, generateWebsiteContent]);
+
+  const handlePayment = useCallback(() => {
+    setIsLoading(true);
+    setAlertMessage({ type: 'info', message: 'Processing payment...' });
+    // Simulate payment processing
+    setTimeout(() => {
+      setCurrentStep(AppStep.DOWNLOAD);
+      setAlertMessage({ type: 'success', message: 'Payment successful! Your website is ready for download.' });
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
+  const handleDownload = useCallback(() => {
+    if (generatedHtml) {
+      const blob = new Blob([generatedHtml], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${formData?.websiteName.replace(/\s+/g, '_') || 'website'}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      setAlertMessage({ type: 'info', message: 'Download started! Check your downloads folder.' });
+    } else {
+      setAlertMessage({ type: 'error', message: 'No website content available to download.' });
+    }
+  }, [generatedHtml, formData]);
+
+  const handleReset = useCallback(() => {
+    setCurrentStep(AppStep.FORM);
+    setFormData(null);
+    setGeneratedHtml(null);
+    setAlertMessage(null);
+    setIsLoading(false);
+     if (!apiKeyAvailable) { // Re-check and set alert if needed
+      setAlertMessage({
+        type: 'error',
+        message: 'Gemini API Key is not configured or is using the placeholder. AI features will not work. Please ensure the API Key is correctly set in the HTML file.'
+      });
+    }
+  }, [apiKeyAvailable]);
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case AppStep.FORM:
+        return <WebsiteForm onSubmit={handleFormSubmit} isLoading={isLoading || !apiKeyAvailable} />;
+      case AppStep.GENERATING_WEBSITE:
+        return (
+          <div className="text-center py-10">
+            <SpinnerIcon className="h-12 w-12 mx-auto mb-4 text-sky-400" />
+            <h2 className="text-2xl font-semibold text-sky-400">Weaving Your Website...</h2>
+            <p className="text-slate-400 mt-2">Our AI is hard at work. This might take a moment.</p>
+          </div>
+        );
+      case AppStep.PAYMENT:
+        return (
+          <div className="bg-slate-800 p-8 rounded-lg shadow-xl max-w-lg mx-auto text-center">
+            <SparklesIcon className="h-12 w-12 mx-auto mb-4 text-green-400" />
+            <h2 className="text-3xl font-bold text-green-400 mb-4">Your Website Concept is Ready!</h2>
+            <p className="text-slate-300 mb-6">
+              A preliminary design for "{formData?.websiteName || 'your website'}" has been generated.
+              Simulate payment to download the HTML file.
+            </p>
+            <div className="mt-2 mb-6 p-4 bg-slate-700 rounded max-h-60 overflow-y-auto text-left">
+                <h3 className="text-lg font-semibold text-sky-400 mb-2">Generated HTML Preview (First 10 lines):</h3>
+                <pre className="text-xs text-slate-300 whitespace-pre-wrap break-all">
+                    <code>{generatedHtml?.split('\n').slice(0,10).join('\n') + (generatedHtml && generatedHtml.split('\n').length > 10 ? '\n...' : '')}</code>
+                </pre>
+            </div>
+            <button
+              onClick={handlePayment}
+              disabled={isLoading}
+              className="w-full flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-4 rounded-md transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-slate-800 disabled:opacity-50"
+            >
+              {isLoading ? (
+                <>
+                  <SpinnerIcon className="h-5 w-5 mr-2" /> Processing...
+                </>
+              ) : (
+                <>
+                  <CreditCardIcon className="w-5 h-5 mr-2" /> Simulate $10 Payment
+                </>
+              )}
+            </button>
+             <button
+              onClick={handleReset}
+              className="mt-4 w-full text-sky-400 hover:text-sky-300 py-2 px-4 rounded-md transition-colors duration-150"
+            >
+              Start Over
+            </button>
+          </div>
+        );
+      case AppStep.DOWNLOAD:
+        return (
+          <div className="bg-slate-800 p-8 rounded-lg shadow-xl max-w-lg mx-auto text-center">
+            <DownloadIcon className="h-12 w-12 mx-auto mb-4 text-sky-400" />
+            <h2 className="text-3xl font-bold text-sky-400 mb-4">Payment Successful!</h2>
+            <p className="text-slate-300 mb-6">Your website HTML for "{formData?.websiteName || 'your website'}" is ready for download.</p>
+            <button
+              onClick={handleDownload}
+              className="w-full flex items-center justify-center bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-4 rounded-md transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-800"
+            >
+              <DownloadIcon className="w-5 h-5 mr-2" /> Download HTML
+            </button>
+            <button
+              onClick={handleReset}
+              className="mt-4 w-full text-slate-400 hover:text-slate-300 py-2 px-4 rounded-md transition-colors duration-150"
+            >
+              Create Another Website
+            </button>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-grow container mx-auto px-4 py-8">
+        {alertMessage && (
+          <div className="mb-6 max-w-2xl mx-auto">
+            <Alert alert={alertMessage} onDismiss={handleAlertDismiss} />
+          </div>
+        )}
+        {renderStepContent()}
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
